@@ -1,15 +1,17 @@
-extends Button
+extends TextureButton
 
 var adjacent_mines: int = 0
-var is_mine: bool = false
-var is_open: bool = false
-var is_flagged: bool = false
+var is_mine: bool
+var is_open: bool
+var icon
+var skin
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _init(mine, adj):
+	adjacent_mines = adj
+	is_mine = mine
+	is_open = false
+	if (is_mine):
+		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")

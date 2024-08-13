@@ -2,6 +2,7 @@ extends GridContainer
 
 var grid_size: int = 10  # Size of the grid
 var cell_scene: PackedScene
+# var cell_list = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +16,7 @@ func _populate_board():
 			var cell = cell_scene.instantiate()
 			cell.custom_minimum_size = Vector2(30, 30)  # Set cell size
 			add_child(cell)
+			# cell_list.append(cell)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
