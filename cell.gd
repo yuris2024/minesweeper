@@ -1,9 +1,8 @@
-extends TextureButton
+extends Button
 
 var adjacent_mines: int = 0
 var is_mine: bool
 var is_open: bool
-var icon
 var skin
 
 func _ready():
