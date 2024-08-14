@@ -11,6 +11,7 @@ func _ready():
 	$GridContainer.set_columns(grid_cols)
 	cell_scene = preload("res://cell.tscn")
 	_populate_board(num_of_mines)
+	_set_cell_numbers()
 
 # returns list of which cell indexes will be mines
 func _generate_mine_list(mines):
@@ -21,13 +22,12 @@ func _generate_mine_list(mines):
 		while (mine_position in board_mines):
 			mine_position = randi_range(1, (grid_rows * grid_cols))
 		board_mines.append(mine_position)
-	print(board_mines)
 	return board_mines
 
 # determine how many cells adjacent to passed argument are mines.
 # this counts the cell itself as adjacent cell, but this should not be a 
 #  problem, as cells using this function are never mines themselves
-func _get_adjacent_mines(cell):
+func _count_adjacent_mines(cell):
 	var adj_mine_count = 0
 	var pos	
 	
@@ -46,15 +46,14 @@ func _get_adjacent_mines(cell):
 		print("Invalid argument for _get_adjacent_mines()")
 		return 0
 #endregion
-
-	for x in range(pos.x - 1, pos.x + 1):
-		for y in range(pos.y - 1, pos.y + 1):
-			if (x < 1) or (y < 1) or (x > grid_rows) or (y > grid_cols):
-				continue
-			var adjacent_cell = Vector2(x,y)
+	
+	for i in range(pos.x - 1, pos.x + 2):
+		for j in range(pos.y - 1, pos.y + 2):
+			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
+				var adjacent_cell = Vector2(i,j)
 			# find out if this specific adjacent cell is a mine
-			if ($GridContainer.get_child(get_cell_index(adjacent_cell)).is_mine):
-				adj_mine_count += 1
+				if ($GridContainer.get_child(get_cell_index(adjacent_cell)).is_mine):
+					adj_mine_count += 1
 	return adj_mine_count
 
 func _populate_board(mines):
@@ -71,6 +70,12 @@ func _populate_board(mines):
 				cell.load_mine(false)
 			$GridContainer.add_child(cell)	
 	is_populated = true;
+
+func _set_cell_numbers():
+	for i in (grid_rows * grid_cols):
+		var cell = $GridContainer.get_child(i)
+		if cell.is_mine == false:
+			cell.load_number(_count_adjacent_mines(i))
 
 #region: Auxiliary functions
 # determine index of a certain cell by its row and column
