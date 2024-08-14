@@ -15,7 +15,7 @@ offset_bottom = 83.0
 button_mask = 3
 script = ExtResource("1_if0fg")
 
-[node name="cell_graphics2" type="TextureRect" parent="."]
+[node name="cell_bg" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

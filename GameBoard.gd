@@ -13,6 +13,7 @@ func _ready():
 	cell_scene = preload("res://cell.tscn")
 	_populate_board(num_of_mines)
 	_set_cell_numbers()
+	set_gameover()
 
 # returns list of which cell indexes will be mines
 func _generate_mine_list(mines):
@@ -68,7 +69,7 @@ func _populate_board(mines):
 				cell.load_mine(true)
 			else:
 				cell.load_mine(false)
-			$GridContainer.add_child(cell)	
+			$GridContainer.add_child(cell)
 	is_populated = true;
 
 func _set_cell_numbers():
@@ -81,6 +82,16 @@ func _set_cell_numbers():
 	#for i in (board_mines):
 		#var cell = $GridContainer.get_child(i)
 		#cell._reveal()
+
+func set_gameover():
+	for i in board_mines:
+		var cell = $GridContainer.get_child(i-1)
+		$GridContainer.get_child(i-1).connect("gameover",_on_gameover)
+
+func _on_gameover():
+	for i in board_mines:
+		$GridContainer.get_child(i-1)._reveal()
+		get_tree().paused = true
 
 #region: Auxiliary functions
 # determine index of a certain cell by its row and column
