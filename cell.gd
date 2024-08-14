@@ -7,6 +7,7 @@ var is_flagged: bool = false
 var skin = "default"
 var cell_position: Vector2
 signal gameover
+signal blank
 
 func _ready():
 	expand_icon = true
@@ -25,19 +26,22 @@ func load_number(num):
 		$Label.text = str(adjacent_mines)
 
 func _reveal():
-	if !(is_flagged):
+	if !(is_flagged) and !(is_open):
+		get_parent().get_parent()._monitor_win_condition()
 		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()
 		$Label.show()
+		if adjacent_mines == 0:
+			blank.emit(self)
 
 func _gui_input(event: InputEvent):
 	if !(event is InputEventMouseButton) or !event.pressed:
 		return
 	if event.button_index == 1:
-		_reveal()
 		if (is_mine):
 			gameover.emit()
+		_reveal()
 	elif event.button_index == 2:
 		if !is_flagged and !is_open:
 			icon = load("res://art/skin_" + str(skin) + "/flag.png")
