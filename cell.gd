@@ -11,10 +11,18 @@ func _ready():
 
 func load_mine(mine):
 	is_mine = mine
-	if (is_mine):
-		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
+
 
 func load_number(num):
 	adjacent_mines = num
-	if (num != 0 and is_mine == false):
-		$Label.text = str(adjacent_mines)
+
+func unhide():
+	if (is_mine):
+		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
+		emit_signal("game_over")
+	else:
+		if (adjacent_mines != 0 and is_mine == false):
+			$Label.text = str(adjacent_mines)
+
+func _on_pressed():
+	unhide()
