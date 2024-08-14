@@ -2,7 +2,7 @@ extends Control
 
 var grid_rows: int = 10  # Size of the grid
 var grid_cols: int = 10
-var amount_of_mines: int = 10
+var num_of_mines: int = 10
 var is_populated = false
 var cell_scene: PackedScene
 
@@ -10,18 +10,18 @@ var cell_scene: PackedScene
 func _ready():
 	$GridContainer.set_columns(grid_cols)
 	cell_scene = preload("res://cell.tscn")
-	_populate_board()
-	# print(_define_mine_config(10))
+	_populate_board(num_of_mines)
 
 # returns list of which cell indexes will be mines
-func _generate_mine_list(amount_of_mines):
+func _generate_mine_list(mines):
 	var board_mines = []
 	var mine_position = 0
-	for i in amount_of_mines:
+	for i in mines:
 		mine_position = randi_range(1, (grid_rows * grid_cols))
 		while (mine_position in board_mines):
 			mine_position = randi_range(1, (grid_rows * grid_cols))
 		board_mines.append(mine_position)
+	print(board_mines)
 	return board_mines
 
 # determine how many cells adjacent to passed argument are mines.
@@ -57,13 +57,19 @@ func _get_adjacent_mines(cell):
 				adj_mine_count += 1
 	return adj_mine_count
 
-func _populate_board():
+func _populate_board(mines):
+	var mine_cells = _generate_mine_list(mines)
+	var count = 0
 	for row in range(grid_rows):
 		for col in range(grid_cols):
+			count += 1
 			var cell = cell_scene.instantiate()
 			cell.custom_minimum_size = Vector2(30, 30)  # Set cell size
-			cell.loadcell(true,0)
-			$GridContainer.add_child(cell)
+			if count in mine_cells:
+				cell.load_mine(true)
+			else:
+				cell.load_mine(false)
+			$GridContainer.add_child(cell)	
 	is_populated = true;
 
 #region: Auxiliary functions
