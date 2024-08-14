@@ -3,6 +3,7 @@ extends Control
 var grid_rows: int = 10  # Size of the grid
 var grid_cols: int = 10
 var num_of_mines: int = 10
+var board_mines = []
 var is_populated = false
 var cell_scene: PackedScene
 
@@ -15,7 +16,6 @@ func _ready():
 
 # returns list of which cell indexes will be mines
 func _generate_mine_list(mines):
-	var board_mines = []
 	var mine_position = 0
 	for i in mines:
 		mine_position = randi_range(1, (grid_rows * grid_cols))
@@ -77,10 +77,10 @@ func _set_cell_numbers():
 		if cell.is_mine == false:
 			cell.load_number(_count_adjacent_mines(i))
 
-func _game_over():
-	for i in (grid_rows * grid_cols):
-		var cell = $GridContainer.get_child(i)
-		cell.unhide()
+#func _game_over():
+	#for i in (board_mines):
+		#var cell = $GridContainer.get_child(i)
+		#cell._reveal()
 
 #region: Auxiliary functions
 # determine index of a certain cell by its row and column

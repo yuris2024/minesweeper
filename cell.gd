@@ -11,24 +11,30 @@ func _ready():
 	expand_icon = true
 
 func load_mine(mine):
-	is_mine = mine
+	if (mine):
+		is_mine = true
+		$cell_graphics2.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+		$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
 
 func load_number(num):
 	adjacent_mines = num
+	$cell_graphics2.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+	if (adjacent_mines != 0 and is_mine == false):
+		$Label.hide()
+		$Label.text = str(adjacent_mines)
 
-func _unhide():
-	is_open = true
-	if (is_mine):
-		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
-	else:
-		if (adjacent_mines != 0 and is_mine == false and !is_flagged):
-			$Label.text = str(adjacent_mines)
+func _reveal():
+	if !(is_flagged):
+		is_open = true
+		$cell_graphics.show()
+		$cell_graphics2.show()
+		$Label.show()
 
 func _gui_input(event: InputEvent):
 	if !(event is InputEventMouseButton) or !event.pressed:
 		return
 	if event.button_index == 1:
-		_unhide()
+		_reveal()
 	elif event.button_index == 2:
 		if !is_flagged and !is_open:
 			icon = load("res://art/skin_" + str(skin) + "/flag.png")
