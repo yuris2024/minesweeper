@@ -77,6 +77,11 @@ func _set_cell_numbers():
 		if cell.is_mine == false:
 			cell.load_number(_count_adjacent_mines(i))
 
+func _game_over():
+	for i in (grid_rows * grid_cols):
+		var cell = $GridContainer.get_child(i)
+		cell.unhide()
+
 #region: Auxiliary functions
 # determine index of a certain cell by its row and column
 func get_cell_index(cell_position):
