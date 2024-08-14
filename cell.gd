@@ -12,17 +12,21 @@ func _ready():
 func load_mine(mine):
 	is_mine = mine
 
-
 func load_number(num):
 	adjacent_mines = num
 
-func unhide():
+func _unhide():
 	if (is_mine):
 		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
-		emit_signal("game_over")
+		
 	else:
 		if (adjacent_mines != 0 and is_mine == false):
 			$Label.text = str(adjacent_mines)
-
-func _on_pressed():
-	unhide()
+#
+func _gui_input(event: InputEvent):
+	if !(event is InputEventMouseButton) or !event.pressed:
+		return
+	if event.button_index == 1:
+		_unhide()
+	elif event.button_index == 2:
+		print("flag")
