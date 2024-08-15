@@ -93,6 +93,8 @@ func set_qk_reveal_and_mines():
 		var is_blank = (cell.adjacent_mines == 0)
 		if !cell.is_mine:
 			if !cell.adjacent_mines:
+			# Blank cells have all safe adjacent cells, so let's go ahead and 
+			# reveal them for the player.
 				cell.connect("attempt_quick_reveal",_reveal_adjacent)
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
@@ -100,6 +102,8 @@ func set_qk_reveal_and_mines():
 			cell.connect("gameover",_on_gameover)
 
 func _quick_reveal(cell):
+# Use when player has fully flagged a given number cell and clicks it.
+# Reveals mines too (if the player has flagged incorrectly).
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -111,13 +115,12 @@ func _quick_reveal(cell):
 	if count == cell.adjacent_mines:
 		_reveal_adjacent(cell)
 
-func _reveal_adjacent(cell,):
+func _reveal_adjacent(cell):
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
 				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
-				#if !adjacent_cell.is_mine or reveal_mines:
 				adjacent_cell._reveal()
 
 #region: Game Control functions
@@ -128,7 +131,7 @@ func _on_gameover(): # Triggered when player reveals a mine cell.
 	print("You lose")
 	get_tree().paused = true
 
-func _monitor_win_condition():
+func _monitor_win_condition(): # Checks on every reveal.
 	open_cells += 1
 	if open_cells == (grid_rows * grid_cols - board_mines.size()) and !game_lost:
 		print("You win")

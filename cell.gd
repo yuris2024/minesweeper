@@ -42,9 +42,10 @@ func _gui_input(event: InputEvent):
 		return
 	if event.button_index == 1:
 		if !is_flagged:
-			_reveal()
 			if is_open:
 				attempt_quick_reveal.emit(self)
+			else:
+				_reveal()
 	elif event.button_index == 2:
 		if !is_flagged and !is_open:
 			icon = load("res://art/skin_" + str(skin) + "/flag.png")
