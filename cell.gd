@@ -1,50 +1,40 @@
 extends Button
 
 var adjacent_mines: int = 0
-var is_mine: bool = false
+var is_mine: bool
 var is_open: bool = false
 var is_flagged: bool = false
 var skin = "default"
 var cell_position: Vector2
-signal blank
-signal reveal
 signal gameover
+signal blank
 
 func _ready():
-	$Label.hide()
-	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
 	expand_icon = true
+	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+
 
 func load_mine(mine):
-	is_mine = mine
-	if (is_mine):
-<<<<<<< HEAD
+	if (mine):
+		is_mine = true
 		$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
 
-func load_number(count):
-	adjacent_mines = count
-	if adjacent_mines and !is_mine:
-		$cell_graphics.texture = null
+func load_number(num):
+	adjacent_mines = num
+	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+	if (adjacent_mines != 0 and is_mine == false):
+		$Label.hide()
 		$Label.text = str(adjacent_mines)
 
 func _reveal():
 	if !(is_flagged) and !(is_open):
 		get_parent().get_parent()._monitor_win_condition()
+		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()
 		$Label.show()
-		is_open = true
 		if adjacent_mines == 0:
 			blank.emit(self)
-=======
-		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
-		if !(get_parent().get_parent().gameover):
-			get_parent().get_parent().mine_clicked.emit()
-	
-	else:
-		if (adjacent_mines != 0 and is_mine == false and !is_flagged):
-			$Label.text = str(adjacent_mines)
->>>>>>> main
 
 func _gui_input(event: InputEvent):
 	if !(event is InputEventMouseButton) or !event.pressed:
