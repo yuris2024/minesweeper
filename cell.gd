@@ -1,37 +1,38 @@
 extends Button
 
 var adjacent_mines: int = 0
-var is_mine: bool
+var is_mine: bool = false
 var is_open: bool = false
 var is_flagged: bool = false
 var skin = "default"
 var cell_position: Vector2
-signal gameover
 signal blank
+signal reveal
+signal gameover
 
 func _ready():
+	$Label.hide()
+	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
 	expand_icon = true
 
 func load_mine(mine):
-	if (mine):
-		is_mine = true
-		$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+	is_mine = mine
+	if (is_mine):
 		$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
 
-func load_number(num):
-	adjacent_mines = num
-	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
-	if (adjacent_mines != 0 and is_mine == false):
-		$Label.hide()
+func load_number(count):
+	adjacent_mines = count
+	if adjacent_mines and !is_mine:
+		$cell_graphics.texture = null
 		$Label.text = str(adjacent_mines)
 
 func _reveal():
 	if !(is_flagged) and !(is_open):
 		get_parent().get_parent()._monitor_win_condition()
-		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()
 		$Label.show()
+		is_open = true
 		if adjacent_mines == 0:
 			blank.emit(self)
 
