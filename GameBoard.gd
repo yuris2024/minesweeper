@@ -34,7 +34,7 @@ func load_new_board(rows,cols,mines):
 	game_lost = false
 	_populate_board(num_of_mines)
 	_set_cell_numbers()
-	set_blank_and_mines()
+	set_qk_reveal_and_mines()
 	get_tree().paused = false
 
 # returns list of which cell indexes will be mines
@@ -87,21 +87,38 @@ func _count_adjacent_mines(cell): #Argument should be actual cell, not its index
 	if (cell.is_mine): count -= 1
 	return count
 
-func set_blank_and_mines():
+func set_qk_reveal_and_mines():
 	for i in (grid_cols * grid_rows):
 		var cell = $GridContainer.get_child(i-1)
-		if cell.adjacent_mines == 0 and !cell.is_mine:
-			cell.connect("blank",blank_cell)
+		var is_blank = (cell.adjacent_mines == 0)
+		if !cell.is_mine:
+			if !cell.adjacent_mines:
+				cell.connect("attempt_quick_reveal",_reveal_adjacent)
+			else:
+				cell.connect("attempt_quick_reveal",_quick_reveal)
 		if i in board_mines:
 			cell.connect("gameover",_on_gameover)
 
-func blank_cell(cell):
+func _quick_reveal(cell):
+	var pos = cell.cell_position
+	var count = 0
+	for i in range(pos.x - 1, pos.x + 2):
+		for j in range(pos.y - 1, pos.y + 2):
+			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
+				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
+				if adjacent_cell.is_flagged == 1:
+					count += 1
+	if count == cell.adjacent_mines:
+		_reveal_adjacent(cell)
+
+func _reveal_adjacent(cell,):
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
-				var adjacent_cell = get_cell_index(Vector2(i,j))
-				$GridContainer.get_child(adjacent_cell)._reveal()
+				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
+				#if !adjacent_cell.is_mine or reveal_mines:
+				adjacent_cell._reveal()
 
 #region: Game Control functions
 func _on_gameover(): # Triggered when player reveals a mine cell.
