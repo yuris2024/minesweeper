@@ -9,9 +9,15 @@ var cell_scene: PackedScene = preload("res://cell.tscn")
 var open_cells = 0
 var game_lost = false
 
+func _init(rows = 10,cols = 10,mines = 10):
+	grid_rows = rows
+	grid_cols = cols
+	num_of_mines = mines
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	load_new_board(10,10,10)
+	$NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
+	load_new_board(grid_rows,grid_cols,num_of_mines)
 
 func load_new_board(rows,cols,mines):
 	var cells = $GridContainer.get_children()
@@ -104,14 +110,12 @@ func _on_gameover(): # Triggered when player reveals a mine cell.
 		$GridContainer.get_child(i-1)._reveal()
 	print("You lose")
 	get_tree().paused = true
-	_reset_game()
 
 func _monitor_win_condition():
 	open_cells += 1
-	if open_cells == (grid_rows * grid_cols - board_mines.size()) and game_lost == false:
+	if open_cells == (grid_rows * grid_cols - board_mines.size()) and !game_lost:
 		print("You win")
 		get_tree().paused = true
-		_reset_game()
 	
 func _reset_game():
 	load_new_board(10,10,10)
@@ -129,3 +133,7 @@ func get_cell_position(index):
 	var y = index % grid_cols
 	return Vector2(x,y)
 #endregion
+
+func _on_new_game_button_pressed():
+	get_tree().paused = false
+	_reset_game()

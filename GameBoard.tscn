@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs56nou04bb65"]
+[gd_scene load_steps=5 format=3 uid="uid://bs56nou04bb65"]
 
 [ext_resource type="Script" path="res://GameBoard.gd" id="1_1vqeu"]
+[ext_resource type="Script" path="res://Background.gd" id="2_8rbwv"]
 [ext_resource type="Script" path="res://GridContainer.gd" id="2_su816"]
+
+[sub_resource type="Theme" id="Theme_hwk7n"]
 
 [node name="GameBoard" type="Control"]
 layout_mode = 3
@@ -12,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1vqeu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.180392, 0.466667, 0.478431, 1)
+script = ExtResource("2_8rbwv")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
@@ -34,4 +38,19 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_hwk7n")
 script = ExtResource("2_su816")
+
+[node name="NewGameButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = 27.0
+offset_right = 21.0
+offset_bottom = 58.0
+grow_horizontal = 2
+text = "NEW"
+
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
