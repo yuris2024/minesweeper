@@ -1,5 +1,6 @@
 extends Control
 
+<<<<<<< HEAD
 var grid_rows: int
 var grid_cols: int
 var num_of_mines: int
@@ -8,6 +9,16 @@ var is_populated: bool
 var cell_scene: PackedScene = preload("res://cell.tscn")
 var open_cells = 0
 var game_lost = false
+=======
+var grid_rows: int = 10  # Size of the grid
+var grid_cols: int = 10
+var num_of_mines: int = 10
+var board_mines = []
+var is_populated = false
+var cell_scene: PackedScene
+var gameover = false
+signal mine_clicked
+>>>>>>> main
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,8 +45,56 @@ func load_new_board(rows,cols,mines):
 	set_blank_and_mines()
 	get_tree().paused = false
 
+<<<<<<< HEAD
 func _populate_board(num_mines):
 	var mine_cells = _generate_mine_list(num_mines)
+=======
+# returns list of which cell indexes will be mines
+func _generate_mine_list(mines):
+	var mine_position = 0
+	for i in mines:
+		mine_position = randi_range(1, (grid_rows * grid_cols))
+		while (mine_position in board_mines):
+			mine_position = randi_range(1, (grid_rows * grid_cols))
+		board_mines.append(mine_position)
+	return board_mines
+
+# determine how many cells adjacent to passed argument are mines.
+# this counts the cell itself as adjacent cell, but this should not be a 
+#  problem, as cells using this function are never mines themselves
+func _count_adjacent_mines(cell):
+	var adj_mine_count = 0
+	var pos	
+
+	
+#region: Safety checks performed before running function
+	# Exit function and return 0 if board has not yet been populated with cells
+	if is_populated == false:
+		print("Board has not been populated yet.")
+		return 0
+	
+	# Check if we got a grid index or a (x,y) position, or exit if invalid arg
+	if typeof(cell) == TYPE_INT:
+		pos = get_cell_position(cell)
+	elif typeof(cell) == TYPE_VECTOR2:
+		pos = cell
+	else:
+		print("Invalid argument for _get_adjacent_mines()")
+		return 0
+#endregion
+	
+	for i in range(pos.x - 1, pos.x + 2):
+		for j in range(pos.y - 1, pos.y + 2):
+			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
+				var adjacent_cell = Vector2(i,j)
+			# find out if this specific adjacent cell is a mine
+				if ($GridContainer.get_child(get_cell_index(adjacent_cell)).is_mine):
+					adj_mine_count += 1
+	return adj_mine_count
+
+func _populate_board(mines):
+	var mine_cells = _generate_mine_list(mines)
+>>>>>>> main
 	var count = 0
 	for row in range(grid_rows):
 		for col in range(grid_cols):
@@ -64,6 +123,7 @@ func _set_cell_numbers():
 		if !cell.is_mine:
 			cell.load_number(_count_adjacent_mines(cell))
 
+<<<<<<< HEAD
 func _count_adjacent_mines(cell): #Argument should be actual cell, not its index.
 	var count = 0
 	var pos = cell.cell_position
@@ -119,6 +179,13 @@ func _on_gameover(): # Triggered when player reveals a mine cell.
 func _reset_game():
 	load_new_board(10,10,10)
 #endregion
+=======
+func _game_over():
+	gameover = true
+	for i in (board_mines):
+		var cell = $GridContainer.get_child(i-1)
+		cell._unhide()
+>>>>>>> main
 
 #region: Auxiliary functions
 # determine index in grid, by its row and column
@@ -131,3 +198,7 @@ func get_cell_position(index):
 	var y = index % grid_cols
 	return Vector2(x,y)
 #endregion
+
+
+func _on_mine_clicked():
+	_game_over()

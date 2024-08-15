@@ -18,6 +18,7 @@ func _ready():
 func load_mine(mine):
 	is_mine = mine
 	if (is_mine):
+<<<<<<< HEAD
 		$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
 
 func load_number(count):
@@ -35,6 +36,15 @@ func _reveal():
 		is_open = true
 		if adjacent_mines == 0:
 			blank.emit(self)
+=======
+		icon = load("res://art/skin_" + str(skin) + "/mine_default.png")
+		if !(get_parent().get_parent().gameover):
+			get_parent().get_parent().mine_clicked.emit()
+	
+	else:
+		if (adjacent_mines != 0 and is_mine == false and !is_flagged):
+			$Label.text = str(adjacent_mines)
+>>>>>>> main
 
 func _gui_input(event: InputEvent):
 	if !(event is InputEventMouseButton) or !event.pressed:
