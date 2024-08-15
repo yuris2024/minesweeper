@@ -13,10 +13,9 @@ func _ready():
 	expand_icon = true
 	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
 
-func load_mine(mine):
-	if (mine):
-		is_mine = true
-		$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
+func load_mine():
+	is_mine = true
+	$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
 
 func load_number(num):
 	adjacent_mines = num

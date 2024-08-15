@@ -58,9 +58,7 @@ func _populate_board(mines):
 			cell.cell_position.x = row
 			cell.cell_position.y = col
 			if count in mine_cells:
-				cell.load_mine(true)
-			else:
-				cell.load_mine(false)
+				cell.load_mine()
 			$GridContainer.add_child(cell)
 	is_populated = true;
 
