@@ -1,10 +1,67 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgb0fqda32613"]
+[gd_scene load_steps=5 format=3 uid="uid://cgb0fqda32613"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_v0erv"]
+[ext_resource type="Script" path="res://Vboxcontainer.gd" id="2_yw5hy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mr1g"]
+bg_color = Color(0.117177, 0.35854, 0.335495, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1eif"]
+bg_color = Color(0.36222, 0.662027, 0.633786, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.12, 0.12, 0.12, 1)
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_v0erv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 755.0
-offset_bottom = 497.0
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8mr1g")
+
+[node name="Vboxcontainer" type="VBoxContainer" parent="Panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("2_yw5hy")
+
+[node name="Header" type="HBoxContainer" parent="Panel/Vboxcontainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Vboxcontainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="BoardContainer" type="PanelContainer" parent="Panel/Vboxcontainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1eif")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/Vboxcontainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="NewGameButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "NEW"
+
+[connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]

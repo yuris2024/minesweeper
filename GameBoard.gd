@@ -1,33 +1,31 @@
+class_name GameBoard
 extends Control
 
 var grid_rows: int
 var grid_cols: int
 var num_of_mines: int
 var board_mines = []
-var is_populated: bool
+var is_populated: bool = false
 var cell_scene: PackedScene = preload("res://cell.tscn")
 var open_cells = 0
 var game_lost = false
-
-func _init(rows = 10,cols = 10,mines = 10):
-	grid_rows = rows
-	grid_cols = cols
-	num_of_mines = mines
+@onready var gridcontainer_path = $ColorRect/GridContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
-	load_new_board(grid_rows,grid_cols,num_of_mines)
+	pass
+	#load_new_board(grid_rows,grid_cols,num_of_mines)
 
 func load_new_board(rows,cols,mines):
-	var cells = $GridContainer.get_children()
+	var cells = $ColorRect/GridContainer.get_children()
 	for i in cells:
 		i.queue_free()
-		$GridContainer.remove_child(i)
+		$ColorRect/GridContainer.remove_child(i)
 	grid_rows = rows
 	grid_cols = cols
 	num_of_mines = mines
-	$GridContainer.set_columns(grid_cols)
+	$ColorRect/GridContainer.set_columns(grid_cols)
+	custom_minimum_size = Vector2(grid_cols*34 + 5,grid_rows*34 + 5)
 	board_mines = []
 	is_populated = false
 	open_cells = 0
@@ -35,7 +33,7 @@ func load_new_board(rows,cols,mines):
 	_populate_board(num_of_mines)
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
-	get_tree().paused = false
+	#get_tree().paused = false
 
 # returns list of which cell indexes will be mines
 func _generate_mine_list(mines):
@@ -59,12 +57,12 @@ func _populate_board(mines):
 			cell.cell_position.y = col
 			if count in mine_cells:
 				cell.load_mine()
-			$GridContainer.add_child(cell)
+			$ColorRect/GridContainer.add_child(cell)
 	is_populated = true;
 
 func _set_cell_numbers():
 	for i in (grid_rows * grid_cols):
-		var cell = $GridContainer.get_child(i)
+		var cell = $ColorRect/GridContainer.get_child(i)
 		if !cell.is_mine:
 			cell.load_number(_count_adjacent_mines(cell))
 
@@ -80,15 +78,14 @@ func _count_adjacent_mines(cell): #Argument should be actual cell, not its index
 		for j in range(pos.y - 1, pos.y + 2):
 			# Avoid going out of grid's bounds:
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
-				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
+				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				if (adjacent_cell.is_mine): count += 1
 	if (cell.is_mine): count -= 1
 	return count
 
 func set_qk_reveal_and_mines():
 	for i in (grid_cols * grid_rows):
-		var cell = $GridContainer.get_child(i-1)
-		var is_blank = (cell.adjacent_mines == 0)
+		var cell = $ColorRect/GridContainer.get_child(i-1)
 		if !cell.is_mine:
 			if !cell.adjacent_mines:
 			# Blank cells have all safe adjacent cells, so let's go ahead and 
@@ -107,7 +104,7 @@ func _quick_reveal(cell):
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
-				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
+				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				if adjacent_cell.is_flagged == 1:
 					count += 1
 	if count == cell.adjacent_mines:
@@ -118,14 +115,14 @@ func _reveal_adjacent(cell):
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
-				var adjacent_cell = $GridContainer.get_child(get_cell_index(Vector2(i,j)))
+				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				adjacent_cell._reveal()
 
 #region: Game Control functions
 func _on_gameover(): # Triggered when player reveals a mine cell.
 	game_lost = true
 	for i in board_mines:
-		$GridContainer.get_child(i-1)._reveal()
+		$ColorRect/GridContainer.get_child(i-1)._reveal()
 	print("You lose")
 	get_tree().paused = true
 
@@ -151,7 +148,3 @@ func get_cell_position(index):
 	var y = index % grid_cols
 	return Vector2(x,y)
 #endregion
-
-func _on_new_game_button_pressed():
-	get_tree().paused = false
-	_reset_game()

@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="minesweep"
-run/main_scene="res://GameBoard.tscn"
+run/main_scene="res://GameManager.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 
-[autoload]
+[filesystem]
 
-GameManager="*res://GameManager.gd"
+import/blender/enabled=false
 
 [rendering]
 

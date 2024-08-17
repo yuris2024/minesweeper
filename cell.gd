@@ -26,14 +26,15 @@ func load_number(num):
 
 func _reveal():
 	if !is_flagged and !is_open:
-		get_parent().get_parent()._monitor_win_condition()
+		#CHANGE THIS TO A SIGNAL v
+		get_parent().get_parent().get_parent()._monitor_win_condition()
 		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()
 		$Label.show()
 		if adjacent_mines == 0: 
 			attempt_quick_reveal.emit(self)
-		if is_mine and !get_parent().get_parent().game_lost:
+		if is_mine and !get_parent().get_parent().get_parent().game_lost:
 			gameover.emit()
 
 func _gui_input(event: InputEvent):
