@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgb0fqda32613"]
+[gd_scene load_steps=11 format=3 uid="uid://cgb0fqda32613"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_v0erv"]
 [ext_resource type="Script" path="res://Vboxcontainer.gd" id="2_yw5hy"]
+[ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="3_gifjn"]
+[ext_resource type="Script" path="res://MuteButton.gd" id="3_tq2m3"]
+[ext_resource type="Texture2D" uid="uid://cc2e5u2s6iep5" path="res://art/skin_default/qmark.png" id="4_dwrv7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mr1g"]
 bg_color = Color(0.117177, 0.35854, 0.335495, 1)
@@ -13,6 +16,13 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.12, 0.12, 0.12, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tiwbh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_umvvy"]
+
+[sub_resource type="SystemFont" id="SystemFont_obumi"]
+font_names = PackedStringArray("Monospace")
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_v0erv")
@@ -60,16 +70,66 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 8
 
+[node name="MuteButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tiwbh")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_umvvy")
+toggle_mode = true
+script = ExtResource("3_tq2m3")
+
 [node name="NewGameButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
 text = "NEW BOARD"
 
-[node name="Label" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Vboxcontainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="MineCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("3_gifjn")
+expand_mode = 1
+
+[node name="MineCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 3.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = SubResource("SystemFont_obumi")
+theme_override_font_sizes/font_size = 35
+text = "000"
+
+[node name="TimeCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_dwrv7")
+expand_mode = 1
+
+[node name="TimeCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 3.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = SubResource("SystemFont_obumi")
+theme_override_font_sizes/font_size = 35
+text = "000"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
 [connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]
