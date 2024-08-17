@@ -6,10 +6,14 @@ var is_open: bool = false
 var is_flagged: int = 0
 var skin = "default"
 var cell_position: Vector2
+@export var style_box: StyleBoxFlat
+#CHANGE GRAPHICS TO THIS STYLE BOX!
+
 signal gameover
 signal attempt_quick_reveal
 
 func _ready():
+	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
 	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
 

@@ -26,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_hwk7n")
+color = Color(0.108, 0.3, 0.2648, 1)
 
 [node name="GridContainer" type="GridContainer" parent="ColorRect"]
 layout_mode = 1

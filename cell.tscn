@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://eckwqxptl8jb"]
+[gd_scene load_steps=6 format=3 uid="uid://eckwqxptl8jb"]
 
 [ext_resource type="Script" path="res://cell.gd" id="1_if0fg"]
 [ext_resource type="Script" path="res://cell_graphics.gd" id="2_186xk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvtbn"]
+bg_color = Color(0, 0.515347, 0.532578, 1)
 
 [sub_resource type="Theme" id="Theme_pbl76"]
 
@@ -15,6 +18,7 @@ offset_bottom = 83.0
 focus_mode = 0
 button_mask = 3
 script = ExtResource("1_if0fg")
+style_box = SubResource("StyleBoxFlat_yvtbn")
 
 [node name="cell_bg" type="TextureRect" parent="."]
 layout_mode = 1
