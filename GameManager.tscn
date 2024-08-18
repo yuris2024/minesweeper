@@ -75,6 +75,7 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tiwbh")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_umvvy")
 toggle_mode = true
@@ -92,7 +93,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="MineCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+[node name="FlagCounter2" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -100,7 +101,7 @@ size_flags_vertical = 4
 texture = ExtResource("3_gifjn")
 expand_mode = 1
 
-[node name="MineCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+[node name="FlagCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 6

@@ -7,9 +7,11 @@ var num_of_mines: int
 var board_mines = []
 var is_populated: bool = false
 var cell_scene: PackedScene = preload("res://cell.tscn")
-var open_cells = 0
-var game_lost = false
+var open_cells: int = 0
+var game_lost: bool = false
 @onready var gridcontainer_path = $ColorRect/GridContainer
+
+signal flagged2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -79,13 +81,15 @@ func _count_adjacent_mines(cell): #Argument should be actual cell, not its index
 			# Avoid going out of grid's bounds:
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
-				if (adjacent_cell.is_mine): count += 1
-	if (cell.is_mine): count -= 1
+				if adjacent_cell.is_mine: count += 1
+	if cell.is_mine: count -= 1
 	return count
+
 
 func set_qk_reveal_and_mines():
 	for i in (grid_cols * grid_rows):
 		var cell = $ColorRect/GridContainer.get_child(i-1)
+		cell.connect("flagged",_on_flagged)
 		if !cell.is_mine:
 			if !cell.adjacent_mines:
 			# Blank cells have all safe adjacent cells, so let's go ahead and 
@@ -93,8 +97,11 @@ func set_qk_reveal_and_mines():
 				cell.connect("attempt_quick_reveal",_reveal_adjacent)
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
-		if i in board_mines:
+		else:
 			cell.connect("gameover",_on_gameover)
+
+func _on_flagged(flag):
+	flagged2.emit(int(flag))
 
 func _quick_reveal(cell):
 # Use when player has fully flagged a given number cell and clicks it.
@@ -119,6 +126,9 @@ func _reveal_adjacent(cell):
 				adjacent_cell._reveal()
 
 #region: Game Control functions
+#func _on_flagged(flag):
+	#cells_flagged += flag
+
 func _on_gameover(): # Triggered when player reveals a mine cell.
 	game_lost = true
 	for i in board_mines:

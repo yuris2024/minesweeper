@@ -11,6 +11,7 @@ var cell_position: Vector2
 
 signal gameover
 signal attempt_quick_reveal
+signal flagged
 
 func _ready():
 	add_theme_stylebox_override("normal",style_box)
@@ -54,9 +55,11 @@ func _gui_input(event: InputEvent):
 		if !is_flagged and !is_open:
 			icon = load("res://art/skin_" + str(skin) + "/flag.png")
 			is_flagged = 1
+			flagged.emit(1)
 		elif is_flagged == 1 and !is_open:
 			icon = load("res://art/skin_" + str(skin) + "/qmark.png")
 			is_flagged = 2
+			flagged.emit(-1)
 		else:
 			icon = null
 			is_flagged = 0
