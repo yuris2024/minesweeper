@@ -45,7 +45,8 @@ func _on_timer_timeout():
 
 func _on_flagged2(flag):
 	cells_to_flag -= flag
-	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
+	if cells_to_flag >= 0:
+		$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
 
 func format_counter(num):
 	if num < 10:
