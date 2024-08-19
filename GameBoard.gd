@@ -127,6 +127,16 @@ func _reveal_adjacent(cell):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				adjacent_cell._reveal()
 
+# FIX v
+func _suggest_first_click():
+	pass
+	#if !is_populated:
+		#return
+	#var cell = gridcontainer_path.get_child(0)
+	#while (cell.is_mine or cell.adjacent_mines != 0):
+		#cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)))
+	#cell.style_box.border_color = "#ffffff"
+
 #region: Game Control functions
 #func _on_flagged(flag):
 	#cells_flagged += flag

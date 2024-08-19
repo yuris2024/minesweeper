@@ -13,18 +13,20 @@ var exp = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_set_difficulty(1)
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _set_difficulty(diff):
-	if diff == "beginner":
+	difficulty = diff
+	if diff == 1:
 		current_rows = 9
 		current_cols = 9
 		current_mines = 10
-	elif diff == "intermediate":
+	elif diff == 2:
 		current_rows = 16
 		current_cols = 16
 		current_mines = 40
-	elif diff == "expert":
+	elif diff == 3:
 		current_rows = 30
 		current_cols = 16
 		current_mines = 99
@@ -35,7 +37,6 @@ func _on_new_game_button_pressed():
 	remove_old_board()
 	time = 0
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
-	_set_difficulty("expert")
 	request_new_board(current_rows, current_cols, current_mines)
 	get_tree().paused = false
 	cells_to_flag = current_mines
@@ -55,6 +56,7 @@ func request_new_board(rows, cols, mines):
 	board_container.add_child(new_board)
 	new_board.connect("flagged2",_on_flagged2)
 	new_board.connect("board_clear",_on_board_clear)
+	new_board._suggest_first_click()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -72,7 +74,6 @@ func _on_flagged2(flag):
 func _on_board_clear():
 	#calculate coin value
 	var board_value = difficulty * 10
-	
 	pass
 	
 
