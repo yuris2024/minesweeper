@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgb0fqda32613"]
+[gd_scene load_steps=12 format=3 uid="uid://cgb0fqda32613"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_v0erv"]
 [ext_resource type="Script" path="res://Vboxcontainer.gd" id="2_yw5hy"]
 [ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="3_gifjn"]
+[ext_resource type="Script" path="res://CoinCounter.gd" id="3_hc80a"]
 [ext_resource type="Script" path="res://MuteButton.gd" id="3_tq2m3"]
 [ext_resource type="Texture2D" uid="uid://cc2e5u2s6iep5" path="res://art/skin_default/qmark.png" id="4_dwrv7"]
 
@@ -54,6 +55,35 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 
+[node name="ExitToMenu" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/Vboxcontainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+tint_under = Color(2.40654e-08, 0.246238, 0.223931, 1)
+tint_progress = Color(0.234, 0.78, 0.234, 1)
+
+[node name="ShopButton" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+script = ExtResource("3_hc80a")
+
+[node name="CoinCounter" type="Label" parent="Panel/Vboxcontainer/Header/ShopButton"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Vboxcontainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -93,7 +123,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="FlagCounter2" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+[node name="FlagCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6

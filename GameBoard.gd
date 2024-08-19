@@ -12,6 +12,7 @@ var game_lost: bool = false
 @onready var gridcontainer_path = $ColorRect/GridContainer
 
 signal flagged2
+signal board_clear
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -138,8 +139,9 @@ func _on_gameover(): # Triggered when player reveals a mine cell.
 
 func _monitor_win_condition(): # Checks on every reveal.
 	open_cells += 1
-	if open_cells == (grid_rows * grid_cols - board_mines.size()) and !game_lost:
+	if open_cells == (grid_rows * grid_cols - num_of_mines) and !game_lost:
 		print("You win")
+		board_clear.emit()
 		get_tree().paused = true
 	
 func _reset_game():

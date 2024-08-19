@@ -2,15 +2,19 @@ extends Node
 var time = 0
 var board_scene: PackedScene = preload("res://GameBoard.tscn")
 @onready var board_container = $Panel/Vboxcontainer/MarginContainer/BoardContainer
-var current_rows = 10
-var current_cols = 10
+var current_rows = 9
+var current_cols = 9
 var current_mines = 10
+var difficulty
 var cells_flagged = 0
 var cells_to_flag
+var coins = 0
+var exp = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 
 func _on_new_game_button_pressed():
 	remove_old_board()
@@ -34,6 +38,7 @@ func request_new_board(rows, cols, mines):
 	new_board.load_new_board(rows,cols,mines)
 	board_container.add_child(new_board)
 	new_board.connect("flagged2",_on_flagged2)
+	new_board.connect("board_clear",_on_board_clear)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -47,6 +52,13 @@ func _on_flagged2(flag):
 	cells_to_flag -= flag
 	if cells_to_flag >= 0:
 		$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
+
+func _on_board_clear():
+	#calculate coin value
+	var board_value = difficulty * 10
+	
+	pass
+	
 
 func format_counter(num):
 	if num < 10:
