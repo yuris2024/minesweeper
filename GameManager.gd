@@ -74,8 +74,8 @@ func _on_flagged2(flag):
 func _on_board_clear():
 	#calculate coin value
 	var board_value = difficulty * 10
-	pass
-	
+	coins += board_value
+	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = str(coins)
 
 func format_counter(num):
 	if num < 10:
