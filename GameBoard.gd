@@ -9,6 +9,7 @@ var is_populated: bool = false
 var cell_scene: PackedScene = preload("res://cell.tscn")
 var open_cells: int = 0
 var game_lost: bool = false
+var cell_size = 20
 @onready var gridcontainer_path = $ColorRect/GridContainer
 
 signal flagged2
@@ -28,7 +29,7 @@ func load_new_board(rows,cols,mines):
 	grid_cols = cols
 	num_of_mines = mines
 	$ColorRect/GridContainer.set_columns(grid_cols)
-	custom_minimum_size = Vector2(grid_cols*34 + 5,grid_rows*34 + 5)
+	custom_minimum_size = Vector2(grid_cols*(cell_size + 4) + 5,grid_rows*(cell_size + 4) + 5)
 	board_mines = []
 	is_populated = false
 	open_cells = 0
@@ -55,7 +56,7 @@ func _populate_board(mines):
 		for col in range(grid_cols):
 			count += 1
 			var cell = cell_scene.instantiate()
-			cell.custom_minimum_size = Vector2(30, 30)  # Set cell size
+			cell.custom_minimum_size = Vector2(cell_size, cell_size)
 			cell.cell_position.x = row
 			cell.cell_position.y = col
 			if count in mine_cells:

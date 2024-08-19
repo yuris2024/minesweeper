@@ -14,12 +14,28 @@ var exp = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
-	
+
+func _set_difficulty(diff):
+	if diff == "beginner":
+		current_rows = 9
+		current_cols = 9
+		current_mines = 10
+	elif diff == "intermediate":
+		current_rows = 16
+		current_cols = 16
+		current_mines = 40
+	elif diff == "expert":
+		current_rows = 30
+		current_cols = 16
+		current_mines = 99
+	else:
+		print("Difficulty setting error")
 
 func _on_new_game_button_pressed():
 	remove_old_board()
 	time = 0
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
+	_set_difficulty("expert")
 	request_new_board(current_rows, current_cols, current_mines)
 	get_tree().paused = false
 	cells_to_flag = current_mines
