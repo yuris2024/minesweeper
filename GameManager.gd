@@ -31,7 +31,7 @@ func _set_difficulty(diff):
 		current_cols = 16
 		current_mines = 99
 	else:
-		print("Difficulty setting error")
+		print("Erro estabelecendo dificuldade")
 
 func _on_new_game_button_pressed():
 	remove_old_board()
@@ -84,3 +84,7 @@ func format_counter(num):
 		return "0" + str(num)
 	else:
 		return str(num)
+
+
+func _on_shop_button_toggled(toggled_on: bool) -> void:
+	pass # Replace with function body.
