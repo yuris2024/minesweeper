@@ -10,6 +10,7 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var exp = 0
+var shop_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -86,5 +87,6 @@ func format_counter(num):
 		return str(num)
 
 
-func _on_shop_button_toggled(toggled_on: bool) -> void:
-	pass # Replace with function body.
+func _on_shop_button_pressed() -> void:
+	$Shop.visible = true
+	shop_open = true

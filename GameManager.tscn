@@ -165,8 +165,9 @@ theme_override_font_sizes/font_size = 35
 text = "000"
 
 [node name="Shop" parent="." instance=ExtResource("8_wdewt")]
+visible = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="toggled" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_toggled"]
+[connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
 [connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]
