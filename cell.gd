@@ -4,7 +4,10 @@ var adjacent_mines: int = 0
 var is_mine: bool = false
 var is_open: bool = false
 var is_flagged: int = 0
-var skin = "default"
+var skin_bg = "default"
+var skin_mine = "default"
+var skin_flag = "default"
+var skin_qmark = "default"
 var cell_position: Vector2
 @export var style_box: StyleBoxFlat
 #CHANGE GRAPHICS TO THIS STYLE BOX!
@@ -16,15 +19,15 @@ signal flagged
 func _ready():
 	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
-	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
 
 func load_mine():
 	is_mine = true
-	$cell_graphics.texture = load("res://art/skin_" + str(skin) + "/mine_default.png")
+	$cell_graphics.texture = load("res://art/skin_" + str(skin_mine) + "/mine_default.png")
 
 func load_number(num):
 	adjacent_mines = num
-	$cell_bg.texture = load("res://art/skin_" + str(skin) + "/cell_bg.png")
+	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
 	if adjacent_mines != 0 and !is_mine:
 		$Label.hide()
 		$Label.text = str(adjacent_mines)
@@ -53,11 +56,11 @@ func _gui_input(event: InputEvent):
 				_reveal()
 	elif event.button_index == 2:
 		if !is_flagged and !is_open:
-			icon = load("res://art/skin_" + str(skin) + "/flag.png")
+			icon = load("res://art/skin_" + str(skin_flag) + "/flag.png")
 			is_flagged = 1
 			flagged.emit(1)
 		elif is_flagged == 1 and !is_open:
-			icon = load("res://art/skin_" + str(skin) + "/qmark.png")
+			icon = load("res://art/skin_" + str(skin_qmark) + "/qmark.png")
 			is_flagged = 2
 			flagged.emit(-1)
 		else:
