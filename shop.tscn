@@ -49,61 +49,73 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Mine1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Bg1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Flag1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Button1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Mine2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Bg2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Flag2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Button2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect9" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Mine3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
 expand_mode = 1
 
-[node name="TextureRect10" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Bg3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture = ExtResource("2_u6ywt")
+expand_mode = 1
+
+[node name="Flag3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+texture = ExtResource("2_u6ywt")
+expand_mode = 1
+
+[node name="Button3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("2_u6ywt")
