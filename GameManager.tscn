@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgb0fqda32613"]
+[gd_scene load_steps=15 format=3 uid="uid://cgb0fqda32613"]
 
 [ext_resource type="Script" path="res://GameManager.gd" id="1_v0erv"]
 [ext_resource type="Script" path="res://Vboxcontainer.gd" id="2_yw5hy"]
+[ext_resource type="Texture2D" uid="uid://cxmna1ghhntrw" path="res://art/skin_default/menu.png" id="3_1fecn"]
 [ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="3_gifjn"]
 [ext_resource type="Script" path="res://CoinCounter.gd" id="3_hc80a"]
 [ext_resource type="Script" path="res://MuteButton.gd" id="3_tq2m3"]
@@ -60,16 +61,20 @@ size_flags_vertical = 0
 [node name="ExitToMenu" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+texture_normal = ExtResource("3_1fecn")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel/Vboxcontainer/Header"]
+[node name="TextureProgressBar" type="ProgressBar" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(550, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-tint_under = Color(2.40654e-08, 0.246238, 0.223931, 1)
-tint_progress = Color(0.234, 0.78, 0.234, 1)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+value = 70.0
 
 [node name="ShopButton" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("4_x8hsf")
 script = ExtResource("3_hc80a")
 
