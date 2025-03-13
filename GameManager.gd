@@ -18,6 +18,8 @@ func _ready():
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _set_difficulty(diff):
+	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
+	# predefinido.
 	difficulty = diff
 	if diff == 1:
 		current_rows = 9
@@ -44,6 +46,7 @@ func _on_new_game_button_pressed():
 	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
 
 func remove_old_board():
+	# Deleta todas as células criadas anteriormente no quadro.
 	var children = board_container.get_children()
 	for i in children:
 		if !(i is GameBoard):
@@ -52,6 +55,7 @@ func remove_old_board():
 		board_container.remove_child(i)
 
 func request_new_board(rows, cols, mines):
+	# Cria um novo quadro.
 	var new_board = board_scene.instantiate()
 	new_board.load_new_board(rows,cols,mines)
 	board_container.add_child(new_board)

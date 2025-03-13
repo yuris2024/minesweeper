@@ -39,8 +39,8 @@ func load_new_board(rows,cols,mines):
 	set_qk_reveal_and_mines()
 	#get_tree().paused = false
 
-# returns list of which cell indexes will be mines
 func _generate_mine_list(mines):
+	# Retorna uma lista de quais índices de células serão minas.
 	var mine_position = 0
 	for i in mines:
 		mine_position = randi_range(1, (grid_rows * grid_cols))
@@ -50,6 +50,7 @@ func _generate_mine_list(mines):
 	return board_mines
 
 func _populate_board(mines):
+	# Coloca as minas na posição apropriada de acordo com a lista gerada.
 	var mine_cells = _generate_mine_list(mines)
 	var count = 0
 	for row in range(grid_rows):
@@ -65,12 +66,16 @@ func _populate_board(mines):
 	is_populated = true;
 
 func _set_cell_numbers():
+	#    Com as minas colocadas, coloca números de acordo com quantas minas 
+	# a célula tem adjacentes a ela.
 	for i in (grid_rows * grid_cols):
 		var cell = $ColorRect/GridContainer.get_child(i)
 		if !cell.is_mine:
 			cell.load_number(_count_adjacent_mines(cell))
 
-func _count_adjacent_mines(cell): #Argument should be actual cell, not its index.
+func _count_adjacent_mines(cell):
+	# Conta quantas minas há em torno da célula. 
+	# O argumento deve ser o Node célula de verdade, não o índice dela.
 	var count = 0
 	var pos = cell.cell_position
 	
@@ -80,7 +85,7 @@ func _count_adjacent_mines(cell): #Argument should be actual cell, not its index
 	
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
-			# Avoid going out of grid's bounds:
+			# Evitando sair dos limites do quadro:
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				if adjacent_cell.is_mine: count += 1
@@ -103,11 +108,13 @@ func set_qk_reveal_and_mines():
 			cell.connect("gameover",_on_gameover)
 
 func _on_flagged(flag):
+	# Sinal emitido para o contador de bandeiras capturar.
 	flagged2.emit(int(flag))
 
 func _quick_reveal(cell):
-# Use when player has fully flagged a given number cell and clicks it.
-# Reveals mines too (if the player has flagged incorrectly).
+# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
+# diz existirem, e então clica na célula.
+# Revela minas também, se o jogador houver marcado incorretamente.
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -120,6 +127,7 @@ func _quick_reveal(cell):
 		_reveal_adjacent(cell)
 
 func _reveal_adjacent(cell):
+	# Revela tudo em torno da célula.
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
@@ -127,9 +135,9 @@ func _reveal_adjacent(cell):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				adjacent_cell._reveal()
 
-# Find a random blank cell to suggest as first player click.
-# Without this, often the first click will be an auto lose
 func _suggest_first_click():
+	# Encontra uma célula em branco aleatória para sugerir como primeiro clique.
+	# Sem isto, o primeiro clique muitas vezes é um game over automático.
 	if !is_populated:
 		return
 	var cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)))

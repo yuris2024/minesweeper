@@ -22,10 +22,12 @@ func _ready():
 	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
 
 func load_mine():
+	# Torna célula uma mina.
 	is_mine = true
 	$cell_graphics.texture = load("res://art/skin_" + str(skin_mine) + "/mine_default.png")
 
 func load_number(num):
+	# Torna célula numérica.
 	adjacent_mines = num
 	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
 	if adjacent_mines != 0 and !is_mine:
@@ -33,6 +35,7 @@ func load_number(num):
 		$Label.text = str(adjacent_mines)
 
 func _reveal():
+	# Revela a célula e, caso aplicável, as adjacentes.
 	if !is_flagged and !is_open:
 		#CHANGE THIS TO A SIGNAL v
 		get_parent().get_parent().get_parent()._monitor_win_condition()
@@ -42,27 +45,42 @@ func _reveal():
 		$Label.show()
 		if adjacent_mines == 0: 
 			attempt_quick_reveal.emit(self)
+		# É a célula quem informa que foi clicada e o jogo está perdido.
 		if is_mine and !get_parent().get_parent().get_parent().game_lost:
 			gameover.emit()
 
 func _gui_input(event: InputEvent):
+	#    Administra o clique normal (revelar) ou com o botão direito (marcação
+	# das células).
+	#    Célula emite sinal ao ser marcada ou desmarcada, para que o contador
+	# de bandeiras possa contá-la.
 	if !(event is InputEventMouseButton) or !event.pressed:
 		return
+	
+	# Clique com botão esquerdo: revela a célula
 	if event.button_index == 1:
+
 		if !is_flagged:
 			if is_open:
 				attempt_quick_reveal.emit(self)
 			else:
 				_reveal()
+	
+	# Clique com botão direito
 	elif event.button_index == 2:
+		# Primeiro clique direito: coloca bandeira
 		if !is_flagged and !is_open:
 			icon = load("res://art/skin_" + str(skin_flag) + "/flag.png")
 			is_flagged = 1
 			flagged.emit(1)
+		
+		# Segundo clique direito: coloca interrogação
 		elif is_flagged == 1 and !is_open:
 			icon = load("res://art/skin_" + str(skin_qmark) + "/qmark.png")
 			is_flagged = 2
 			flagged.emit(-1)
+		
+		# Terceiro clique direito: remove marcação
 		else:
 			icon = null
 			is_flagged = 0
