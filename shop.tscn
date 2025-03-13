@@ -25,6 +25,7 @@ layout_mode = 2
 texture_normal = ExtResource("1_wy81u")
 
 [node name="Label" type="Label" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_stretch_ratio = 113.6

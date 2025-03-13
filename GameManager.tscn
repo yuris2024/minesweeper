@@ -68,24 +68,16 @@ tint_under = Color(2.40654e-08, 0.246238, 0.223931, 1)
 tint_progress = Color(0.234, 0.78, 0.234, 1)
 
 [node name="ShopButton" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 texture_normal = ExtResource("4_x8hsf")
 script = ExtResource("3_hc80a")
 
-[node name="CoinCounter" type="Label" parent="Panel/Vboxcontainer/Header/ShopButton"]
-custom_minimum_size = Vector2(150, 60)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 0
-grow_vertical = 2
+[node name="CoinCounter" type="Label" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "000"
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/Vboxcontainer"]
 layout_mode = 2
