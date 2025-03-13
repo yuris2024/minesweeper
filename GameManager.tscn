@@ -163,6 +163,16 @@ text = "000"
 
 [node name="Shop" parent="." instance=ExtResource("8_wdewt")]
 visible = false
+custom_minimum_size = Vector2(1000, 600)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -254.0
+offset_right = 202.0
+offset_bottom = 254.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
