@@ -18,7 +18,6 @@ signal board_clear
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	#load_new_board(grid_rows,grid_cols,num_of_mines)
 
 func load_new_board(rows,cols,mines):
 	var cells = $ColorRect/GridContainer.get_children()
@@ -165,6 +164,7 @@ func _monitor_win_condition(): # Checks on every reveal.
 		get_tree().paused = true
 	
 func _reset_game():
+	#change to grid rows, cols and mines, like variables not constants pls
 	load_new_board(10,10,10)
 #endregion
 
