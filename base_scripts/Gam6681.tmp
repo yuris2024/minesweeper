@@ -1,0 +1,178 @@
+[gd_scene load_steps=14 format=3 uid="uid://cgb0fqda32613"]
+
+[ext_resource type="Script" path="res://base game scripts/GameManager.gd" id="1_j4cq2"]
+[ext_resource type="Texture2D" uid="uid://cxmna1ghhntrw" path="res://art/skin_default/menu.png" id="2_irnxb"]
+[ext_resource type="Texture2D" uid="uid://dto4jv2kyp61t" path="res://art/skin_default/loja.png" id="3_wkjnm"]
+[ext_resource type="Script" path="res://CoinCounter.gd" id="4_yti8a"]
+[ext_resource type="Script" path="res://MuteButton.gd" id="5_mrjog"]
+[ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="6_g3pb0"]
+[ext_resource type="Texture2D" uid="uid://cc2e5u2s6iep5" path="res://art/skin_default/qmark.png" id="7_sc2wq"]
+[ext_resource type="PackedScene" uid="uid://d1fsehcdbkfvq" path="res://shop.tscn" id="8_bloex"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mr1g"]
+bg_color = Color(0.117177, 0.35854, 0.335495, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1eif"]
+bg_color = Color(0.36222, 0.662027, 0.633786, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.12, 0.12, 0.12, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_umvvy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tiwbh"]
+
+[sub_resource type="SystemFont" id="SystemFont_obumi"]
+font_names = PackedStringArray("Monospace")
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_j4cq2")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8mr1g")
+
+[node name="Vboxcontainer" type="VBoxContainer" parent="Panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="Panel/Vboxcontainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ExitToMenu" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+texture_normal = ExtResource("2_irnxb")
+
+[node name="TextureProgressBar" type="ProgressBar" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+value = 70.0
+
+[node name="ShopButton" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_wkjnm")
+script = ExtResource("4_yti8a")
+
+[node name="CoinCounter" type="Label" parent="Panel/Vboxcontainer/Header"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "000"
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Vboxcontainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="BoardContainer" type="PanelContainer" parent="Panel/Vboxcontainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1eif")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/Vboxcontainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="MuteButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_umvvy")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tiwbh")
+toggle_mode = true
+script = ExtResource("5_mrjog")
+
+[node name="NewGameButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+text = "NOVO QUADRO"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Vboxcontainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="FlagCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("6_g3pb0")
+expand_mode = 1
+
+[node name="FlagCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 3.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = SubResource("SystemFont_obumi")
+theme_override_font_sizes/font_size = 35
+text = "000"
+
+[node name="TimeCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_sc2wq")
+expand_mode = 1
+
+[node name="TimeCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_stretch_ratio = 3.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = SubResource("SystemFont_obumi")
+theme_override_font_sizes/font_size = 35
+text = "000"
+
+[node name="Shop" parent="." instance=ExtResource("8_bloex")]
+visible = false
+custom_minimum_size = Vector2(1000, 600)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -254.0
+offset_right = 202.0
+offset_bottom = 254.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
+[connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]

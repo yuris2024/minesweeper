@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://eckwqxptl8jb"]
 
-[ext_resource type="Script" path="res://cell.gd" id="1_if0fg"]
-[ext_resource type="Script" path="res://cell_graphics.gd" id="2_186xk"]
+[ext_resource type="Script" path="res://base_scripts/cell.gd" id="1_71hwm"]
+[ext_resource type="Script" path="res://base_scripts/cell_graphics.gd" id="2_7aqwk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yvtbn"]
 bg_color = Color(0, 0.515347, 0.532578, 1)
@@ -17,7 +17,7 @@ offset_right = 75.0
 offset_bottom = 83.0
 focus_mode = 0
 button_mask = 3
-script = ExtResource("1_if0fg")
+script = ExtResource("1_71hwm")
 style_box = SubResource("StyleBoxFlat_yvtbn")
 
 [node name="cell_bg" type="TextureRect" parent="."]
@@ -28,7 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
-script = ExtResource("2_186xk")
+script = ExtResource("2_7aqwk")
 
 [node name="cell_graphics" type="TextureRect" parent="."]
 layout_mode = 1
@@ -40,7 +40,7 @@ grow_vertical = 2
 theme = SubResource("Theme_pbl76")
 texture = SubResource("ImageTexture_sglt0")
 expand_mode = 1
-script = ExtResource("2_186xk")
+script = ExtResource("2_7aqwk")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

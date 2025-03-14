@@ -6,7 +6,7 @@ var grid_cols: int
 var num_of_mines: int
 var board_mines = []
 var is_populated: bool = false
-var cell_scene: PackedScene = preload("res://cell.tscn")
+var cell_scene: PackedScene = preload("res://base_scripts/cell.tscn")
 var open_cells: int = 0
 var game_lost: bool = false
 var cell_size = 30

@@ -1,6 +1,6 @@
 extends Node
 var time = 0
-var board_scene: PackedScene = preload("res://GameBoard.tscn")
+var board_scene: PackedScene = preload("res://base_scripts/GameBoard.tscn")
 @onready var board_container = $Panel/Vboxcontainer/MarginContainer/BoardContainer
 var current_rows = 9
 var current_cols = 9
