@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1fsehcdbkfvq"]
+[gd_scene load_steps=3 format=3 uid="uid://d1fsehcdbkfvq"]
 
 [ext_resource type="Script" path="res://shop.gd" id="1_svw5n"]
 [ext_resource type="Texture2D" uid="uid://gj15bt1cmf24" path="res://art/skin_default/sair_loja.png" id="1_wy81u"]
-[ext_resource type="Texture2D" uid="uid://c6xk0g2yev0wt" path="res://art/blue_shop_background.png" id="2_u6ywt"]
 
 [node name="Shop" type="PanelContainer"]
 anchors_preset = 15
@@ -51,78 +50,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Mine1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Bg1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Flag1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Button1" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Mine2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Bg2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Flag2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Button2" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Mine3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Bg3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Flag3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
-
-[node name="Button3" type="TextureRect" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-texture = ExtResource("2_u6ywt")
-expand_mode = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
