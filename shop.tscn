@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1fsehcdbkfvq"]
+[gd_scene load_steps=5 format=3 uid="uid://d1fsehcdbkfvq"]
 
 [ext_resource type="Script" path="res://shop.gd" id="1_svw5n"]
 [ext_resource type="Texture2D" uid="uid://gj15bt1cmf24" path="res://art/skin_default/sair_loja.png" id="1_wy81u"]
+[ext_resource type="Resource" uid="uid://3abtodlfnnbx" path="res://inventory/shopinv.tres" id="2_gjnnx"]
+[ext_resource type="PackedScene" uid="uid://nio1n1g34wg5" path="res://inventory/shop_inv_slot.tscn" id="4_4k4d0"]
 
 [node name="Shop" type="PanelContainer"]
 anchors_preset = 15
@@ -10,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_svw5n")
+inv = ExtResource("2_gjnnx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -46,10 +49,46 @@ layout_mode = 2
 custom_minimum_size = Vector2(400, 300)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="ShopItemList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="shop_inv_slot" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot2" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot3" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot4" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot5" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot6" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot7" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot8" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot9" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot10" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot11" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
+
+[node name="shop_inv_slot12" parent="VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList" instance=ExtResource("4_4k4d0")]
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)

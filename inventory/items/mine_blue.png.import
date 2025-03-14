@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3e6k72kdja5y"
-path="res://.godot/imported/flag.png-c1248f1ca16b3e309d269ef634e05c67.ctex"
+uid="uid://owh64lrwgn7l"
+path="res://.godot/imported/mine_blue.png-3874263be84dc33094a44d33c6197490.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/skin_alt1/flag.png"
-dest_files=["res://.godot/imported/flag.png-c1248f1ca16b3e309d269ef634e05c67.ctex"]
+source_file="res://inventory/items/mine_blue.png"
+dest_files=["res://.godot/imported/mine_blue.png-3874263be84dc33094a44d33c6197490.ctex"]
 
 [params]
 
