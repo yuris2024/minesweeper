@@ -139,9 +139,9 @@ func _suggest_first_click():
 	# Sem isto, o primeiro clique muitas vezes é um game over automático.
 	if !is_populated:
 		return
-	var cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)))
+	var cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)-1))
 	while (cell.is_mine or cell.adjacent_mines != 0):
-		cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)))	
+		cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
 	var new_stylebox_normal = cell.style_box.duplicate(true)
 	new_stylebox_normal.set_border_width_all(2)
 	new_stylebox_normal.border_color = Color(0.26, 0.92, 0.93)
