@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c3e6k72kdja5y" path="res://inventory/items/flag_blue.png" id="1_kg4mo"]
 
 [node name="shop_inv_slot" type="ColorRect"]
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(300, 50)
 offset_right = 210.0
 offset_bottom = 59.0
 color = Color(0.14376, 0.457018, 0.556357, 1)
@@ -17,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Button" type="Button" parent="HBoxContainer"]
-custom_minimum_size = Vector2(180, 35)
+custom_minimum_size = Vector2(235, 35)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4

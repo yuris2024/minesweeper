@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://h2hbnnyptdo4"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_fipul"]
+[ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="2_mpfci"]
+
+[resource]
+script = ExtResource("1_fipul")
+name = "Bandeira Vermelha"
+texture = ExtResource("2_mpfci")
+price = 0
+unlock_level = 1
+type = "flag"

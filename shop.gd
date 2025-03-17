@@ -1,20 +1,27 @@
 extends PanelContainer
 
-var inv_size = 12
-
 @export var inv: Inv
+var invslot_scene: PackedScene = preload("res://inventory/shop_inv_slot.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	iterate()
 
-func iterate(): # Conecta o sinal que cada item da loja pode emitir (quando há
-	# tentativa de compra) à função que irá interagir com o inventário e o resto
-	# do jogo
+func iterate():
 	var inv_slot
-	for i in inv_size:
-		inv_slot = $VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(i-1)
+	for i in 4:
+		# we gotta instantiate one at a time, attach the resource, then connect 
+		# the signals
+		inv_slot = invslot_scene.instantiate()
+		
+		inv_slot.find_child("Label").text = "$" + str(inv.items[i].price)
+		inv_slot.find_child("Button").text = inv.items[i].name
+		inv_slot.find_child("Button").icon = inv.items[i].texture
+		# Conecta o sinal que cada item da loja pode emitir (quando há
+		# tentativa de compra) à função que irá interagir com o inventário e o resto
+		# do jogo
 		inv_slot.connect("item_bought",_on_item_bought)
+		$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.add_child(inv_slot)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
