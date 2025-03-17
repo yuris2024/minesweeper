@@ -9,11 +9,10 @@ func _ready() -> void:
 
 func iterate():
 	var inv_slot
-	for i in 4:
-		# we gotta instantiate one at a time, attach the resource, then connect 
-		# the signals
+	for i in inv.items.size():
+		if inv.items[i] == null:
+			continue
 		inv_slot = invslot_scene.instantiate()
-		
 		inv_slot.find_child("Label").text = "$" + str(inv.items[i].price)
 		inv_slot.find_child("Button").text = inv.items[i].name
 		inv_slot.find_child("Button").icon = inv.items[i].texture
