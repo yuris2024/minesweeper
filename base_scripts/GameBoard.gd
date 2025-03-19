@@ -10,7 +10,7 @@ var cell_scene: PackedScene = preload("res://base_scripts/cell.tscn")
 var open_cells: int = 0
 var game_lost: bool = false
 var cell_size = 30
-@onready var gridcontainer_path = $ColorRect/GridContainer
+# @onready var gridcontainer_path = $ColorRect/GridContainer
 
 signal flagged2
 signal board_clear
@@ -135,9 +135,9 @@ func _suggest_first_click():
 	# Sem isto, o primeiro clique muitas vezes é um game over automático.
 	if !is_populated:
 		return
-	var cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)-1))
+	var cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))
 	while (cell.is_mine or cell.adjacent_mines != 0):
-		cell = gridcontainer_path.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
+		cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
 	var new_stylebox_normal = cell.style_box.duplicate(true)
 	new_stylebox_normal.set_border_width_all(2)
 	new_stylebox_normal.border_color = Color(0.26, 0.92, 0.93)
@@ -160,6 +160,7 @@ func _on_reveal(is_mine):
 		board_clear.emit()
 		# Change so this pauses only the base game:
 		get_tree().paused = true
+		
 
 func _on_flagged(flag):
 	# Sinal emitido para o contador de bandeiras capturar.
