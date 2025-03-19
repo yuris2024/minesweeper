@@ -35,27 +35,31 @@ func _set_difficulty(diff):
 	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
 	# predefinido.
 	difficulty = diff
-	if diff == 1:
-		current_rows = 9
-		current_cols = 9
-		current_mines = 10
-	elif diff == 2:
-		current_rows = 16
-		current_cols = 16
-		current_mines = 40
-	elif diff == 3:
-		current_rows = 30
-		current_cols = 16
-		current_mines = 99
-	else:
-		print("Erro estabelecendo dificuldade")
+	match diff:
+		1:
+			current_rows = 9
+			current_cols = 9
+			current_mines = 10
+		2:
+			current_rows = 16
+			current_cols = 16
+			current_mines = 40
+		3:
+			current_rows = 30
+			current_cols = 16
+			current_mines = 99
+		_:
+			print("Erro estabelecendo dificuldade")
 
 func _on_new_game_button_pressed():
 	remove_old_board()
 	time = 0
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
+	
+	# gonna change this so it unpauses as soon as we click an "ok" or something:
 	get_tree().paused = false
+	
 	cells_to_flag = current_mines
 	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
 
