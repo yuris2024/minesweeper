@@ -12,6 +12,10 @@ var coins = 0
 var exp = 0
 var shop_open = false
 
+var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')
+var flag_texture: Texture2D = preload('res://art/skin_default/flag.png')
+var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_set_difficulty(1)
@@ -27,9 +31,19 @@ func _on_item_bought(price):
 	print("item bought game manager")
 	print("game manager" + str(price))
 	_add_coins(-1*price)
-	
+
+#func _set_graphics(item:InvItem):
+	#match item.type:
+		#'mine':
+			#mine_texture = item.texture
+		#'flag':
+			#flag_texture = item.texture
+		#'bg':
+			#bg_texture = item.texture
+
 #endregion
 
+#region: Board Control
 func _set_difficulty(diff):
 	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
 	# predefinido.
@@ -81,6 +95,9 @@ func request_new_board(rows, cols, mines):
 	new_board.connect("board_clear",_on_board_clear)
 	new_board._suggest_first_click()
 
+#endregion
+
+#region Counters
 func _on_timer_timeout():
 	_set_timer(time+1)
 
@@ -95,19 +112,6 @@ func _on_flagged2(flag):
 	cells_to_flag -= flag
 	if cells_to_flag >= 0:
 		_set_flagger(cells_to_flag)
-
-func _on_board_clear(game_lost):
-	if game_lost:
-		$BoardClearPopup.dialog_text = "Você perdeu"
-		print("Você perdeu")
-	else:
-		$BoardClearPopup.dialog_text = "Você ganhou"
-		print("Você ganhou")
-		#calculate coin value
-		var board_value = difficulty * 10
-		_add_coins(board_value)
-	get_tree().paused = true
-	$BoardClearPopup.visible = true
 
 func _add_coins(qty):
 	coins += qty
@@ -124,9 +128,26 @@ func format_counter(num):
 	else:
 		return str(num)
 
+#endregion
+
+func _on_board_clear(game_lost):
+	if game_lost:
+		$BoardClearPopup.dialog_text = "Você perdeu"
+		print("Você perdeu")
+	else:
+		$BoardClearPopup.dialog_text = "Você ganhou"
+		print("Você ganhou")
+		#calculate coin value
+		var board_value = difficulty * 10
+		_add_coins(board_value)
+	get_tree().paused = true
+	$BoardClearPopup.visible = true
+
+#region Windows
 func _on_shop_button_pressed() -> void:
 	$Shop.visible = true
 	shop_open = true
 
 func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
+#endregion
