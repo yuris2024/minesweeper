@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://nio1n1g34wg5"]
+[gd_scene load_steps=3 format=3 uid="uid://nio1n1g34wg5"]
 
 [ext_resource type="Texture2D" uid="uid://c3e6k72kdja5y" path="res://inventory/items/flag_blue.png" id="1_kg4mo"]
+[ext_resource type="Script" path="res://inventory/shop_inv_slot.gd" id="1_m2jmo"]
 
 [node name="shop_inv_slot" type="ColorRect"]
 custom_minimum_size = Vector2(300, 50)
 offset_right = 210.0
 offset_bottom = 59.0
 color = Color(0.14376, 0.457018, 0.556357, 1)
+script = ExtResource("1_m2jmo")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -33,3 +35,5 @@ size_flags_horizontal = 6
 text = "$300"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -5,7 +5,7 @@ var board_scene: PackedScene = preload("res://base_scripts/GameBoard.tscn")
 var current_rows = 9
 var current_cols = 9
 var current_mines = 10
-var difficulty
+var difficulty = 1
 var cells_flagged = 0
 var cells_to_flag
 var coins = 0
@@ -16,6 +16,20 @@ var shop_open = false
 func _ready():
 	_set_difficulty(1)
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
+	connect_shop()
+
+#region shop
+# connect to shop
+func connect_shop():
+	$Shop.connect("item_bought",_on_item_bought)
+	pass
+	
+func _on_item_bought(price):
+	print("item bought game manager")
+	print("game manager" + str(price))
+	_add_coins(-1*price)
+	
+#endregion
 
 func _set_difficulty(diff):
 	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
@@ -79,7 +93,13 @@ func _on_flagged2(flag):
 func _on_board_clear():
 	#calculate coin value
 	var board_value = difficulty * 10
-	coins += board_value
+	_add_coins(board_value)
+	
+	# BUG to fix: losing on the last cell makes it a simultaneous win and lose 
+	# that is also giving coins
+
+func _add_coins(qty):
+	coins += qty
 	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = str(coins)
 
 func format_counter(num):
@@ -89,7 +109,6 @@ func format_counter(num):
 		return "0" + str(num)
 	else:
 		return str(num)
-
 
 func _on_shop_button_pressed() -> void:
 	$Shop.visible = true
