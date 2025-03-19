@@ -2,6 +2,7 @@ extends PanelContainer
 
 @export var inv: Inv
 var invslot_scene: PackedScene = preload("res://inventory/shop_inv_slot.tscn")
+var invslot_array: Array[Node]
 
 signal item_bought
 
@@ -28,23 +29,25 @@ func _fill_item_list():
 func _on_item_bought(index):
 	# Esta função deve ser chamada apenas se o botão do item puder ser pressionado
 	# Caso o item não esteja disponível, o botão deve estar desabilitado.
-	# 
-	# Verificar se possui dinheiro suficiente.
-		# Se não, não fazer nada.
-		# Se sim:
-			
 	var price
 	price = inv.items[index].price
 	print(str(price))
 	if price > get_parent().coins:
 		print("not enough money")
 	else:
-		# ask for confirmation, maybe
-		# diminuir # de moedas
+		$ConfirmPurchase.dialog_text = "Comprar " + inv.items[index].name + " por $" + str(inv.items[index].price) + "?"
+		$ConfirmPurchase.visible = true
+		# diminuir # de moedas -> GameManager
 		# adicionar o item aos disponíveis
-		# desabilitar o botão na loja
-		# mudar os gráficos/texto na loja p/ mostrar que não está mais em estoque
-		item_bought.emit(price) # 
+		item_bought.emit(inv.items[index])
+		$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(index).find_child("Label").text = '-'
+		$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(index).find_child("Button").disabled = true
+		
+func _on_confirm_purchase_confirmed() -> void:
+	pass # Replace with function body.
+
+func _on_confirm_purchase_canceled() -> void:
+	pass # Replace with function body.
 
 func _on_exit_to_menu_pressed() -> void:
 	visible = false

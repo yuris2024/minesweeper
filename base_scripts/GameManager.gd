@@ -27,19 +27,20 @@ func _ready():
 func connect_shop():
 	$Shop.connect("item_bought",_on_item_bought)
 	
-func _on_item_bought(price):
+func _on_item_bought(item: InvItem):
 	print("item bought game manager")
+	var price = item.price
 	print("game manager" + str(price))
 	_add_coins(-1*price)
 
-#func _set_graphics(item:InvItem):
-	#match item.type:
-		#'mine':
-			#mine_texture = item.texture
-		#'flag':
-			#flag_texture = item.texture
-		#'bg':
-			#bg_texture = item.texture
+func _set_graphics(item:InvItem):
+	match item.type:
+		'mine':
+			mine_texture = item.texture
+		'flag':
+			flag_texture = item.texture
+		'bg':
+			bg_texture = item.texture
 
 #endregion
 
