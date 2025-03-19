@@ -50,8 +50,6 @@ func _set_difficulty(diff):
 		_:
 			print("Erro estabelecendo dificuldade")
 
-
-
 func _on_new_game_button_pressed():
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
@@ -113,7 +111,10 @@ func _on_board_clear(game_lost):
 
 func _add_coins(qty):
 	coins += qty
-	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = str(coins)
+	_format_coins(coins)
+
+func _format_coins(qty):
+	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = '$' + str(qty)
 
 func format_counter(num):
 	if num < 10:
