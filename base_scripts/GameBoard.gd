@@ -140,6 +140,7 @@ func _suggest_first_click():
 	new_stylebox_normal.set_border_width_all(2)
 	new_stylebox_normal.border_color = Color(0.26, 0.92, 0.93)
 	cell.add_theme_stylebox_override("normal", new_stylebox_normal)
+	cell.firstclick = true
 
 #region: Game Control functions
 

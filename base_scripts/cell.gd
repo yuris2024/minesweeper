@@ -9,6 +9,7 @@ var skin_mine = "default"
 var skin_flag = "default"
 var skin_qmark = "default"
 var cell_position: Vector2
+var firstclick: bool = false
 @export var style_box: StyleBoxFlat
 #CHANGE GRAPHICS TO THIS STYLE BOX!
 
@@ -46,6 +47,8 @@ func _reveal():
 		$Label.show()
 		if adjacent_mines == 0: 
 			attempt_quick_reveal.emit(self)
+	if firstclick:
+		style_box.set_border_width_all(0)
 		# É a célula quem informa que foi clicada e o jogo está perdido.
 #		if is_mine and !get_parent().get_parent().get_parent().game_lost:
 #			gameover.emit()
