@@ -91,7 +91,6 @@ func _count_adjacent_mines(cell):
 	if cell.is_mine: count -= 1
 	return count
 
-
 func set_qk_reveal_and_mines():
 	for i in (grid_cols * grid_rows):
 		var cell = $ColorRect/GridContainer.get_child(i-1)
@@ -104,7 +103,6 @@ func set_qk_reveal_and_mines():
 				cell.connect("attempt_quick_reveal",_reveal_adjacent)
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
-
 
 func _quick_reveal(cell):
 # Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
@@ -152,15 +150,10 @@ func _on_reveal(is_mine):
 		game_lost = true
 		for i in board_mines:
 			$ColorRect/GridContainer.get_child(i-1)._reveal()
-		print("Você perdeu")
-		get_tree().paused = true
-		
+		board_clear.emit(true)
+	
 	elif open_cells == (grid_rows * grid_cols - num_of_mines) and !game_lost:
-		print("Você ganhou")
-		board_clear.emit()
-		# Change so this pauses only the base game:
-		get_tree().paused = true
-		
+		board_clear.emit(false)
 
 func _on_flagged(flag):
 	# Sinal emitido para o contador de bandeiras capturar.

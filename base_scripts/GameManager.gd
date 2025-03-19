@@ -22,7 +22,6 @@ func _ready():
 # connect to shop
 func connect_shop():
 	$Shop.connect("item_bought",_on_item_bought)
-	pass
 	
 func _on_item_bought(price):
 	print("item bought game manager")
@@ -51,12 +50,12 @@ func _set_difficulty(diff):
 		_:
 			print("Erro estabelecendo dificuldade")
 
+
+
 func _on_new_game_button_pressed():
-	remove_old_board()
-	time = 0
+	
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
-	
 	# gonna change this so it unpauses as soon as we click an "ok" or something:
 	get_tree().paused = false
 	
@@ -71,6 +70,8 @@ func remove_old_board():
 			continue
 		i.queue_free()
 		board_container.remove_child(i)
+	cells_to_flag = 0
+	time = 0
 
 func request_new_board(rows, cols, mines):
 	# Cria um novo quadro.
@@ -94,13 +95,15 @@ func _on_flagged2(flag):
 	if cells_to_flag >= 0:
 		$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
 
-func _on_board_clear():
-	#calculate coin value
-	var board_value = difficulty * 10
-	_add_coins(board_value)
-	
-	# BUG to fix: losing on the last cell makes it a simultaneous win and lose 
-	# that is also giving coins
+func _on_board_clear(game_lost):
+	if game_lost:
+		print("Você perdeu")
+	else:
+		print("Você ganhou")
+		#calculate coin value
+		var board_value = difficulty * 10
+		_add_coins(board_value)	
+	get_tree().paused = true
 
 func _add_coins(qty):
 	coins += qty
