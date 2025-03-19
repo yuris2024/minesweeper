@@ -73,8 +73,8 @@ func _set_cell_numbers():
 			cell.load_number(_count_adjacent_mines(cell))
 
 func _count_adjacent_mines(cell):
-	# Conta quantas minas há em torno da célula. 
-	# O argumento deve ser o Node célula de verdade, não o índice dela.
+	#     Conta quantas minas há em torno da célula. 
+	# O argumento deve ser o Node da célula de verdade, não o índice dela.
 	var count = 0
 	var pos = cell.cell_position
 	
@@ -96,19 +96,15 @@ func set_qk_reveal_and_mines():
 	for i in (grid_cols * grid_rows):
 		var cell = $ColorRect/GridContainer.get_child(i-1)
 		cell.connect("flagged",_on_flagged)
+		cell.connect("reveal",_on_reveal)
 		if !cell.is_mine:
 			if !cell.adjacent_mines:
-			# Blank cells have all safe adjacent cells, so let's go ahead and 
-			# reveal them for the player.
+			# Todas as células adjacentes de Células sem número são seguras,
+			# então nós podemos revelá-las para o jogador.
 				cell.connect("attempt_quick_reveal",_reveal_adjacent)
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
-		else:
-			cell.connect("gameover",_on_gameover)
 
-func _on_flagged(flag):
-	# Sinal emitido para o contador de bandeiras capturar.
-	flagged2.emit(int(flag))
 
 func _quick_reveal(cell):
 # Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
@@ -149,19 +145,25 @@ func _suggest_first_click():
 
 #region: Game Control functions
 
-func _on_gameover(): # Triggered when player reveals a mine cell.
-	game_lost = true
-	for i in board_mines:
-		$ColorRect/GridContainer.get_child(i-1)._reveal()
-	print("You lose")
-	get_tree().paused = true
-
-func _monitor_win_condition(): # Checks on every reveal.
+func _on_reveal(is_mine):
+	# Checa, a cada célula revelada, se é hora de finalizar o quadro.
 	open_cells += 1
-	if open_cells == (grid_rows * grid_cols - num_of_mines) and !game_lost:
-		print("You win")
-		board_clear.emit()
+	if is_mine and !game_lost:
+		game_lost = true
+		for i in board_mines:
+			$ColorRect/GridContainer.get_child(i-1)._reveal()
+		print("Você perdeu")
 		get_tree().paused = true
+		
+	elif open_cells == (grid_rows * grid_cols - num_of_mines) and !game_lost:
+		print("Você ganhou")
+		board_clear.emit()
+		# Change so this pauses only the base game:
+		get_tree().paused = true
+
+func _on_flagged(flag):
+	# Sinal emitido para o contador de bandeiras capturar.
+	flagged2.emit(int(flag))
 	
 func _reset_game():
 	#change to grid rows, cols and mines, like variables not constants pls

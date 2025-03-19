@@ -15,6 +15,7 @@ var cell_position: Vector2
 signal gameover
 signal attempt_quick_reveal
 signal flagged
+signal reveal
 
 func _ready():
 	add_theme_stylebox_override("normal",style_box)
@@ -37,8 +38,8 @@ func load_number(num):
 func _reveal():
 	# Revela a célula e, caso aplicável, as adjacentes.
 	if !is_flagged and !is_open:
-		#CHANGE THIS TO A SIGNAL v
-		get_parent().get_parent().get_parent()._monitor_win_condition()
+		reveal.emit(is_mine)
+		# get_parent().get_parent().get_parent()._monitor_win_condition()
 		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()
@@ -46,8 +47,8 @@ func _reveal():
 		if adjacent_mines == 0: 
 			attempt_quick_reveal.emit(self)
 		# É a célula quem informa que foi clicada e o jogo está perdido.
-		if is_mine and !get_parent().get_parent().get_parent().game_lost:
-			gameover.emit()
+#		if is_mine and !get_parent().get_parent().get_parent().game_lost:
+#			gameover.emit()
 
 func _gui_input(event: InputEvent):
 	#    Administra o clique normal (revelar) ou com o botão direito (marcação
