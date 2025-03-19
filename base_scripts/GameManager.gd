@@ -53,7 +53,6 @@ func _set_difficulty(diff):
 
 
 func _on_new_game_button_pressed():
-	
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
 	# gonna change this so it unpauses as soon as we click an "ok" or something:
@@ -70,8 +69,10 @@ func remove_old_board():
 			continue
 		i.queue_free()
 		board_container.remove_child(i)
-	cells_to_flag = 0
-	time = 0
+	_set_flagger(0)
+	$Timer.stop()
+	_set_timer(0)
+	get_tree().paused = false
 
 func request_new_board(rows, cols, mines):
 	# Cria um novo quadro.
@@ -82,28 +83,33 @@ func request_new_board(rows, cols, mines):
 	new_board.connect("board_clear",_on_board_clear)
 	new_board._suggest_first_click()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_timer_timeout():
-	time += 1
-	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/TimeCounter.text = format_counter(time)
+	_set_timer(time+1)
+
+func _set_timer(time_local):
+	time = time_local
+	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/TimeCounter.text = format_counter(time_local)
+
+func _set_flagger(flag):
+	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(flag)
 
 func _on_flagged2(flag):
 	cells_to_flag -= flag
 	if cells_to_flag >= 0:
-		$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
+		_set_flagger(cells_to_flag)
 
 func _on_board_clear(game_lost):
 	if game_lost:
+		$BoardClearPopup.dialog_text = "Você perdeu"
 		print("Você perdeu")
 	else:
+		$BoardClearPopup.dialog_text = "Você ganhou"
 		print("Você ganhou")
 		#calculate coin value
 		var board_value = difficulty * 10
-		_add_coins(board_value)	
+		_add_coins(board_value)
 	get_tree().paused = true
+	$BoardClearPopup.visible = true
 
 func _add_coins(qty):
 	coins += qty
@@ -120,3 +126,6 @@ func format_counter(num):
 func _on_shop_button_pressed() -> void:
 	$Shop.visible = true
 	shop_open = true
+
+func _on_board_clear_popup_confirmed() -> void:
+	remove_old_board()

@@ -29,6 +29,12 @@ font_names = PackedStringArray("Monospace")
 [node name="GameManager" type="Node"]
 script = ExtResource("1_j4cq2")
 
+[node name="BoardClearPopup" type="AcceptDialog" parent="."]
+process_mode = 3
+title = ""
+initial_position = 1
+size = Vector2i(116, 80)
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Panel" type="Panel" parent="."]
@@ -174,6 +180,7 @@ offset_top = -254.0
 offset_right = 202.0
 offset_bottom = 254.0
 
+[connection signal="confirmed" from="BoardClearPopup" to="." method="_on_board_clear_popup_confirmed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
