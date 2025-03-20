@@ -3,6 +3,7 @@ extends PanelContainer
 @export var inv: Inv
 var invslot_scene: PackedScene = preload("res://inventory/shop_inv_slot.tscn")
 var invslot_array: Array[Node]
+var purchase_attempt
 
 signal item_bought
 
@@ -35,16 +36,20 @@ func _on_item_bought(index):
 	if price > get_parent().coins:
 		print("not enough money")
 	else:
-		$ConfirmPurchase.dialog_text = "Comprar " + inv.items[index].name + " por $" + str(inv.items[index].price) + "?"
-		$ConfirmPurchase.visible = true
+		var confirm_window = load('res://inventory/confirm_purchase.tscn').instantiate()
+		add_child(confirm_window)
+		confirm_window.connect("confirmed()",_on_confirm_purchase_confirmed)
+		confirm_window.connect("canceled()",_on_confirm_purchase_canceled)
+		confirm_window._set_item(inv.items[index])
+		confirm_window.visible = true
+		purchase_attempt = index
 		# diminuir # de moedas -> GameManager
 		# adicionar o item aos disponíveis
-		item_bought.emit(inv.items[index])
-		$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(index).find_child("Label").text = '-'
-		$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(index).find_child("Button").disabled = true
 		
 func _on_confirm_purchase_confirmed() -> void:
-	pass # Replace with function body.
+	item_bought.emit(inv.items[purchase_attempt])
+	$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(purchase_attempt).find_child("Label").text = '-'
+	$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(purchase_attempt).find_child("Button").disabled = true
 
 func _on_confirm_purchase_canceled() -> void:
 	pass # Replace with function body.
