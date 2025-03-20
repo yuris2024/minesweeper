@@ -58,9 +58,8 @@ func _on_confirm_purchase_confirmed() -> void:
 
 func _add_to_inventory(item):
 	var inv_slot = invslot_scene.instantiate()
-	inv_slot.find_child("Label").text = ""
-	inv_slot.find_child("Button").text = item.name
-	inv_slot.find_child("Button").icon = item.texture
+	inv_slot.item = item
+	inv_slot.set_appearance()
 	items_in_inventory += 1
 	inv_slot.index = items_in_inventory -1
 	invslot_array.append(item)
