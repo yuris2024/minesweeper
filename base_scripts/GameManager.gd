@@ -26,12 +26,17 @@ func _ready():
 # connect to shop
 func connect_shop():
 	$Shop.connect("item_bought",_on_item_bought)
+	$Shop.connect("item_used",_on_item_used)
 	
 func _on_item_bought(item: InvItem):
 	print("item bought game manager")
 	var price = item.price
 	print("game manager" + str(price))
 	_add_coins(-1*price)
+	
+func _on_item_used(item: InvItem):
+	print("item used")
+	_set_graphics(item)
 
 func _set_graphics(item:InvItem):
 	match item.type:
