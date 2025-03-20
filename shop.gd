@@ -35,9 +35,8 @@ func _on_item_bought(index):
 	# Caso o item não esteja disponível, o botão deve estar desabilitado.
 	var price
 	price = inv.items[index].price
-	print(str(price))
 	if price > get_parent().coins:
-		print("not enough money")
+		pass
 		# play a sound here
 	else:
 		purchase_attempt = index

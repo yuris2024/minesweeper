@@ -30,13 +30,10 @@ func connect_shop():
 	$Shop.connect("item_used",_on_item_used)
 	
 func _on_item_bought(item: InvItem):
-	print("item bought game manager")
 	var price = item.price
-	print("game manager" + str(price))
 	_add_coins(-1*price)
 	
 func _on_item_used(item: InvItem):
-	print("item used:" + item.name)
 	_set_graphics(item)
 
 func _set_graphics(item:InvItem):
@@ -140,10 +137,8 @@ func format_counter(num):
 func _on_board_clear(game_lost):
 	if game_lost:
 		$BoardClearPopup.dialog_text = "Você perdeu"
-		print("Você perdeu")
 	else:
 		$BoardClearPopup.dialog_text = "Você ganhou"
-		print("Você ganhou")
 		#calculate coin value
 		var board_value = difficulty * 10
 		_add_coins(board_value)
