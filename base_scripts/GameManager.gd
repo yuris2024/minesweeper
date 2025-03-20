@@ -117,12 +117,16 @@ func _on_flagged2(flag):
 	if cells_to_flag >= 0:
 		_set_flagger(cells_to_flag)
 
-func _add_coins(qty):
-	coins += qty
-	_format_coins(coins)
+func _set_coins(qty):
+	coins = qty
+	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = _format_coins(coins)
+	$Shop/VBoxContainer/Header/Label.text = _format_coins(coins)
 
-func _format_coins(qty):
-	$Panel/Vboxcontainer/Header/ShopButton/CoinCounter.text = '$' + str(qty)
+func _add_coins(qty):
+	_set_coins(coins + qty)
+
+func _format_coins(qty) -> String:
+	return '$' + str(qty)
 
 func format_counter(num):
 	if num < 10:
