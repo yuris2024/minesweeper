@@ -7,6 +7,9 @@ var is_flagged: int = 0
 var cell_position: Vector2
 var firstclick: bool = false
 @export var style_box: StyleBoxFlat
+var bg_tx = load("res://art/skin_default/cell_bg.png")
+var mine_tx = load("res://art/skin_default/mine_default.png")
+var flag_tx = load("res://art/skin_default/flag.png")
 #CHANGE GRAPHICS TO THIS STYLE BOX!
 
 signal gameover
@@ -17,12 +20,12 @@ signal reveal
 func _ready():
 	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
-	$cell_bg.texture = load("res://art/skin_default/cell_bg.png")
+	$cell_bg.texture = bg_tx
 
 func load_mine():
 	# Torna célula uma mina.
 	is_mine = true
-	$cell_graphics.texture = load("res://art/skin_default/mine_default.png")
+	$cell_graphics.texture = mine_tx
 
 func load_number(num):
 	# Torna célula numérica.
@@ -44,9 +47,6 @@ func _reveal():
 			attempt_quick_reveal.emit(self)
 	if firstclick:
 		style_box.set_border_width_all(0)
-		# É a célula quem informa que foi clicada e o jogo está perdido.
-#		if is_mine and !get_parent().get_parent().get_parent().game_lost:
-#			gameover.emit()
 
 func _gui_input(event: InputEvent):
 	#    Administra o clique normal (revelar) ou com o botão direito (marcação
@@ -69,7 +69,7 @@ func _gui_input(event: InputEvent):
 	elif event.button_index == 2:
 		# Primeiro clique direito: coloca bandeira
 		if !is_flagged and !is_open:
-			icon = load("res://art/skin_default/flag.png")
+			icon = flag_tx
 			is_flagged = 1
 			flagged.emit(1)
 		

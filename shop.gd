@@ -2,7 +2,7 @@ extends PanelContainer
 
 @export var inv: Inv
 var invslot_scene: PackedScene = preload("res://inventory/shop_inv_slot.tscn")
-var invslot_array: Array[Node]
+var invslot_array: Array[InvItem]
 var purchase_attempt
 var items_in_inventory = 0
 
@@ -61,8 +61,9 @@ func _add_to_inventory(item):
 	inv_slot.find_child("Label").text = ""
 	inv_slot.find_child("Button").text = item.name
 	inv_slot.find_child("Button").icon = item.texture
-	inv_slot.index = items_in_inventory
 	items_in_inventory += 1
+	inv_slot.index = items_in_inventory -1
+	invslot_array.append(item)
 	inv_slot.item_function = 'inventory'
 	inv_slot.connect("item_used",_on_item_used)
 	$VBoxContainer/HBoxContainer/InventoryContainer/InventoryList.add_child(inv_slot)
@@ -70,7 +71,7 @@ func _add_to_inventory(item):
 func _on_item_used(index):
 	var inv_slot = $VBoxContainer/HBoxContainer/InventoryContainer/InventoryList
 	inv_slot.get_child(index).find_child("Label").text = "Em uso"
-	item_used.emit(inv.items[index])
+	item_used.emit(invslot_array[index])
 
 func _on_confirm_purchase_canceled() -> void:
 	pass # Replace with function body.

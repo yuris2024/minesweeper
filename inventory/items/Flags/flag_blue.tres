@@ -7,6 +7,6 @@
 script = ExtResource("1_iiyny")
 name = "Bandeira Azul"
 texture = ExtResource("2_bxpy6")
-price = 300
+price = 10
 unlock_level = 2
 type = "flag"

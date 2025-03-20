@@ -19,6 +19,7 @@ var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_set_difficulty(1)
+	_add_coins(500)
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
 
@@ -35,7 +36,7 @@ func _on_item_bought(item: InvItem):
 	_add_coins(-1*price)
 	
 func _on_item_used(item: InvItem):
-	print("item used")
+	print("item used:" + item.name)
 	_set_graphics(item)
 
 func _set_graphics(item:InvItem):
@@ -95,7 +96,7 @@ func remove_old_board():
 func request_new_board(rows, cols, mines):
 	# Cria um novo quadro.
 	var new_board = board_scene.instantiate()
-	new_board.load_new_board(rows,cols,mines)
+	new_board.load_new_board(rows,cols,mines,bg_texture,flag_texture,mine_texture)
 	board_container.add_child(new_board)
 	new_board.connect("flagged2",_on_flagged2)
 	new_board.connect("board_clear",_on_board_clear)

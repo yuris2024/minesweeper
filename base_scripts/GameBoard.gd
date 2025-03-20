@@ -19,7 +19,7 @@ signal board_clear
 func _ready():
 	pass
 
-func load_new_board(rows,cols,mines):
+func load_new_board(rows,cols,mines,bg,flag,mine):
 	var cells = $ColorRect/GridContainer.get_children()
 	for i in cells:
 		i.queue_free()
@@ -33,7 +33,7 @@ func load_new_board(rows,cols,mines):
 	is_populated = false
 	open_cells = 0
 	game_lost = false
-	_populate_board(num_of_mines)
+	_populate_board(num_of_mines,bg,flag,mine)
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
 	#get_tree().paused = false
@@ -48,7 +48,7 @@ func _generate_mine_list(mines):
 		board_mines.append(mine_position)
 	return board_mines
 
-func _populate_board(mines):
+func _populate_board(mines,bg,flag,mine):
 	# Coloca as minas na posição apropriada de acordo com a lista gerada.
 	var mine_cells = _generate_mine_list(mines)
 	var count = 0
@@ -59,6 +59,9 @@ func _populate_board(mines):
 			cell.custom_minimum_size = Vector2(cell_size, cell_size)
 			cell.cell_position.x = row
 			cell.cell_position.y = col
+			cell.flag_tx = flag
+			cell.mine_tx = mine
+			cell.bg_tx = bg
 			if count in mine_cells:
 				cell.load_mine()
 			$ColorRect/GridContainer.add_child(cell)
@@ -160,9 +163,9 @@ func _on_flagged(flag):
 	# Sinal emitido para o contador de bandeiras capturar.
 	flagged2.emit(int(flag))
 	
-func _reset_game():
+#func _reset_game():
 	#change to grid rows, cols and mines, like variables not constants pls
-	load_new_board(10,10,10)
+	#load_new_board(10,10,10)
 #endregion
 
 #region: Auxiliary functions
