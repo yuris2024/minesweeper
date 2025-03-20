@@ -4,10 +4,6 @@ var adjacent_mines: int = 0
 var is_mine: bool = false
 var is_open: bool = false
 var is_flagged: int = 0
-var skin_bg = "default"
-var skin_mine = "default"
-var skin_flag = "default"
-var skin_qmark = "default"
 var cell_position: Vector2
 var firstclick: bool = false
 @export var style_box: StyleBoxFlat
@@ -21,17 +17,16 @@ signal reveal
 func _ready():
 	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
-	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
+	$cell_bg.texture = load("res://art/skin_default/cell_bg.png")
 
 func load_mine():
 	# Torna célula uma mina.
 	is_mine = true
-	$cell_graphics.texture = load("res://art/skin_" + str(skin_mine) + "/mine_default.png")
+	$cell_graphics.texture = load("res://art/skin_default/mine_default.png")
 
 func load_number(num):
 	# Torna célula numérica.
 	adjacent_mines = num
-	$cell_bg.texture = load("res://art/skin_" + str(skin_bg) + "/cell_bg.png")
 	if adjacent_mines != 0 and !is_mine:
 		$Label.hide()
 		$Label.text = str(adjacent_mines)
@@ -74,13 +69,13 @@ func _gui_input(event: InputEvent):
 	elif event.button_index == 2:
 		# Primeiro clique direito: coloca bandeira
 		if !is_flagged and !is_open:
-			icon = load("res://art/skin_" + str(skin_flag) + "/flag.png")
+			icon = load("res://art/skin_default/flag.png")
 			is_flagged = 1
 			flagged.emit(1)
 		
 		# Segundo clique direito: coloca interrogação
 		elif is_flagged == 1 and !is_open:
-			icon = load("res://art/skin_" + str(skin_qmark) + "/qmark.png")
+			icon = load("res://art/skin_default/qmark.png")
 			is_flagged = 2
 			flagged.emit(-1)
 		
