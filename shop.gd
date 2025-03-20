@@ -68,8 +68,11 @@ func _add_to_inventory(item):
 	$VBoxContainer/HBoxContainer/InventoryContainer/InventoryList.add_child(inv_slot)
 
 func _on_item_used(index):
-	var inv_slot = $VBoxContainer/HBoxContainer/InventoryContainer/InventoryList
-	inv_slot.get_child(index).find_child("Label").text = "Em uso"
+	var inv_list = $VBoxContainer/HBoxContainer/InventoryContainer/InventoryList
+	inv_list.get_child(index).find_child("Label").text = "Em uso"
+	for i in $VBoxContainer/HBoxContainer/InventoryContainer/InventoryList.get_children():
+		if i.item.type == inv_list.get_child(index).item.type and i.item.name != inv_list.get_child(index).item.name:
+			i.find_child("Label").text = ""
 	item_used.emit(invslot_array[index])
 
 func _on_confirm_purchase_canceled() -> void:
