@@ -36,13 +36,13 @@ func _on_item_bought(index):
 	if price > get_parent().coins:
 		print("not enough money")
 	else:
+		purchase_attempt = index
 		var confirm_window = load('res://inventory/confirm_purchase.tscn').instantiate()
 		add_child(confirm_window)
-		confirm_window.connect("confirmed()",_on_confirm_purchase_confirmed)
-		confirm_window.connect("canceled()",_on_confirm_purchase_canceled)
+		confirm_window.connect("confirmed",_on_confirm_purchase_confirmed)
+		confirm_window.connect("canceled",_on_confirm_purchase_canceled)
 		confirm_window._set_item(inv.items[index])
 		confirm_window.visible = true
-		purchase_attempt = index
 		# diminuir # de moedas -> GameManager
 		# adicionar o item aos disponíveis
 		
@@ -50,6 +50,15 @@ func _on_confirm_purchase_confirmed() -> void:
 	item_bought.emit(inv.items[purchase_attempt])
 	$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(purchase_attempt).find_child("Label").text = '-'
 	$VBoxContainer/HBoxContainer/ScrollContainer/ShopItemList.get_child(purchase_attempt).find_child("Button").disabled = true
+	_add_to_inventory(inv.items[purchase_attempt])
+
+func _add_to_inventory(item):
+	var inv_slot = invslot_scene.instantiate()
+	inv_slot.find_child("Label").text = ""
+	inv_slot.find_child("Button").text = item.name
+	inv_slot.find_child("Button").icon = item.texture
+	inv_slot.index = purchase_attempt
+	$VBoxContainer/HBoxContainer/InventoryContainer/InventoryList.add_child(inv_slot)
 
 func _on_confirm_purchase_canceled() -> void:
 	pass # Replace with function body.
