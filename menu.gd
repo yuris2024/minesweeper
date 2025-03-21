@@ -8,3 +8,7 @@ func _on_continua_pressed() -> void:
 	# read saved data...
 	# feed to gamemanager...
 	get_tree().change_scene_to_file('res://base_scripts/GameManager.tscn')
+
+
+func _on_como_jogar_pressed() -> void:
+	get_tree().change_scene_to_file('res://HowToPlay.tscn')
