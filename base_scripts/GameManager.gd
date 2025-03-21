@@ -10,7 +10,7 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var experience = 0
-var shop_open = false
+#var shop_open = false
 
 var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')
 var flag_texture: Texture2D = preload('res://art/skin_default/flag.png')
@@ -46,8 +46,6 @@ func _set_graphics(item:InvItem):
 		'bg':
 			bg_texture = item.texture
 			style_box = item.style_box
-			
-
 #endregion
 
 #region: Board Control
@@ -155,7 +153,7 @@ func _on_board_clear(game_lost):
 #region Windows
 func _on_shop_button_pressed() -> void:
 	$Shop.visible = true
-	shop_open = true
+	#shop_open = true
 
 func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
