@@ -156,4 +156,8 @@ func _on_shop_button_pressed() -> void:
 
 func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
+
+func _on_exit_to_menu_pressed() -> void:
+	get_tree().change_scene_to_file('res://menu.tscn')
+	
 #endregion

@@ -182,6 +182,7 @@ offset_bottom = 254.0
 
 [connection signal="confirmed" from="BoardClearPopup" to="." method="_on_board_clear_popup_confirmed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Panel/Vboxcontainer/Header/ExitToMenu" to="." method="_on_exit_to_menu_pressed"]
 [connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
 [connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]
