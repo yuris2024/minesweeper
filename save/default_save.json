@@ -1,0 +1,23 @@
+{
+	"coins": 0,
+	"experience": 0,
+	"records": [
+		{
+			"beginner": 999,
+			"intermediate": 999,
+			"advanced": 999 
+		}
+	],
+	"inventory": [
+		{
+		
+		},
+	],
+	"customization": [
+		{
+			"bg": "bg_grey",
+			"mine": "mine_red",
+			"flag": "flag_red"
+		}
+	]
+}
