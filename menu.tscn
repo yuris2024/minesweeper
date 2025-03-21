@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3 uid="uid://u3igvhig0mkp"]
+
+[ext_resource type="Texture2D" uid="uid://bjapv8uvtl3ed" path="res://art/buttons/titulo.png" id="1_xu8ja"]
+[ext_resource type="Texture2D" uid="uid://c8fn7autj3nbl" path="res://art/buttons/novojogo.png" id="2_vix83"]
+[ext_resource type="Texture2D" uid="uid://dtksmfo8x2ww6" path="res://art/buttons/continua.png" id="3_ml2v1"]
+[ext_resource type="Texture2D" uid="uid://x051g1cr58iw" path="res://art/buttons/recordes.png" id="4_gtl4v"]
+[ext_resource type="Texture2D" uid="uid://1folpbrl0dgs" path="res://art/buttons/sobre.png" id="5_4yjw0"]
+[ext_resource type="Texture2D" uid="uid://bbdtkgneirw7l" path="res://art/buttons/comojogar.png" id="6_fdtkv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qddfx"]
+bg_color = Color(0.357847, 0.36084, 0.437409, 1)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qddfx")
+
+[node name="MarginCt" type="MarginContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VSplit" type="VSplitContainer" parent="Panel/MarginCt"]
+layout_mode = 2
+
+[node name="Container" type="MarginContainer" parent="Panel/MarginCt/VSplit"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 2.04
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginCt/VSplit/Container"]
+layout_mode = 2
+texture = ExtResource("1_xu8ja")
+
+[node name="VCont" type="VBoxContainer" parent="Panel/MarginCt/VSplit"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.27
+
+[node name="HCont" type="HBoxContainer" parent="Panel/MarginCt/VSplit/VCont"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NovoJogo" type="TextureButton" parent="Panel/MarginCt/VSplit/VCont/HCont"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_vix83")
+
+[node name="Continua" type="TextureButton" parent="Panel/MarginCt/VSplit/VCont/HCont"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("3_ml2v1")
+
+[node name="Recordes" type="TextureButton" parent="Panel/MarginCt/VSplit/VCont/HCont"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("4_gtl4v")
+
+[node name="HCont2" type="HBoxContainer" parent="Panel/MarginCt/VSplit/VCont"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginCt/VSplit/VCont/HCont2"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="Sobre" type="TextureButton" parent="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_4yjw0")
+
+[node name="CenterContainer2" type="CenterContainer" parent="Panel/MarginCt/VSplit/VCont/HCont2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="ComoJogar" type="TextureButton" parent="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("6_fdtkv")
