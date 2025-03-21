@@ -9,7 +9,7 @@ var difficulty = 1
 var cells_flagged = 0
 var cells_to_flag
 var coins = 0
-var exp = 0
+var experience = 0
 var shop_open = false
 
 var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')

@@ -11,7 +11,6 @@ var bg_tx = load("res://art/skin_default/cell_bg.png")
 var mine_tx = load("res://art/skin_default/mine_default.png")
 var flag_tx = load("res://art/skin_default/flag.png")
 
-signal gameover
 signal attempt_quick_reveal
 signal flagged
 signal reveal

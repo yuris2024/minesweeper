@@ -15,10 +15,6 @@ var cell_size = 30
 signal flagged2
 signal board_clear
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
 func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
 	var cells = $ColorRect/GridContainer.get_children()
 	for i in cells:
