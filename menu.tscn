@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://u3igvhig0mkp"]
+[gd_scene load_steps=10 format=3 uid="uid://u3igvhig0mkp"]
 
+[ext_resource type="Script" path="res://about_panel.gd" id="1_cfu7m"]
 [ext_resource type="Texture2D" uid="uid://bjapv8uvtl3ed" path="res://art/buttons/titulo.png" id="1_xu8ja"]
 [ext_resource type="Texture2D" uid="uid://c8fn7autj3nbl" path="res://art/buttons/novojogo.png" id="2_vix83"]
+[ext_resource type="Script" path="res://records_panel.gd" id="2_xikgn"]
 [ext_resource type="Texture2D" uid="uid://dtksmfo8x2ww6" path="res://art/buttons/continua.png" id="3_ml2v1"]
 [ext_resource type="Texture2D" uid="uid://x051g1cr58iw" path="res://art/buttons/recordes.png" id="4_gtl4v"]
 [ext_resource type="Texture2D" uid="uid://1folpbrl0dgs" path="res://art/buttons/sobre.png" id="5_4yjw0"]
@@ -19,6 +21,40 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="AboutPanel" type="PopupPanel" parent="."]
+initial_position = 1
+size = Vector2i(250, 187)
+script = ExtResource("1_cfu7m")
+
+[node name="Label" type="Label" parent="AboutPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "2025 - Yuri Machado.
+
+Jogo criado como Trabalho de Conclusão de Curso de Engenharia de Software, Unicesumar."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RecordsPanel" type="PopupPanel" parent="."]
+initial_position = 1
+script = ExtResource("2_xikgn")
+
+[node name="Label" type="RichTextLabel" parent="RecordsPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+bbcode_enabled = true
+text = "gffdgfdg[b]dsfsf[/b]"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -109,3 +145,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_fdtkv")
+
+[connection signal="close_requested" from="AboutPanel" to="AboutPanel" method="_on_close_requested"]
+[connection signal="close_requested" from="RecordsPanel" to="RecordsPanel" method="_on_close_requested"]
+[connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Recordes" to="RecordsPanel" method="_on_recordes_pressed"]
+[connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer/Sobre" to="AboutPanel" method="_on_sobre_pressed"]
