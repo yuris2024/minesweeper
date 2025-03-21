@@ -66,9 +66,12 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qddfx")
 
 [node name="MarginCt" type="MarginContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(641, 666)
 theme_override_constants/margin_left = 120
 theme_override_constants/margin_top = 50
@@ -76,7 +79,9 @@ theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 50
 
 [node name="VSplit" type="VSplitContainer" parent="Panel/MarginCt"]
+custom_minimum_size = Vector2(912, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Container" type="MarginContainer" parent="Panel/MarginCt/VSplit"]
 custom_minimum_size = Vector2(0, 200)
@@ -88,7 +93,9 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 20
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginCt/VSplit/Container"]
+custom_minimum_size = Vector2(912, 208)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
 texture = ExtResource("1_xu8ja")
 
