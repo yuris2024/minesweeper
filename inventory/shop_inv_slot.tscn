@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://nio1n1g34wg5"]
 
-[ext_resource type="Texture2D" uid="uid://c3e6k72kdja5y" path="res://inventory/items/flag_blue.png" id="1_kg4mo"]
+[ext_resource type="Texture2D" uid="uid://c3e6k72kdja5y" path="res://inventory/items/Flags/flag_blue.png" id="1_kg4mo"]
 [ext_resource type="Script" path="res://inventory/shop_inv_slot.gd" id="1_m2jmo"]
 
 [node name="shop_inv_slot" type="ColorRect"]
