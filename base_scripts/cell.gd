@@ -6,11 +6,10 @@ var is_open: bool = false
 var is_flagged: int = 0
 var cell_position: Vector2
 var firstclick: bool = false
-@export var style_box: StyleBoxFlat
+var style_box: StyleBoxFlat
 var bg_tx = load("res://art/skin_default/cell_bg.png")
 var mine_tx = load("res://art/skin_default/mine_default.png")
 var flag_tx = load("res://art/skin_default/flag.png")
-#CHANGE GRAPHICS TO THIS STYLE BOX!
 
 signal gameover
 signal attempt_quick_reveal
@@ -38,7 +37,6 @@ func _reveal():
 	# Revela a célula e, caso aplicável, as adjacentes.
 	if !is_flagged and !is_open:
 		reveal.emit(is_mine)
-		# get_parent().get_parent().get_parent()._monitor_win_condition()
 		is_open = true
 		$cell_graphics.show()
 		$cell_bg.show()

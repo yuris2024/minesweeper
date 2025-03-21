@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://bd13ab4iqc4l2"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_ce7lw"]
+[ext_resource type="Texture2D" uid="uid://idyf484hylow" path="res://inventory/items/Flags/flag_rose.png" id="2_6colx"]
+
+[resource]
+script = ExtResource("1_ce7lw")
+name = "Bandeira Flor"
+texture = ExtResource("2_6colx")
+price = 50
+unlock_level = 5
+type = "flag"

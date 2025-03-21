@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://bvbu43u5ta7yr"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_lraaj"]
+[ext_resource type="Texture2D" uid="uid://cy8qrive3dmja" path="res://inventory/items/Mines/flower.png" id="2_7w55g"]
+
+[resource]
+script = ExtResource("1_lraaj")
+name = "Mina Flor"
+texture = ExtResource("2_7w55g")
+price = 50
+unlock_level = 5
+type = "mine"

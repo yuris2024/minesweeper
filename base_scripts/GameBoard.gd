@@ -19,7 +19,7 @@ signal board_clear
 func _ready():
 	pass
 
-func load_new_board(rows,cols,mines,bg,flag,mine):
+func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
 	var cells = $ColorRect/GridContainer.get_children()
 	for i in cells:
 		i.queue_free()
@@ -33,7 +33,7 @@ func load_new_board(rows,cols,mines,bg,flag,mine):
 	is_populated = false
 	open_cells = 0
 	game_lost = false
-	_populate_board(num_of_mines,bg,flag,mine)
+	_populate_board(num_of_mines,bg,flag,mine,stylebox)
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
 	#get_tree().paused = false
@@ -48,7 +48,7 @@ func _generate_mine_list(mines):
 		board_mines.append(mine_position)
 	return board_mines
 
-func _populate_board(mines,bg,flag,mine):
+func _populate_board(mines,bg,flag,mine,stylebox):
 	# Coloca as minas na posição apropriada de acordo com a lista gerada.
 	var mine_cells = _generate_mine_list(mines)
 	var count = 0
@@ -62,6 +62,7 @@ func _populate_board(mines,bg,flag,mine):
 			cell.flag_tx = flag
 			cell.mine_tx = mine
 			cell.bg_tx = bg
+			cell.style_box = stylebox
 			if count in mine_cells:
 				cell.load_mine()
 			$ColorRect/GridContainer.add_child(cell)
@@ -140,8 +141,8 @@ func _suggest_first_click():
 	while (cell.is_mine or cell.adjacent_mines != 0):
 		cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
 	var new_stylebox_normal = cell.style_box.duplicate(true)
-	new_stylebox_normal.set_border_width_all(2)
-	new_stylebox_normal.border_color = Color(0.26, 0.92, 0.93)
+	new_stylebox_normal.set_border_width_all(3)
+	new_stylebox_normal.border_color = Color(0, 0, 0)
 	cell.add_theme_stylebox_override("normal", new_stylebox_normal)
 	cell.firstclick = true
 

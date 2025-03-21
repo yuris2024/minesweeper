@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://bnpnwlixaywho"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_41jh2"]
+[ext_resource type="Texture2D" uid="uid://deysykxlopypx" path="res://inventory/items/Backgrounds/cellbg_green.png" id="2_oqjqm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gasgr"]
+bg_color = Color(0.588767, 0.68, 0.5236, 1)
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_41jh2")
+name = "Fundo Verde"
+texture = ExtResource("2_oqjqm")
+price = 0
+unlock_level = 1
+type = "bg"
+style_box = SubResource("StyleBoxFlat_gasgr")

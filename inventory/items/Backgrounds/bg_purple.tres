@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://cfhqmqokebd3u"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_l8o0w"]
+[ext_resource type="Texture2D" uid="uid://dxj16l1g5vso2" path="res://inventory/items/Backgrounds/cellbg_purple.png" id="2_asi0y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xs170"]
+bg_color = Color(0.677301, 0.604344, 0.957357, 1)
+
+[resource]
+script = ExtResource("1_l8o0w")
+name = "Fundo Roxo"
+texture = ExtResource("2_asi0y")
+price = 50
+unlock_level = 5
+type = "bg"
+style_box = SubResource("StyleBoxFlat_xs170")

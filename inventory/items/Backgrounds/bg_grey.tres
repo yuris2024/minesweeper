@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://cr0g262txyaso"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_rslrv"]
+[ext_resource type="Texture2D" uid="uid://loutbfaamjue" path="res://art/skin_default/cell_bg.png" id="2_2427a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fx2k7"]
+bg_color = Color(0.703808, 0.703808, 0.703808, 1)
+
+[resource]
+script = ExtResource("1_rslrv")
+name = "Fundo Cinza"
+texture = ExtResource("2_2427a")
+price = 0
+unlock_level = 0
+type = "bg"
+style_box = SubResource("StyleBoxFlat_fx2k7")

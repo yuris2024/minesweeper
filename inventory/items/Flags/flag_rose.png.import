@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxj16l1g5vso2"
-path="res://.godot/imported/cellbg_purple.png-494e33e2c59a05e98b4e2a49871a0b66.ctex"
+uid="uid://idyf484hylow"
+path="res://.godot/imported/flag_rose.png-2f681ecb1ef1367d670647a54ceabe4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://inventory/items/Backgrounds/cellbg_purple.png"
-dest_files=["res://.godot/imported/cellbg_purple.png-494e33e2c59a05e98b4e2a49871a0b66.ctex"]
+source_file="res://inventory/items/Flags/flag_rose.png"
+dest_files=["res://.godot/imported/flag_rose.png-2f681ecb1ef1367d670647a54ceabe4c.ctex"]
 
 [params]
 

@@ -7,7 +7,6 @@ class_name InvItem
 @export var price: int
 @export var unlock_level: int
 @export var type: String
+@export var style_box: StyleBox
 
-# Item should emit() "item_bought" when there is an attempt at buying it (clicking
-# the button + item is available (as in, has been stocked and the player is the
-# minimum level necessary to buy it).
+# Apenas fundos devem ter StyleBox

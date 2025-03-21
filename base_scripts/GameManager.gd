@@ -15,6 +15,7 @@ var shop_open = false
 var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')
 var flag_texture: Texture2D = preload('res://art/skin_default/flag.png')
 var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
+var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tres").style_box
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,6 +45,8 @@ func _set_graphics(item:InvItem):
 			flag_texture = item.texture
 		'bg':
 			bg_texture = item.texture
+			style_box = item.style_box
+			
 
 #endregion
 
@@ -93,7 +96,7 @@ func remove_old_board():
 func request_new_board(rows, cols, mines):
 	# Cria um novo quadro.
 	var new_board = board_scene.instantiate()
-	new_board.load_new_board(rows,cols,mines,bg_texture,flag_texture,mine_texture)
+	new_board.load_new_board(rows,cols,mines,bg_texture,flag_texture,mine_texture,style_box)
 	board_container.add_child(new_board)
 	new_board.connect("flagged2",_on_flagged2)
 	new_board.connect("board_clear",_on_board_clear)
