@@ -70,6 +70,8 @@ func _set_difficulty(diff):
 			print("Erro estabelecendo dificuldade")
 
 func _on_new_game_button_pressed():
+	$Timer.stop()
+	_set_timer(0)
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
 	# gonna change this so it unpauses as soon as we click an "ok" or something:
