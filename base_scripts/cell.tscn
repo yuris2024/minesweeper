@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://eckwqxptl8jb"]
+[gd_scene load_steps=4 format=3 uid="uid://eckwqxptl8jb"]
 
 [ext_resource type="Script" path="res://base_scripts/cell.gd" id="1_71hwm"]
-[ext_resource type="Script" path="res://base_scripts/cell_graphics.gd" id="2_7aqwk"]
 
 [sub_resource type="Theme" id="Theme_pbl76"]
 
@@ -17,6 +16,7 @@ button_mask = 3
 script = ExtResource("1_71hwm")
 
 [node name="cell_bg" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,9 +24,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
-script = ExtResource("2_7aqwk")
 
 [node name="cell_graphics" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ grow_vertical = 2
 theme = SubResource("Theme_pbl76")
 texture = SubResource("ImageTexture_sglt0")
 expand_mode = 1
-script = ExtResource("2_7aqwk")
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
