@@ -1,4 +1,5 @@
 extends ColorRect
+#class_name InvSlot
 
 @export var index: int
 var item_function
