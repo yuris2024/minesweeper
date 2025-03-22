@@ -8,6 +8,7 @@ var items_in_inventory = 0
 
 signal item_bought
 signal item_used
+signal exit_shop_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -79,3 +80,4 @@ func _on_confirm_purchase_canceled() -> void:
 
 func _on_exit_to_menu_pressed() -> void:
 	visible = false
+	exit_shop_pressed.emit()

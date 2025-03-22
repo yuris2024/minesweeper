@@ -10,6 +10,10 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var experience = 0
+
+var save_data = SaveData.new()
+var save_file_path = "user://data"
+var save_file_name = "save.tres"
 #var shop_open = false
 
 var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')
@@ -19,8 +23,10 @@ var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tre
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_set_difficulty(1)
-	_add_coins(500)
+	#_set_difficulty(1)
+	#_add_coins(500)
+	verify_save_directory(save_file_path)
+	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
 
@@ -46,6 +52,32 @@ func _set_graphics(item:InvItem):
 		'bg':
 			bg_texture = item.texture
 			style_box = item.style_box
+#endregion
+
+#region save
+
+func verify_save_directory(path : String):
+	DirAccess.make_dir_absolute(path)
+
+func load_save():
+	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
+	_set_coins(save_data.coins)
+	print("loading: coins = " + str(save_data.coins))
+	_set_difficulty(save_data.difficulty)
+	experience = save_data.experience
+
+func write_save():
+	print("saved on " + save_file_path + save_file_name)
+	# WAITING FOR BETTER ITEM HANDLING:
+	#save_data.bg = bg
+	#save_data.mine = mine
+	#save_data.flag = flag
+	save_data.coins = coins
+	print(str(coins),str(save_data.coins))
+	save_data.experience = experience
+	save_data.difficulty = difficulty
+	ResourceSaver.save(save_data, save_file_path + save_file_name)
+	
 #endregion
 
 #region: Board Control
@@ -148,6 +180,7 @@ func _on_board_clear(game_lost):
 		var board_coin_value = difficulty * 10
 		_add_coins(board_coin_value)
 		# SAVE HERE!!!
+		write_save()
 		# ALSO SAVE WHEN YOU EXIT THE SHOP
 	get_tree().paused = true
 	$BoardClearPopup.visible = true
@@ -163,4 +196,6 @@ func _on_board_clear_popup_confirmed() -> void:
 func _on_exit_to_menu_pressed() -> void:
 	get_tree().change_scene_to_file('res://menu.tscn')
 	
+func _on_shop_exit_shop_pressed() -> void:
+	write_save()
 #endregion

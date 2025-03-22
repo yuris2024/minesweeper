@@ -187,6 +187,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_fdtkv")
 
+[node name="Save" type="Button" parent="."]
+layout_mode = 0
+offset_left = 499.0
+offset_top = 165.0
+offset_right = 623.0
+offset_bottom = 258.0
+text = "SAVE"
+
 [connection signal="close_requested" from="AboutPanel" to="AboutPanel" method="_on_close_requested"]
 [connection signal="close_requested" from="RecordsPanel" to="RecordsPanel" method="_on_close_requested"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/NovoJogo" to="." method="_on_novo_jogo_pressed"]
@@ -194,3 +202,4 @@ texture_normal = ExtResource("6_fdtkv")
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Recordes" to="RecordsPanel" method="_on_recordes_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer/Sobre" to="AboutPanel" method="_on_sobre_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer2/ComoJogar" to="." method="_on_como_jogar_pressed"]
+[connection signal="pressed" from="Save" to="." method="_on_save_pressed"]
