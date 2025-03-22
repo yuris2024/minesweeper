@@ -74,7 +74,6 @@ func _on_new_game_button_pressed():
 	_set_timer(0)
 	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
 	request_new_board(current_rows, current_cols, current_mines)
-	# gonna change this so it unpauses as soon as we click an "ok" or something:
 	get_tree().paused = false
 	
 	cells_to_flag = current_mines
@@ -146,9 +145,10 @@ func _on_board_clear(game_lost):
 		$BoardClearPopup.dialog_text = "Você perdeu"
 	else:
 		$BoardClearPopup.dialog_text = "Você ganhou"
-		#calculate coin value
-		var board_value = difficulty * 10
-		_add_coins(board_value)
+		var board_coin_value = difficulty * 10
+		_add_coins(board_coin_value)
+		# SAVE HERE!!!
+		# ALSO SAVE WHEN YOU EXIT THE SHOP
 	get_tree().paused = true
 	$BoardClearPopup.visible = true
 
