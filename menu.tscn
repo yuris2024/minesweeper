@@ -199,7 +199,7 @@ text = "SAVE"
 [connection signal="close_requested" from="RecordsPanel" to="RecordsPanel" method="_on_close_requested"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/NovoJogo" to="." method="_on_novo_jogo_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Continua" to="." method="_on_continua_pressed"]
-[connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Recordes" to="RecordsPanel" method="_on_recordes_pressed"]
+[connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Recordes" to="." method="_on_recordes_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer/Sobre" to="AboutPanel" method="_on_sobre_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont2/CenterContainer2/ComoJogar" to="." method="_on_como_jogar_pressed"]
 [connection signal="pressed" from="Save" to="." method="_on_save_pressed"]

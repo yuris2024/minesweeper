@@ -66,16 +66,20 @@ func load_save():
 	_set_difficulty(save_data.difficulty)
 	experience = save_data.experience
 
-func write_save():
-	print("saved on " + save_file_path + save_file_name)
+func write_save(time):
 	# WAITING FOR BETTER ITEM HANDLING:
 	#save_data.bg = bg
 	#save_data.mine = mine
 	#save_data.flag = flag
+	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	save_data.coins = coins
 	print(str(coins),str(save_data.coins))
 	save_data.experience = experience
 	save_data.difficulty = difficulty
+	if time != null:
+		if save_data.records[difficulty-1] > time:
+			save_data.records[difficulty-1] = time
+			print("Record updated")
 	ResourceSaver.save(save_data, save_file_path + save_file_name)
 	
 #endregion
@@ -180,8 +184,9 @@ func _on_board_clear(game_lost):
 		var board_coin_value = difficulty * 10
 		_add_coins(board_coin_value)
 		# SAVE HERE!!!
-		write_save()
+		write_save(time)
 		# ALSO SAVE WHEN YOU EXIT THE SHOP
+	
 	get_tree().paused = true
 	$BoardClearPopup.visible = true
 
@@ -197,5 +202,5 @@ func _on_exit_to_menu_pressed() -> void:
 	get_tree().change_scene_to_file('res://menu.tscn')
 	
 func _on_shop_exit_shop_pressed() -> void:
-	write_save()
+	write_save(null)
 #endregion
