@@ -17,7 +17,9 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 [file_customization]
 
 folder_colors={
-"res://inventory/": "orange"
+"res://art/": "green",
+"res://inventory/": "orange",
+"res://save/": "pink"
 }
 
 [filesystem]
