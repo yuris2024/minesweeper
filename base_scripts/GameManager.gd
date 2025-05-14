@@ -66,7 +66,7 @@ func load_save():
 	_set_difficulty(save_data.difficulty)
 	experience = save_data.experience
 
-func write_save(time):
+func write_save(_time):
 	# WAITING FOR BETTER ITEM HANDLING:
 	#save_data.bg = bg
 	#save_data.mine = mine
@@ -76,12 +76,11 @@ func write_save(time):
 	print(str(coins),str(save_data.coins))
 	save_data.experience = experience
 	save_data.difficulty = difficulty
-	if time != null:
-		if save_data.records[difficulty-1] > time:
-			save_data.records[difficulty-1] = time
+	if _time != null:
+		if save_data.records[difficulty-1] > _time:
+			save_data.records[difficulty-1] = _time
 			print("Record updated")
 	ResourceSaver.save(save_data, save_file_path + save_file_name)
-	
 #endregion
 
 #region: Board Control
