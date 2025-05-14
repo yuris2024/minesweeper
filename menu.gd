@@ -1,11 +1,10 @@
 extends Control
 
-#region save
+#region salvar
 var save_file_path = "user://data"
 var save_file_name = "save.tres"
 #
 var save_data = SaveData.new()
-
 
 
 func _on_continua_pressed() -> void:
@@ -29,7 +28,6 @@ func _on_novo_jogo_pressed() -> void:
 func _on_como_jogar_pressed() -> void:
 	get_tree().change_scene_to_file('res://HowToPlay.tscn')
 
-
 func _on_recordes_pressed():
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	$RecordsPanel.beginner = save_data.records[0]
@@ -37,6 +35,3 @@ func _on_recordes_pressed():
 	$RecordsPanel.advanced = save_data.records[2]
 	$RecordsPanel.update_label()
 	$RecordsPanel.visible = true
-	
-	
-	

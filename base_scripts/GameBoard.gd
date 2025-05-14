@@ -142,7 +142,7 @@ func _suggest_first_click():
 	cell.add_theme_stylebox_override("normal", new_stylebox_normal)
 	cell.firstclick = true
 
-#region: Game Control functions
+#region: Funções de controle de jogo
 
 func _on_reveal(is_mine):
 	# Checa, a cada célula revelada, se é hora de finalizar o quadro.
@@ -165,13 +165,13 @@ func _on_flagged(flag):
 	#load_new_board(10,10,10)
 #endregion
 
-#region: Auxiliary functions
-# determine index of a certain cell by its row and column
+#region: Funções auxiliares
+# determina índice de determinada célula por sua linha e coluna
 func get_cell_index(cell_position):
 	var index = cell_position.x * grid_cols + cell_position.y
 	return index
 
-# determine cell's (x,y) position in the grid by its index
+# determina posição (x,y) da célula na grade pelo seu índica
 func get_cell_position(index):
 	var x = index / grid_rows
 	var y = index % grid_cols

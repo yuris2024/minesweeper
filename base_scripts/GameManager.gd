@@ -21,7 +21,7 @@ var flag_texture: Texture2D = preload('res://art/skin_default/flag.png')
 var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
 var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tres").style_box
 
-# Called when the node enters the scene tree for the first time.
+# Chamado quando o Node entra na árvore de scenes pela primeira vez
 func _ready():
 	#_set_difficulty(1)
 	#_add_coins(500)
@@ -30,8 +30,8 @@ func _ready():
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
 
-#region shop
-# connect to shop
+#region loja
+# Conecta sinais à loja
 func connect_shop():
 	$Shop.connect("item_bought",_on_item_bought)
 	$Shop.connect("item_used",_on_item_used)
@@ -54,7 +54,7 @@ func _set_graphics(item:InvItem):
 			style_box = item.style_box
 #endregion
 
-#region save
+#region salvar
 
 func verify_save_directory(path : String):
 	DirAccess.make_dir_absolute(path)
@@ -139,7 +139,7 @@ func request_new_board(rows, cols, mines):
 
 #endregion
 
-#region Counters
+#region Contadores
 func _on_timer_timeout():
 	_set_timer(time+1)
 
@@ -190,7 +190,7 @@ func _on_board_clear(game_lost):
 	get_tree().paused = true
 	$BoardClearPopup.visible = true
 
-#region Windows
+#region Janelas
 func _on_shop_button_pressed() -> void:
 	$Shop.visible = true
 	#shop_open = true

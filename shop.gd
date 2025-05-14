@@ -10,7 +10,6 @@ signal item_bought
 signal item_used
 signal exit_shop_pressed
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_fill_item_list()
 
@@ -76,7 +75,7 @@ func _on_item_used(index):
 	item_used.emit(invslot_array[index])
 
 func _on_confirm_purchase_canceled() -> void:
-	pass # Replace with function body.
+	pass 
 
 func _on_exit_to_menu_pressed() -> void:
 	visible = false
