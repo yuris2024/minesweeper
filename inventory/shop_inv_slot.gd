@@ -1,5 +1,5 @@
 extends ColorRect
-#class_name InvSlot
+class_name InvSlot
 
 @export var index: int
 var item_function
@@ -7,6 +7,11 @@ var item_function
 
 signal item_bought
 signal item_used
+
+func change_appearance(label, button_text, button_icon):
+	find_child("Label").text = label
+	find_child("Button").text = button_text
+	find_child("Button").icon = button_icon
 
 func set_appearance():
 	find_child("Label").text = ""
@@ -18,6 +23,6 @@ func set_appearance():
 func _on_button_pressed() -> void:
 	match item_function:
 		'shop':
-			item_bought.emit(index)
+			item_bought.emit(item.name)
 		'inventory':
-			item_used.emit(index)
+			item_used.emit(item.name)
