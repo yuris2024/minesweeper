@@ -1,4 +1,3 @@
-** Minesweeper clone in Godot **
+** Minestyler: Jogo para o TCC **
 
-This is an attempt to clone Minesweeper using Godot Engine.
-This project is supposed to be expanded upon later.
+Este é um jogo criado em Godot Engine 4.0 para o TCC do curso de Engenharia de Software.
