@@ -7,6 +7,7 @@ class_name Inv
 var items_map = {}
 
 func add_to_dictionary():
+	# Dicionário chave-valor, para acompanhamento dos itens.
 	var key: String
 	var value: InvItem
 	for i in items.size():

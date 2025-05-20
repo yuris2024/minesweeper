@@ -1,4 +1,5 @@
 extends Node
+#region Variáveis de controle
 var time = 0
 var board_scene: PackedScene = preload("res://base_scripts/GameBoard.tscn")
 @onready var board_container = $Panel/Vboxcontainer/MarginContainer/BoardContainer
@@ -10,21 +11,22 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var experience = 0
+#endregion
 
+#region Variáveis de salvar
 var save_data = SaveData.new()
 var save_file_path = "user://data"
 var save_file_name = "save.tres"
-#var shop_open = false
+#endregion
 
+#region Texturas
 var mine_texture: Texture2D = preload('res://art/skin_default/mine_default.png')
 var flag_texture: Texture2D = preload('res://art/skin_default/flag.png')
 var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
 var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tres").style_box
+#endregion
 
-# Chamado quando o Node entra na árvore de scenes pela primeira vez
 func _ready():
-	#_set_difficulty(1)
-	#_add_coins(500)
 	verify_save_directory(save_file_path)
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS

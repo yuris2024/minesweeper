@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs56nou04bb65"]
+
+[ext_resource type="Script" path="res://base_scripts/GameBoard.gd" id="1_d4syi"]
+
+[sub_resource type="Theme" id="Theme_hwk7n"]
+
+[node name="GameBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+script = ExtResource("1_d4syi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hwk7n")
+color = Color(0.108, 0.3, 0.2648, 1)
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hwk7n")

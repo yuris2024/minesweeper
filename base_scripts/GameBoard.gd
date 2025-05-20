@@ -10,16 +10,15 @@ var cell_scene: PackedScene = preload("res://base_scripts/cell.tscn")
 var open_cells: int = 0
 var game_lost: bool = false
 var cell_size = 30
-# @onready var gridcontainer_path = $ColorRect/GridContainer
 
 signal flagged2
 signal board_clear
 
+#region Funções de criar novo quadro
+
 func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
-	var cells = $ColorRect/GridContainer.get_children()
-	for i in cells:
-		i.queue_free()
-		$ColorRect/GridContainer.remove_child(i)
+	# Recebe os parâmetros desejados para um novo quadro e o cria.
+	erase_old_board()
 	grid_rows = rows
 	grid_cols = cols
 	num_of_mines = mines
@@ -32,7 +31,13 @@ func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
 	_populate_board(num_of_mines,bg,flag,mine,stylebox)
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
-	#get_tree().paused = false
+
+func erase_old_board():
+	# Elimina o quadro presente na tela.
+	var cells = $ColorRect/GridContainer.get_children()
+	for i in cells:
+		i.queue_free()
+		$ColorRect/GridContainer.remove_child(i)
 
 func _generate_mine_list(mines):
 	# Retorna uma lista de quais índices de células serão minas.
@@ -65,21 +70,21 @@ func _populate_board(mines,bg,flag,mine,stylebox):
 	is_populated = true;
 
 func _set_cell_numbers():
-	#    Com as minas colocadas, coloca números de acordo com quantas minas 
-	# a célula tem adjacentes a ela.
+	# Com as minas colocadas, coloca números de acordo com quantas minas a célula
+	# tem adjacentes a ela.
 	for i in (grid_rows * grid_cols):
 		var cell = $ColorRect/GridContainer.get_child(i)
 		if !cell.is_mine:
 			cell.load_number(_count_adjacent_mines(cell))
 
 func _count_adjacent_mines(cell):
-	#     Conta quantas minas há em torno da célula. 
+	# Conta quantas minas há em torno da célula. 
 	# O argumento deve ser o Node da célula de verdade, não o índice dela.
 	var count = 0
 	var pos = cell.cell_position
 	
 	if !is_populated:
-		print("Board has not been populated yet.")
+		print("O quadro ainda não foi populado.")
 		return 0
 	
 	for i in range(pos.x - 1, pos.x + 2):
@@ -92,6 +97,7 @@ func _count_adjacent_mines(cell):
 	return count
 
 func set_qk_reveal_and_mines():
+	# Faz a conexão das células para revelação automática.
 	for i in (grid_cols * grid_rows):
 		var cell = $ColorRect/GridContainer.get_child(i-1)
 		cell.connect("flagged",_on_flagged)
@@ -104,10 +110,28 @@ func set_qk_reveal_and_mines():
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
 
+func _suggest_first_click():
+	# Encontra uma célula em branco aleatória para sugerir como primeiro clique.
+	# Sem isto, o primeiro clique muitas vezes é um game over automático.
+	if !is_populated:
+		return
+	var cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))
+	while (cell.is_mine or cell.adjacent_mines != 0):
+		cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
+	var new_stylebox_normal = cell.style_box.duplicate(true)
+	new_stylebox_normal.set_border_width_all(3)
+	new_stylebox_normal.border_color = Color(0, 0, 0)
+	cell.add_theme_stylebox_override("normal", new_stylebox_normal)
+	cell.firstclick = true
+
+#endregion
+
+#region Clique do jogador
+
 func _quick_reveal(cell):
-# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
-# diz existirem, e então clica na célula.
-# Revela minas também, se o jogador houver marcado incorretamente.
+	# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
+	# diz existirem, e então clica na célula.
+	# Revela minas também, se o jogador houver marcado incorretamente.
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -127,20 +151,7 @@ func _reveal_adjacent(cell):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				adjacent_cell._reveal()
-
-func _suggest_first_click():
-	# Encontra uma célula em branco aleatória para sugerir como primeiro clique.
-	# Sem isto, o primeiro clique muitas vezes é um game over automático.
-	if !is_populated:
-		return
-	var cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))
-	while (cell.is_mine or cell.adjacent_mines != 0):
-		cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))	
-	var new_stylebox_normal = cell.style_box.duplicate(true)
-	new_stylebox_normal.set_border_width_all(3)
-	new_stylebox_normal.border_color = Color(0, 0, 0)
-	cell.add_theme_stylebox_override("normal", new_stylebox_normal)
-	cell.firstclick = true
+#endregion
 
 #region: Funções de controle de jogo
 
@@ -166,13 +177,15 @@ func _on_flagged(flag):
 #endregion
 
 #region: Funções auxiliares
-# determina índice de determinada célula por sua linha e coluna
+
 func get_cell_index(cell_position):
+	# determina índice de determinada célula por sua linha e coluna
 	var index = cell_position.x * grid_cols + cell_position.y
 	return index
 
-# determina posição (x,y) da célula na grade pelo seu índica
+
 func get_cell_position(index):
+	# determina posição (x,y) da célula na grade pelo seu índice
 	var x = index / grid_rows
 	var y = index % grid_cols
 	return Vector2(x,y)
