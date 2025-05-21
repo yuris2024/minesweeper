@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://ux0yr474rv06"]
+
+[ext_resource type="Script" path="res://save/default_save.gd" id="1_e4gba"]
+
+[resource]
+script = ExtResource("1_e4gba")
+coins = 0
+experience = 0
+difficulty = 1
+records = Array[int]([999, 999, 999])
+inventory = []
+bg = "res://inventory/items/Backgrounds/bg_grey.tres"
+flag = "res://inventory/items/Flags/flag_red.tres"
+mine = "res://inventory/items/Mines/mine_red.tres"

@@ -14,6 +14,7 @@
 bg_color = Color(0.357847, 0.36084, 0.437409, 1)
 
 [node name="Menu" type="Control"]
+custom_minimum_size = Vector2(0, 0.035)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,6 +90,13 @@ text = "[center][b]Iniciante:[/b] 999
 fit_content = true
 autowrap_mode = 0
 tab_size = 24
+
+[node name="ConfirmNewGame" type="ConfirmationDialog" parent="."]
+title = "Criar Novo Jogo"
+initial_position = 1
+size = Vector2i(381, 100)
+dialog_text = "Tem certeza de que deseja apagar o jogo atual?"
+cancel_button_text = "Cancelar"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -189,6 +197,8 @@ texture_normal = ExtResource("6_fdtkv")
 
 [connection signal="close_requested" from="AboutPanel" to="AboutPanel" method="_on_close_requested"]
 [connection signal="close_requested" from="RecordsPanel" to="RecordsPanel" method="_on_close_requested"]
+[connection signal="canceled" from="ConfirmNewGame" to="." method="_on_confirm_new_game_canceled"]
+[connection signal="confirmed" from="ConfirmNewGame" to="." method="_on_confirm_new_game_confirmed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/NovoJogo" to="." method="_on_novo_jogo_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Continua" to="." method="_on_continua_pressed"]
 [connection signal="pressed" from="Panel/MarginCt/VSplit/VCont/HCont/Recordes" to="." method="_on_recordes_pressed"]
