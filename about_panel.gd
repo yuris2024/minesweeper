@@ -2,8 +2,9 @@ extends PopupPanel
 
 
 func _on_sobre_pressed() -> void:
-	get_parent().get_child(0).stream = load("res://sounds/click.wav")
-	get_parent().get_child(0).play()
+	if AudioControl.on:
+		get_parent().get_child(0).stream = load("res://sounds/click.wav")
+		get_parent().get_child(0).play()
 	visible = true
 
 func _on_close_requested() -> void:
