@@ -7,12 +7,18 @@ var save_file_name = "save.tres"
 var save_data = SaveData.new()
 
 func _on_continua_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
 	# Carrega o jogo salvo.
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
+	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file('res://base_scripts/GameManager.tscn')
 #endregion
 
 func _on_novo_jogo_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	# Confirmar se é pra deletar o save antigo
 	$ConfirmNewGame.visible = true
 
@@ -27,9 +33,14 @@ func _on_confirm_new_game_canceled() -> void:
 	$ConfirmNewGame.visible = false
 
 func _on_como_jogar_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file('res://HowToPlay.tscn')
 
 func _on_recordes_pressed():
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	$RecordsPanel.beginner = save_data.records[0]
 	$RecordsPanel.intermediate = save_data.records[1]

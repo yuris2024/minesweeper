@@ -13,8 +13,10 @@ signal item_bought
 signal item_used
 signal exit_shop_pressed
 
+
 func _ready() -> void:
 	_fill_item_list()
+
 
 func _fill_item_list():
 	var inv_slot: InvSlot
@@ -39,10 +41,13 @@ func _on_item_bought(_name):
 	# Esta função deve ser chamada apenas se o botão do item puder ser pressionado
 	# Caso o item não esteja disponível, o botão deve estar desabilitado.
 	purchase_attempt = inv.get_item(_name)
+	# A variável "loading" é usada aqui para podermos usar o modelo de compra para
+	# carregar o save, sem mexer nas moedas quando estivermos fazendo isso.
 	if !loading and purchase_attempt.price > get_parent().coins:
 		# Não tem dinheiro para comprar
+		$AudioStreamPlayer.stream = load("res://sounds/hit.wav")
+		$AudioStreamPlayer.play()
 		return
-		# play a sound here
 	elif !loading:
 		# Mostrar janela de confirmação para o usuário confirmar ou cancelar
 		var confirm_window = load('res://inventory/confirm_purchase.tscn').instantiate()
@@ -60,11 +65,13 @@ func _on_item_bought(_name):
 		slot.find_child("Button").disabled = true
 		_add_to_inventory(purchase_attempt)
 
+
 func get_slot_node_by_item_name(list,_name):
 	for child in list.get_children():
 		if child.item.name == _name:
 			print(child.item.name)
 			return child
+
 
 func _on_confirm_purchase_confirmed() -> void:
 	item_bought.emit(purchase_attempt)
@@ -72,6 +79,7 @@ func _on_confirm_purchase_confirmed() -> void:
 	slot.find_child("Label").text = '-'
 	slot.find_child("Button").disabled = true
 	_add_to_inventory(purchase_attempt)
+
 
 func _add_to_inventory(item):
 	var inv_slot = invslot_scene.instantiate()
@@ -84,6 +92,7 @@ func _add_to_inventory(item):
 	inv_slot.connect("item_used",_on_item_used)
 	inventory_list.add_child(inv_slot)
 
+
 func _on_item_used(_name):
 	var slot = get_slot_node_by_item_name(inventory_list,_name)
 	slot.find_child("Label").text = "Em uso"
@@ -93,8 +102,10 @@ func _on_item_used(_name):
 			i.find_child("Label").text = ""
 	item_used.emit(slot.item)
 
+
 func _on_confirm_purchase_canceled() -> void:
 	pass 
+
 
 func _on_exit_to_menu_pressed() -> void:
 	visible = false

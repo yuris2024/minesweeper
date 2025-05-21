@@ -10,6 +10,7 @@ var cell_scene: PackedScene = preload("res://base_scripts/cell.tscn")
 var open_cells: int = 0
 var game_lost: bool = false
 var cell_size = 30
+var is_quick_reveal = false
 
 signal flagged2
 signal board_clear
@@ -28,6 +29,7 @@ func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
 	is_populated = false
 	open_cells = 0
 	game_lost = false
+	$AudioStreamPlayer.stream = load('res://sounds/tap.wav')
 	_populate_board(num_of_mines,bg,flag,mine,stylebox)
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
@@ -132,6 +134,7 @@ func _quick_reveal(cell):
 	# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
 	# diz existirem, e então clica na célula.
 	# Revela minas também, se o jogador houver marcado incorretamente.
+	
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -142,15 +145,18 @@ func _quick_reveal(cell):
 					count += 1
 	if count == cell.adjacent_mines:
 		_reveal_adjacent(cell)
+		$AudioStreamPlayer.play()
 
 func _reveal_adjacent(cell):
 	# Revela tudo em torno da célula.
+	is_quick_reveal = true
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
 		for j in range(pos.y - 1, pos.y + 2):
 			if !((i < 0) or (j < 0) or (i > grid_rows - 1) or (j > grid_cols - 1)):
 				var adjacent_cell = $ColorRect/GridContainer.get_child(get_cell_index(Vector2(i,j)))
 				adjacent_cell._reveal()
+	is_quick_reveal = false
 #endregion
 
 #region: Funções de controle de jogo
@@ -158,6 +164,9 @@ func _reveal_adjacent(cell):
 func _on_reveal(is_mine):
 	# Checa, a cada célula revelada, se é hora de finalizar o quadro.
 	open_cells += 1
+	if !is_mine and !is_quick_reveal:
+		$AudioStreamPlayer.play()
+	
 	if is_mine and !game_lost:
 		game_lost = true
 		for i in board_mines:

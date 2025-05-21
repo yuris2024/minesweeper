@@ -115,9 +115,12 @@ func _set_difficulty(diff):
 			print("Erro estabelecendo dificuldade")
 
 func _on_new_game_button_pressed():
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
 	$Timer.stop()
 	_set_timer(0)
-	$Timer.start() # CHANGE THIS SO IT STARTS ONLY AFTER PLAYER'S FIRST CLICK
+	await $AudioStreamPlayer.finished
+	$Timer.start()
 	request_new_board(current_rows, current_cols, current_mines)
 	get_tree().paused = false
 	
@@ -187,6 +190,8 @@ func format_counter(num):
 
 func _on_board_clear(game_lost):
 	if game_lost:
+		$AudioStreamPlayer.stream = load('res://sounds/explode.wav')
+		$AudioStreamPlayer.play()
 		$BoardClearPopup.dialog_text = "Você perdeu"
 	else:
 		$BoardClearPopup.dialog_text = "Você ganhou"
@@ -194,11 +199,18 @@ func _on_board_clear(game_lost):
 		_add_coins(board_coin_value)
 		write_save(time)
 	
-	get_tree().paused = true
+	
 	$BoardClearPopup.visible = true
+	$Timer.stop()
+	await $AudioStreamPlayer.finished
+	get_tree().paused = true
+	
 
 #region Janelas
 func _on_shop_button_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	$Shop.visible = true
 	#shop_open = true
 
@@ -206,8 +218,14 @@ func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
 
 func _on_exit_to_menu_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file('res://menu.tscn')
 	
 func _on_shop_exit_shop_pressed() -> void:
+	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	write_save(null)
 #endregion
