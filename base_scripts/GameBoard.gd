@@ -145,7 +145,7 @@ func _quick_reveal(cell):
 					count += 1
 	if count == cell.adjacent_mines:
 		_reveal_adjacent(cell)
-		$AudioStreamPlayer.play()
+		_play("tap")
 
 func _reveal_adjacent(cell):
 	# Revela tudo em torno da célula.
@@ -165,7 +165,7 @@ func _on_reveal(is_mine):
 	# Checa, a cada célula revelada, se é hora de finalizar o quadro.
 	open_cells += 1
 	if !is_mine and !is_quick_reveal:
-		$AudioStreamPlayer.play()
+		_play("tap")
 	
 	if is_mine and !game_lost:
 		game_lost = true
@@ -186,6 +186,15 @@ func _on_flagged(flag):
 #endregion
 
 #region: Funções auxiliares
+func _play(sound:String):
+	sound = "res://sounds/" + sound + ".wav"
+	if AudioControl.on:
+		$AudioStreamPlayer.stream = load(sound)
+		$AudioStreamPlayer.play()
+
+func _wait():
+	if AudioControl.on:
+		await $AudioStreamPlayer.finished
 
 func get_cell_index(cell_position):
 	# determina índice de determinada célula por sua linha e coluna

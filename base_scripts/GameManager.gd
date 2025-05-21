@@ -31,9 +31,16 @@ var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tre
 
 func _ready():
 	verify_save_directory(save_file_path)
+	$AudioStreamPlayer.set_process_mode(3)
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
+
+func _play(sound:String):
+	if AudioControl.on:
+		sound = "res://sounds/" + sound + ".wav"
+		$AudioStreamPlayer.stream = load(sound)
+		$AudioStreamPlayer.play()
 
 #region loja
 # Conecta sinais à loja
@@ -93,7 +100,7 @@ func write_save(_time):
 	ResourceSaver.save(save_data, save_file_path + save_file_name)
 #endregion
 
-#region: Board Control
+#region: Controle de Quadro
 func _set_difficulty(diff):
 	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
 	# predefinido.
@@ -115,11 +122,10 @@ func _set_difficulty(diff):
 			print("Erro estabelecendo dificuldade")
 
 func _on_new_game_button_pressed():
-	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
-	$AudioStreamPlayer.play()
+	_play("click")
 	$Timer.stop()
 	_set_timer(0)
-	await $AudioStreamPlayer.finished
+	_wait()
 	$Timer.start()
 	request_new_board(current_rows, current_cols, current_mines)
 	get_tree().paused = false
@@ -190,8 +196,8 @@ func format_counter(num):
 
 func _on_board_clear(game_lost):
 	if game_lost:
-		$AudioStreamPlayer.stream = load('res://sounds/explode.wav')
-		$AudioStreamPlayer.play()
+		_play("explode")
+		_wait()
 		$BoardClearPopup.dialog_text = "Você perdeu"
 	else:
 		$BoardClearPopup.dialog_text = "Você ganhou"
@@ -199,18 +205,15 @@ func _on_board_clear(game_lost):
 		_add_coins(board_coin_value)
 		write_save(time)
 	
-	
 	$BoardClearPopup.visible = true
 	$Timer.stop()
-	await $AudioStreamPlayer.finished
 	get_tree().paused = true
 	
 
 #region Janelas
 func _on_shop_button_pressed() -> void:
-	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	_play("click")
+	_wait()
 	$Shop.visible = true
 	#shop_open = true
 
@@ -218,14 +221,16 @@ func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
 
 func _on_exit_to_menu_pressed() -> void:
-	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	_play("click")
+	_wait()
 	get_tree().change_scene_to_file('res://menu.tscn')
 	
 func _on_shop_exit_shop_pressed() -> void:
-	$AudioStreamPlayer.stream = load("res://sounds/click.wav")
-	$AudioStreamPlayer.play()
-	await $AudioStreamPlayer.finished
+	_play("click")
+	_wait()
 	write_save(null)
 #endregion
+
+func _wait():
+	if AudioControl.on:
+		await $AudioStreamPlayer.finished

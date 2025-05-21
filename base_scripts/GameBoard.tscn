@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs56nou04bb65"]
 
 [ext_resource type="Script" path="res://base_scripts/GameBoard.gd" id="1_d4syi"]
-[ext_resource type="AudioStream" uid="uid://bu6ipws2apbad" path="res://sounds/tap.wav" id="2_w0b3x"]
+[ext_resource type="AudioStream" uid="uid://cr4qjidwgiv1m" path="res://sounds/tap.wav" id="2_w0b3x"]
 
 [sub_resource type="Theme" id="Theme_hwk7n"]
 
