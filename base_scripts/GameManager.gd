@@ -11,12 +11,15 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var experience = 0
+var loading = false
+var inv: Array[InvItem]
 #endregion
 
 #region Variáveis de salvar
 var save_data = SaveData.new()
 var save_file_path = "user://data"
 var save_file_name = "save.tres"
+
 #endregion
 
 #region Texturas
@@ -39,8 +42,10 @@ func connect_shop():
 	$Shop.connect("item_used",_on_item_used)
 	
 func _on_item_bought(item: InvItem):
-	var price = item.price
-	_add_coins(-1*price)
+	if !loading:
+		var price = item.price
+		_add_coins(-1*price)
+	inv.append(item)
 	
 func _on_item_used(item: InvItem):
 	_set_graphics(item)
@@ -64,20 +69,23 @@ func verify_save_directory(path : String):
 func load_save():
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	_set_coins(save_data.coins)
-	print("loading: coins = " + str(save_data.coins))
 	_set_difficulty(save_data.difficulty)
 	experience = save_data.experience
+	# carregando o inventário
+	inv = save_data.inventory
+	loading = true
+	$Shop.loading = true
+	for item in inv:
+		$Shop._on_item_bought(item.name)
+	loading = false
+	$Shop.loading = false
 
 func write_save(_time):
-	# WAITING FOR BETTER ITEM HANDLING:
-	#save_data.bg = bg
-	#save_data.mine = mine
-	#save_data.flag = flag
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	save_data.coins = coins
-	print(str(coins),str(save_data.coins))
 	save_data.experience = experience
 	save_data.difficulty = difficulty
+	save_data.inventory = inv
 	if _time != null:
 		if save_data.records[difficulty-1] > _time:
 			save_data.records[difficulty-1] = _time
@@ -184,9 +192,7 @@ func _on_board_clear(game_lost):
 		$BoardClearPopup.dialog_text = "Você ganhou"
 		var board_coin_value = difficulty * 10
 		_add_coins(board_coin_value)
-		# SAVE HERE!!!
 		write_save(time)
-		# ALSO SAVE WHEN YOU EXIT THE SHOP
 	
 	get_tree().paused = true
 	$BoardClearPopup.visible = true

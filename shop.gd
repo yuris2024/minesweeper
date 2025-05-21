@@ -7,6 +7,7 @@ var invslot_scene: PackedScene = preload("res://inventory/shop_inv_slot.tscn")
 var invslot_array: Array[InvItem]
 var purchase_attempt
 var items_in_inventory = 0
+var loading = false
 
 signal item_bought
 signal item_used
@@ -38,11 +39,11 @@ func _on_item_bought(_name):
 	# Esta função deve ser chamada apenas se o botão do item puder ser pressionado
 	# Caso o item não esteja disponível, o botão deve estar desabilitado.
 	purchase_attempt = inv.get_item(_name)
-	if purchase_attempt.price > get_parent().coins:
+	if !loading and purchase_attempt.price > get_parent().coins:
 		# Não tem dinheiro para comprar
-		pass
+		return
 		# play a sound here
-	else:
+	elif !loading:
 		# Mostrar janela de confirmação para o usuário confirmar ou cancelar
 		var confirm_window = load('res://inventory/confirm_purchase.tscn').instantiate()
 		add_child(confirm_window)
@@ -52,6 +53,12 @@ func _on_item_bought(_name):
 		confirm_window.visible = true
 		# diminuir # de moedas -> GameManager
 		# adicionar o item aos disponíveis
+	else:
+		item_bought.emit(purchase_attempt)
+		var slot = get_slot_node_by_item_name(shop_item_list,purchase_attempt.name)
+		slot.find_child("Label").text = '-'
+		slot.find_child("Button").disabled = true
+		_add_to_inventory(purchase_attempt)
 
 func get_slot_node_by_item_name(list,_name):
 	for child in list.get_children():
