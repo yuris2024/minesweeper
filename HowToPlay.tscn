@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://pr7asajaun7"]
+[gd_scene load_steps=7 format=3 uid="uid://pr7asajaun7"]
 
 [ext_resource type="Script" path="res://how_to_play.gd" id="1_w78ic"]
 [ext_resource type="Texture2D" uid="uid://loutbfaamjue" path="res://art/skin_default/cell_bg.png" id="2_3103f"]
+[ext_resource type="Texture2D" uid="uid://bbh3y1u4bxt0n" path="res://art/how_to_play/1.png" id="3_he73y"]
+[ext_resource type="Texture2D" uid="uid://cnfjnc3n1jwnn" path="res://art/how_to_play/2.png" id="4_dtcbv"]
+[ext_resource type="Texture2D" uid="uid://box4qayl4urx8" path="res://art/how_to_play/3.png" id="5_b1h5t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4ie0"]
 bg_color = Color(0.118442, 0.224508, 0.270694, 1)
@@ -16,9 +19,12 @@ grow_vertical = 2
 script = ExtResource("1_w78ic")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g4ie0")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
@@ -67,6 +73,36 @@ custom_minimum_size = Vector2(500, 450)
 layout_mode = 2
 texture = ExtResource("2_3103f")
 expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer2/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer2/TextureRect/CenterContainer"]
+custom_minimum_size = Vector2(1000, 376)
+layout_mode = 2
+
+[node name="Howto1" type="TextureRect" parent="Panel/MarginContainer2/TextureRect/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_he73y")
+expand_mode = 1
+
+[node name="Howto2" type="TextureRect" parent="Panel/MarginContainer2/TextureRect/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_dtcbv")
+expand_mode = 1
+
+[node name="Howto3" type="TextureRect" parent="Panel/MarginContainer2/TextureRect/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_b1h5t")
+expand_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
