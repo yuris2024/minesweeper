@@ -200,6 +200,8 @@ func _on_board_clear(game_lost):
 		_wait()
 		$BoardClearPopup.dialog_text = "Você perdeu"
 	else:
+		_play("win")
+		_wait()
 		$BoardClearPopup.dialog_text = "Você ganhou"
 		var board_coin_value = difficulty * 10
 		_add_coins(board_coin_value)

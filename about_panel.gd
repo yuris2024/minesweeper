@@ -15,3 +15,4 @@ func _on_close_requested() -> void:
 # Videogame Menu BUTTON CLICK by Christopherderp -- https://freesound.org/s/342200/ -- License: Creative Commons 0
 # Videogame Menu Button Clicking Sound 18 by Christopherderp -- https://freesound.org/s/333047/ -- License: Creative Commons 0
 # Propane Explosion Designed by modusmogulus -- https://freesound.org/s/734100/ -- License: Creative Commons 0
+# Victory sound - result-3.mp3 by DZeDeNZ -- https://freesound.org/s/522240/ -- License: Creative Commons 0
