@@ -71,7 +71,7 @@ custom_minimum_size = Vector2(550, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-value = 70.0
+rounded = true
 
 [node name="ShopButton" type="TextureButton" parent="Panel/Vboxcontainer/Header"]
 custom_minimum_size = Vector2(250, 0)

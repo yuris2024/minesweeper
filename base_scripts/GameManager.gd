@@ -77,7 +77,7 @@ func load_save():
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	_set_coins(save_data.coins)
 	_set_difficulty(save_data.difficulty)
-	experience = save_data.experience
+	_set_exp(save_data.experience)
 	# carregando o inventário
 	inv = save_data.inventory
 	loading = true
@@ -181,6 +181,13 @@ func _set_coins(qty):
 func _add_coins(qty):
 	_set_coins(coins + qty)
 
+func _set_exp(qty):
+	experience = qty
+	$Panel/Vboxcontainer/Header/TextureProgressBar.value = experience
+
+func _add_exp(qty):
+	_set_exp(experience + qty)
+
 func _format_coins(qty) -> String:
 	return '$' + str(qty)
 
@@ -204,6 +211,8 @@ func _on_board_clear(game_lost):
 		_wait()
 		$BoardClearPopup.dialog_text = "Você ganhou"
 		var board_coin_value = difficulty * 10
+		var exp = difficulty * 10
+		_add_exp(exp)
 		_add_coins(board_coin_value)
 		write_save(time)
 	
