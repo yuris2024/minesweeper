@@ -11,6 +11,7 @@ var cells_flagged = 0
 var cells_to_flag
 var coins = 0
 var experience = 0
+var level = 1
 var loading = false
 var inv: Array[InvItem]
 #endregion
@@ -183,7 +184,10 @@ func _add_coins(qty):
 
 func _set_exp(qty):
 	experience = qty
-	$Panel/Vboxcontainer/Header/TextureProgressBar.value = experience
+	var show_exp = 2 * (experience % 50)
+	$Panel/Vboxcontainer/Header/CenterContainer/VBoxContainer/TextureProgressBar.value = show_exp
+	level = floor(experience / 50 + 1)
+	$Panel/Vboxcontainer/Header/CenterContainer/VBoxContainer/Level.text = "Nível: " + str(level)
 
 func _add_exp(qty):
 	_set_exp(experience + qty)
