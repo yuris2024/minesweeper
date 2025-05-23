@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgb0fqda32613"]
+[gd_scene load_steps=11 format=3 uid="uid://cgb0fqda32613"]
 
 [ext_resource type="Script" path="res://base_scripts/GameManager.gd" id="1_j4cq2"]
 [ext_resource type="Texture2D" uid="uid://cxmna1ghhntrw" path="res://art/skin_default/menu.png" id="2_irnxb"]
 [ext_resource type="Texture2D" uid="uid://dto4jv2kyp61t" path="res://art/skin_default/loja.png" id="3_wkjnm"]
-[ext_resource type="Script" path="res://MuteButton.gd" id="5_mrjog"]
+[ext_resource type="Texture2D" uid="uid://dp6bcv68gdjxx" path="res://art/skin_default/time.png" id="5_eg03m"]
 [ext_resource type="Texture2D" uid="uid://cclb3ygjodq57" path="res://art/skin_default/flag.png" id="6_g3pb0"]
-[ext_resource type="Texture2D" uid="uid://cc2e5u2s6iep5" path="res://art/skin_default/qmark.png" id="7_sc2wq"]
 [ext_resource type="PackedScene" uid="uid://d1fsehcdbkfvq" path="res://shop.tscn" id="8_bloex"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mr1g"]
@@ -23,10 +22,6 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.12, 0.12, 0.12, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_umvvy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tiwbh"]
 
 [sub_resource type="SystemFont" id="SystemFont_obumi"]
 font_names = PackedStringArray("Monospace")
@@ -130,28 +125,31 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="MuteButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
-custom_minimum_size = Vector2(30, 30)
+[node name="OptionButton" type="OptionButton" parent="Panel/Vboxcontainer/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-size_flags_stretch_ratio = 2.0
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_umvvy")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_tiwbh")
-toggle_mode = true
-script = ExtResource("5_mrjog")
+size_flags_stretch_ratio = 0.99
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Iniciante"
+popup/item_1/text = "Intermediário"
+popup/item_1/id = 1
+popup/item_2/text = "Avançado"
+popup/item_2/id = 2
 
 [node name="NewGameButton" type="Button" parent="Panel/Vboxcontainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-size_flags_stretch_ratio = 5.0
+size_flags_stretch_ratio = 2.77
 text = "NOVO QUADRO"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/Vboxcontainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.31
 
 [node name="FlagCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(30, 30)
@@ -173,11 +171,11 @@ theme_override_font_sizes/font_size = 35
 text = "000"
 
 [node name="TimeCtIcon" type="TextureRect" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("7_sc2wq")
+texture = ExtResource("5_eg03m")
 expand_mode = 1
 
 [node name="TimeCounter" type="Label" parent="Panel/Vboxcontainer/HBoxContainer2/HBoxContainer"]
@@ -210,6 +208,6 @@ offset_bottom = 254.0
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Panel/Vboxcontainer/Header/ExitToMenu" to="." method="_on_exit_to_menu_pressed"]
 [connection signal="pressed" from="Panel/Vboxcontainer/Header/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="toggled" from="Panel/Vboxcontainer/HBoxContainer2/MuteButton" to="Panel/Vboxcontainer/HBoxContainer2/MuteButton" method="_on_toggled"]
+[connection signal="item_selected" from="Panel/Vboxcontainer/HBoxContainer2/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="pressed" from="Panel/Vboxcontainer/HBoxContainer2/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="exit_shop_pressed" from="Shop" to="." method="_on_shop_exit_shop_pressed"]

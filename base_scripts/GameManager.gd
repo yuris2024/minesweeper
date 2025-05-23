@@ -62,6 +62,7 @@ func _set_graphics(item:InvItem):
 	match item.type:
 		'mine':
 			mine_texture = item.texture
+			$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCtIcon.texture = item.texture
 		'flag':
 			flag_texture = item.texture
 		'bg':
@@ -106,19 +107,19 @@ func _set_difficulty(diff):
 	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
 	# predefinido.
 	difficulty = diff
-	match diff:
+	match difficulty:
 		1:
-			current_rows = 9
-			current_cols = 9
-			current_mines = 10
+			current_rows = 8
+			current_cols = 8
+			current_mines = 9
 		2:
-			current_rows = 16
-			current_cols = 16
-			current_mines = 40
+			current_rows = 12
+			current_cols = 12
+			current_mines = 30
 		3:
-			current_rows = 30
-			current_cols = 16
-			current_mines = 99
+			current_rows = 18
+			current_cols = 18
+			current_mines = 45
 		_:
 			print("Erro estabelecendo dificuldade")
 
@@ -249,3 +250,7 @@ func _on_shop_exit_shop_pressed() -> void:
 func _wait():
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
+
+
+func _on_option_button_item_selected(index: int) -> void:
+	_set_difficulty(index+1)
