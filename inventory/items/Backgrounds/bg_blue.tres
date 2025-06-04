@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://bmblw5eqejv1"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_enc53"]
+[ext_resource type="Texture2D" uid="uid://b0a6ms4lmka14" path="res://inventory/items/Backgrounds/cellbg_blue.png" id="2_uc1yo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpf0h"]
+bg_color = Color(0.144672, 0.385449, 0.581851, 1)
+
+[resource]
+script = ExtResource("1_enc53")
+name = "Fundo Azul"
+texture = ExtResource("2_uc1yo")
+price = 50
+unlock_level = 7
+type = "bg"
+style_box = SubResource("StyleBoxFlat_wpf0h")

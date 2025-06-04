@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Inv" load_steps=12 format=3 uid="uid://3abtodlfnnbx"]
+[gd_resource type="Resource" script_class="Inv" load_steps=15 format=3 uid="uid://3abtodlfnnbx"]
 
 [ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_p8erk"]
 [ext_resource type="Resource" uid="uid://bd13ab4iqc4l2" path="res://inventory/items/Flags/flag_flower.tres" id="2_5yaum"]
@@ -7,11 +7,14 @@
 [ext_resource type="Script" path="res://inventory/inventory.gd" id="3_mx4xy"]
 [ext_resource type="Resource" uid="uid://450ob5s8ugep" path="res://inventory/items/Mines/mine_blue.tres" id="4_mrnrc"]
 [ext_resource type="Resource" uid="uid://bc6fe5kov6i4n" path="res://inventory/items/Mines/mine_red.tres" id="5_820hr"]
+[ext_resource type="Resource" uid="uid://c61hyssrjre60" path="res://inventory/items/Flags/flag_jelly.tres" id="5_efshd"]
 [ext_resource type="Resource" uid="uid://bvbu43u5ta7yr" path="res://inventory/items/Mines/mine_flower.tres" id="6_1i5lp"]
 [ext_resource type="Resource" uid="uid://cfhqmqokebd3u" path="res://inventory/items/Backgrounds/bg_purple.tres" id="7_ir2ku"]
 [ext_resource type="Resource" uid="uid://cr0g262txyaso" path="res://inventory/items/Backgrounds/bg_grey.tres" id="8_wntlv"]
 [ext_resource type="Resource" uid="uid://bnpnwlixaywho" path="res://inventory/items/Backgrounds/bg_green.tres" id="8_yven6"]
+[ext_resource type="Resource" uid="uid://dro0sll1ernwb" path="res://inventory/items/Mines/mine_shell.tres" id="9_f7ymx"]
+[ext_resource type="Resource" uid="uid://bmblw5eqejv1" path="res://inventory/items/Backgrounds/bg_blue.tres" id="13_wxxdt"]
 
 [resource]
 script = ExtResource("3_mx4xy")
-items = Array[ExtResource("1_p8erk")]([ExtResource("2_5yaum"), ExtResource("2_sa07p"), ExtResource("3_lfqis"), ExtResource("6_1i5lp"), ExtResource("4_mrnrc"), ExtResource("5_820hr"), ExtResource("8_wntlv"), ExtResource("7_ir2ku"), ExtResource("8_yven6"), null, null, null])
+items = Array[ExtResource("1_p8erk")]([ExtResource("2_5yaum"), ExtResource("2_sa07p"), ExtResource("3_lfqis"), ExtResource("5_efshd"), ExtResource("6_1i5lp"), ExtResource("4_mrnrc"), ExtResource("5_820hr"), ExtResource("9_f7ymx"), ExtResource("8_wntlv"), ExtResource("7_ir2ku"), ExtResource("8_yven6"), ExtResource("13_wxxdt")])

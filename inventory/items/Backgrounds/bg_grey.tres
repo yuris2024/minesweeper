@@ -11,6 +11,6 @@ script = ExtResource("1_rslrv")
 name = "Fundo Cinza"
 texture = ExtResource("2_2427a")
 price = 0
-unlock_level = 0
+unlock_level = 1
 type = "bg"
 style_box = SubResource("StyleBoxFlat_fx2k7")

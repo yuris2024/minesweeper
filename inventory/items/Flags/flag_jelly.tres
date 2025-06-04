@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://c61hyssrjre60"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_rfnkl"]
+[ext_resource type="Texture2D" uid="uid://c2eu2q08rebts" path="res://inventory/items/Flags/flag_jelly.png" id="2_xj1uj"]
+
+[resource]
+script = ExtResource("1_rfnkl")
+name = "Bandeira Água-Viva"
+texture = ExtResource("2_xj1uj")
+price = 60
+unlock_level = 6
+type = "flag"

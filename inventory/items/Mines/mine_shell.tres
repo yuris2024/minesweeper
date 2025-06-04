@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=3 format=3 uid="uid://dro0sll1ernwb"]
+
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_rxh0y"]
+[ext_resource type="Texture2D" uid="uid://caxmrnvhroqxb" path="res://inventory/items/Mines/seashell.png" id="2_ors6c"]
+
+[resource]
+script = ExtResource("1_rxh0y")
+name = "Mina Concha"
+texture = ExtResource("2_ors6c")
+price = 40
+unlock_level = 5
+type = "mine"
