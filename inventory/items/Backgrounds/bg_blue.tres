@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://b0a6ms4lmka14" path="res://inventory/items/Backgrounds/cellbg_blue.png" id="2_uc1yo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpf0h"]
-bg_color = Color(0.144672, 0.385449, 0.581851, 1)
+bg_color = Color(0.0259628, 0.215985, 0.438216, 1)
 
 [resource]
 script = ExtResource("1_enc53")
 name = "Fundo Azul"
 texture = ExtResource("2_uc1yo")
 price = 50
-unlock_level = 7
+unlock_level = 6
 type = "bg"
 style_box = SubResource("StyleBoxFlat_wpf0h")
