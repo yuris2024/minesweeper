@@ -36,7 +36,6 @@ func _ready():
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
-	_add_exp(5000)
 
 func _play(sound:String):
 	if AudioControl.on:
@@ -114,13 +113,13 @@ func _set_difficulty(diff):
 			current_cols = 8
 			current_mines = 9
 		2:
-			current_rows = 12
-			current_cols = 12
-			current_mines = 30
+			current_rows = 10
+			current_cols = 10
+			current_mines = 17
 		3:
-			current_rows = 18
-			current_cols = 18
-			current_mines = 45
+			current_rows = 16
+			current_cols = 16
+			current_mines = 32
 		_:
 			print("Erro estabelecendo dificuldade")
 
