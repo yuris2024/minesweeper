@@ -36,6 +36,13 @@ func _fill_item_list():
 		inv_slot.connect("item_bought",_on_item_bought)
 		shop_item_list.add_child(inv_slot)
 
+func update_level():
+	for i in shop_item_list.get_child_count():
+		var slot = shop_item_list.get_child(i)
+		if slot == null:
+			continue
+		if slot.item.unlock_level <= get_parent().level:
+			slot.unlock()
 
 func _on_item_bought(_name):
 	# Esta função deve ser chamada apenas se o botão do item puder ser pressionado
@@ -43,11 +50,20 @@ func _on_item_bought(_name):
 	purchase_attempt = inv.get_item(_name)
 	# A variável "loading" é usada aqui para podermos usar o modelo de compra para
 	# carregar o save, sem mexer nas moedas quando estivermos fazendo isso.
+	
+	if !loading and purchase_attempt.unlock_level > get_parent().level:
+		# Nível muito baixo para comprar
+		$AudioStreamPlayer.stream = load("res://sounds/hit.wav")
+		$AudioStreamPlayer.play()
+		print("Nível muito baixo!")
+		return
+	
 	if !loading and purchase_attempt.price > get_parent().coins:
 		# Não tem dinheiro para comprar
 		$AudioStreamPlayer.stream = load("res://sounds/hit.wav")
 		$AudioStreamPlayer.play()
 		return
+	
 	elif !loading:
 		# Mostrar janela de confirmação para o usuário confirmar ou cancelar
 		var confirm_window = load('res://inventory/confirm_purchase.tscn').instantiate()

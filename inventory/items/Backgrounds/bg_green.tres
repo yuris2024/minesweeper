@@ -12,6 +12,6 @@ script = ExtResource("1_41jh2")
 name = "Fundo Verde"
 texture = ExtResource("2_oqjqm")
 price = 30
-unlock_level = 2
+unlock_level = 3
 type = "bg"
 style_box = SubResource("StyleBoxFlat_gasgr")

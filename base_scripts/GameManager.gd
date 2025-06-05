@@ -36,6 +36,7 @@ func _ready():
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
+	_add_exp(5000)
 
 func _play(sound:String):
 	if AudioControl.on:
@@ -189,6 +190,7 @@ func _set_exp(qty):
 	$Panel/Vboxcontainer/Header/CenterContainer/VBoxContainer/TextureProgressBar.value = show_exp
 	level = floor(experience / 50 + 1)
 	$Panel/Vboxcontainer/Header/CenterContainer/VBoxContainer/Level.text = "Nível: " + str(level)
+	$Shop.update_level()
 
 func _add_exp(qty):
 	_set_exp(experience + qty)
