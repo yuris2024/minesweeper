@@ -55,7 +55,7 @@ func _on_item_bought(_name):
 		# Nível muito baixo para comprar
 		$AudioStreamPlayer.stream = load("res://sounds/hit.wav")
 		$AudioStreamPlayer.play()
-		print("Nível muito baixo!")
+		#print("Nível muito baixo!")
 		return
 	
 	if !loading and purchase_attempt.price > get_parent().coins:
@@ -85,7 +85,7 @@ func _on_item_bought(_name):
 func get_slot_node_by_item_name(list,_name):
 	for child in list.get_children():
 		if child.item.name == _name:
-			print(child.item.name)
+			#print(child.item.name)
 			return child
 
 

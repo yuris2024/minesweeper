@@ -23,7 +23,7 @@ func set_appearance():
 func unlock():
 	find_child("Lock").icon = ImageTexture.new()
 	find_child("Lock").text = ""
-	print("Trying to unlock")
+	#print("Trying to unlock")
 
 # 	Quando há uma tentativa de comprar o item, ele emite um sinal informando
 # qual é o seu lugar na fila.

@@ -36,6 +36,7 @@ func _ready():
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
+	#_test_levels(1000,1000)
 
 func _play(sound:String):
 	if AudioControl.on:
@@ -252,6 +253,9 @@ func _wait():
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
 
+func _test_levels(_exp, _coins):
+	_add_exp(_exp)
+	_add_coins(_coins)
 
 func _on_option_button_item_selected(index: int) -> void:
 	_set_difficulty(index+1)
