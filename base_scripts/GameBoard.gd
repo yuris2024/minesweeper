@@ -16,9 +16,8 @@ signal flagged2
 signal board_clear
 
 #region Funções de criar novo quadro
-
+# Recebe os parâmetros desejados para um novo quadro e o cria.
 func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
-	# Recebe os parâmetros desejados para um novo quadro e o cria.
 	erase_old_board()
 	grid_rows = rows
 	grid_cols = cols
@@ -34,8 +33,8 @@ func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
 	_set_cell_numbers()
 	set_qk_reveal_and_mines()
 
+# Elimina o quadro presente na tela.
 func erase_old_board():
-	# Elimina o quadro presente na tela.
 	var cells = $ColorRect/GridContainer.get_children()
 	for i in cells:
 		i.queue_free()
@@ -191,13 +190,13 @@ func _wait():
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
 
-func get_cell_index(cell_position):
 # determina índice de determinada célula por sua linha e coluna
+func get_cell_index(cell_position):
 	var index = cell_position.x * grid_cols + cell_position.y
 	return index
 
-func get_cell_position(index):
 # determina posição (x,y) da célula na grade pelo seu índice
+func get_cell_position(index):
 	var x = index / grid_rows
 	var y = index % grid_cols
 	return Vector2(x,y)

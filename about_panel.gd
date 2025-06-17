@@ -1,12 +1,13 @@
 extends PopupPanel
 
-
+# Botão "sobre" do menu principal
 func _on_sobre_pressed() -> void:
 	if AudioControl.on:
 		get_parent().get_child(0).stream = load("res://sounds/click.wav")
 		get_parent().get_child(0).play()
 	visible = true
 
+# Fechar a janelinha "sobre", clicando em qualquer lugar
 func _on_close_requested() -> void:
 	visible = false
 

@@ -15,25 +15,27 @@ signal attempt_quick_reveal
 signal flagged
 signal reveal
 
+# Chamada automaticamente quando o objeto (a célula) entra em cena.
 func _ready():
+	# Define aparência da célula
 	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
 	$cell_bg.texture = bg_tx
 
+# Torna célula uma mina.
 func load_mine():
-	# Torna célula uma mina.
 	is_mine = true
 	$cell_graphics.texture = mine_tx
 
-func load_number(num):
-	# Torna célula numérica.
+# Torna célula numérica.
+func load_number(num):	
 	adjacent_mines = num
 	if adjacent_mines != 0 and !is_mine:
 		$Label.hide()
 		$Label.text = str(adjacent_mines)
 
+# Revela a célula e, caso aplicável, as adjacentes.
 func _reveal():
-	# Revela a célula e, caso aplicável, as adjacentes.
 	if !is_flagged and !is_open:
 		reveal.emit(is_mine)
 		is_open = true
@@ -45,9 +47,9 @@ func _reveal():
 	if firstclick:
 		style_box.set_border_width_all(0)
 
+#   Administra o clique normal (revelar) ou com o botão direito (marcação
+# das células).
 func _gui_input(event: InputEvent):
-	#    Administra o clique normal (revelar) ou com o botão direito (marcação
-	# das células).
 	#    Célula emite sinal ao ser marcada ou desmarcada, para que o contador
 	# de bandeiras possa contá-la.
 	if !(event is InputEventMouseButton) or !event.pressed:
@@ -55,7 +57,6 @@ func _gui_input(event: InputEvent):
 	
 	# Clique com botão esquerdo: revela a célula
 	if event.button_index == 1:
-
 		if !is_flagged:
 			if is_open:
 				attempt_quick_reveal.emit(self)

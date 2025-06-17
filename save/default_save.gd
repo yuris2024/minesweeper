@@ -1,6 +1,9 @@
 extends Resource
 class_name SaveData
 
+# Arquivo de "save" padrão. Carregado quando se cria um novo jogo.
+# A ideia é resetar tudo ao zero.
+
 @export var coins = 0
 @export var experience = 0
 @export var difficulty = 1

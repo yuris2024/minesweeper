@@ -2,6 +2,9 @@ extends Resource
 
 class_name Inv
 
+# Essencialmente uma coleção de itens. Não é usado somente para inventário no sentido
+# de "posse do jogador"; também serve para listar a loja.
+
 @export var items: Array[InvItem]
 var items_map = {}
 
