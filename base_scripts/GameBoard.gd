@@ -17,7 +17,7 @@ signal board_clear
 
 #region Funções de criar novo quadro
 # Recebe os parâmetros desejados para um novo quadro e o cria.
-func load_new_board(rows,cols,mines,bg,flag,mine,stylebox):
+func load_new_board(rows,cols,mines: int,bg,flag,mine,stylebox):
 	erase_old_board()
 	grid_rows = rows
 	grid_cols = cols
@@ -51,7 +51,7 @@ func _generate_mine_list(mines):
 	return board_mines
 
 # Coloca as minas na posição apropriada de acordo com a lista gerada.
-func _populate_board(mines,bg,flag,mine,stylebox):
+func _populate_board(mines:int,bg,flag,mine,stylebox):
 	var mine_cells = _generate_mine_list(mines)
 	var count = 0
 	for row in range(grid_rows):
@@ -72,7 +72,7 @@ func _populate_board(mines,bg,flag,mine,stylebox):
 
 # Com as minas colocadas, coloca números de acordo com quantas minas a célula
 # tem adjacentes a ela.
-func _set_cell_numbers():
+func _set_cell_numbers() -> void:
 	for i in (grid_rows * grid_cols):
 		var cell = $ColorRect/GridContainer.get_child(i)
 		if !cell.is_mine:
@@ -80,7 +80,7 @@ func _set_cell_numbers():
 
 # Conta quantas minas há em torno da célula. 
 # O argumento deve ser o Node da célula de verdade, não o índice dela.
-func _count_adjacent_mines(cell):
+func _count_adjacent_mines(cell: Button) -> int:
 	var count = 0
 	var pos = cell.cell_position
 	
@@ -131,7 +131,7 @@ func _suggest_first_click():
 # Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
 # diz existirem, e então clica na célula.
 # Revela minas também, se o jogador houver marcado incorretamente.
-func _quick_reveal(cell):
+func _quick_reveal(cell: Button):
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -145,7 +145,7 @@ func _quick_reveal(cell):
 		_play("tap")
 
 # Revela tudo em torno da célula.
-func _reveal_adjacent(cell):
+func _reveal_adjacent(cell: Button):
 	is_quick_reveal = true
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
@@ -179,24 +179,24 @@ func _on_flagged(flag):
 
 #region: Funções auxiliares
 # Toca som
-func _play(sound:String):
+func _play(sound:String) -> void:
 	sound = "res://sounds/" + sound + ".wav"
 	if AudioControl.on:
 		$AudioStreamPlayer.stream = load(sound)
 		$AudioStreamPlayer.play()
 
 # Faz o efeito sonoro não ser cortado antes de terminar de tocar.
-func _wait():
+func _wait() -> void:
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
 
 # determina índice de determinada célula por sua linha e coluna
-func get_cell_index(cell_position):
+func get_cell_index(cell_position: Vector2) -> int:
 	var index = cell_position.x * grid_cols + cell_position.y
 	return index
 
 # determina posição (x,y) da célula na grade pelo seu índice
-func get_cell_position(index):
+func get_cell_position(index) -> Vector2:
 	var x = index / grid_rows
 	var y = index % grid_cols
 	return Vector2(x,y)

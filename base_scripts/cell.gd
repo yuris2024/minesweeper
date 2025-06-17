@@ -16,26 +16,26 @@ signal flagged
 signal reveal
 
 # Chamada automaticamente quando o objeto (a célula) entra em cena.
-func _ready():
+func _ready() -> void:
 	# Define aparência da célula
 	add_theme_stylebox_override("normal",style_box)
 	expand_icon = true
 	$cell_bg.texture = bg_tx
 
 # Torna célula uma mina.
-func load_mine():
+func load_mine() -> void:
 	is_mine = true
 	$cell_graphics.texture = mine_tx
 
 # Torna célula numérica.
-func load_number(num):	
+func load_number(num: int):	
 	adjacent_mines = num
 	if adjacent_mines != 0 and !is_mine:
 		$Label.hide()
 		$Label.text = str(adjacent_mines)
 
 # Revela a célula e, caso aplicável, as adjacentes.
-func _reveal():
+func _reveal() -> void:
 	if !is_flagged and !is_open:
 		reveal.emit(is_mine)
 		is_open = true
