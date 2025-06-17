@@ -3,11 +3,10 @@ extends Resource
 class_name Inv
 
 @export var items: Array[InvItem]
-
 var items_map = {}
 
+# Dicionário chave-valor, para acompanhamento dos itens.
 func add_to_dictionary():
-	# Dicionário chave-valor, para acompanhamento dos itens.
 	var key: String
 	var value: InvItem
 	for i in items.size():
@@ -19,4 +18,3 @@ func add_to_dictionary():
 
 func get_item(name:String): 
 	return items_map.get(name)
-	

@@ -13,11 +13,11 @@ signal item_bought
 signal item_used
 signal exit_shop_pressed
 
-
+# Chamada automaticamente quando o objeto (a loja) entra em cena.
 func _ready() -> void:
 	_fill_item_list()
 
-
+# Insere os itens preestabelecidos no recurso de lista, dentro da loja.
 func _fill_item_list():
 	var inv_slot: InvSlot
 	inv.add_to_dictionary()
@@ -36,6 +36,7 @@ func _fill_item_list():
 		inv_slot.connect("item_bought",_on_item_bought)
 		shop_item_list.add_child(inv_slot)
 
+# Desbloqueia itens de acordo com o nível do jogador.
 func update_level():
 	for i in shop_item_list.get_child_count():
 		var slot = shop_item_list.get_child(i)
@@ -44,6 +45,8 @@ func update_level():
 		if slot.item.unlock_level <= get_parent().level:
 			slot.unlock()
 
+# Lê o sinal emitido quando há uma tentativa de compra de um item.
+# Decide se é ou não possível a compra.
 func _on_item_bought(_name):
 	# Esta função deve ser chamada apenas se o botão do item puder ser pressionado
 	# Caso o item não esteja disponível, o botão deve estar desabilitado.
@@ -81,14 +84,16 @@ func _on_item_bought(_name):
 		slot.find_child("Button").disabled = true
 		_add_to_inventory(purchase_attempt)
 
-
+# Função auxiliar para informar o endereço do "slot" que contém um item.
 func get_slot_node_by_item_name(list,_name):
 	for child in list.get_children():
 		if child.item.name == _name:
 			#print(child.item.name)
 			return child
 
-
+# Chamada quando se clica o botão de confirmar após uma tentativa de compra.
+# Chama os métodos que efetivam a compra, bloqueando o item na loja e adicionando
+# ao inventário.
 func _on_confirm_purchase_confirmed() -> void:
 	item_bought.emit(purchase_attempt)
 	var slot = get_slot_node_by_item_name(shop_item_list,purchase_attempt.name)
@@ -96,8 +101,8 @@ func _on_confirm_purchase_confirmed() -> void:
 	slot.find_child("Button").disabled = true
 	_add_to_inventory(purchase_attempt)
 
-
-func _add_to_inventory(item):
+# Adiciona o item comprado à lista do inventário e o prepara para uso.
+func _add_to_inventory(item) -> void:
 	var inv_slot = invslot_scene.instantiate()
 	inv_slot.item = item
 	inv_slot.set_appearance()
@@ -108,7 +113,8 @@ func _add_to_inventory(item):
 	inv_slot.connect("item_used",_on_item_used)
 	inventory_list.add_child(inv_slot)
 
-
+# Busca os itens do mesmo tipo daquele que o jogador selecionou, 
+# para mostrar que apenas este está "Em uso".
 func _on_item_used(_name):
 	var slot = get_slot_node_by_item_name(inventory_list,_name)
 	slot.find_child("Label").text = "Em uso"
@@ -118,11 +124,12 @@ func _on_item_used(_name):
 			i.find_child("Label").text = ""
 	item_used.emit(slot.item)
 
-
+# Chamada quando o jogador clica o botão de cancelar após uma tentativa de
+# compra. Não faz nada, mas o sistema precisa que esteja aqui.
 func _on_confirm_purchase_canceled() -> void:
 	pass 
 
-
+# Fecha a loja e volta à tela de jogo.
 func _on_exit_to_menu_pressed() -> void:
 	visible = false
 	exit_shop_pressed.emit()

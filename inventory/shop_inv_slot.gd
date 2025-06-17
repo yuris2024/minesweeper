@@ -8,25 +8,28 @@ var item_function
 signal item_bought
 signal item_used
 
+# Cria a aparência inicial do item na loja - imagem, nome e nível necessário.
 func change_appearance(label, button_text, button_icon):
 	find_child("Label").text = label
 	find_child("Button").text = button_text
 	find_child("Button").icon = button_icon
 	find_child("Lock").text = "Nv. " + str(item.unlock_level)
 
+# Estabelece a aparência do item quando ele é inserido no inventário.
 func set_appearance():
 	find_child("Label").text = ""
 	find_child("Button").text = item.name
 	find_child("Button").icon = item.texture
 	unlock()
 
+# "Desbloqueia" o item, retirando o cadeado e a informação de nível necessário.
 func unlock():
 	find_child("Lock").icon = ImageTexture.new()
 	find_child("Lock").text = ""
 	#print("Trying to unlock")
 
-# 	Quando há uma tentativa de comprar o item, ele emite um sinal informando
-# qual é o seu lugar na fila.
+# Quando há uma tentativa de comprar o item, ele emite um sinal informando o seu
+# nome (atributo identificador do item).
 func _on_button_pressed() -> void:
 	match item_function:
 		'shop':

@@ -41,8 +41,8 @@ func erase_old_board():
 		i.queue_free()
 		$ColorRect/GridContainer.remove_child(i)
 
+# Retorna uma lista de quais índices de células serão minas.
 func _generate_mine_list(mines):
-	# Retorna uma lista de quais índices de células serão minas.
 	var mine_position = 0
 	for i in mines:
 		mine_position = randi_range(1, (grid_rows * grid_cols))
@@ -51,8 +51,8 @@ func _generate_mine_list(mines):
 		board_mines.append(mine_position)
 	return board_mines
 
+# Coloca as minas na posição apropriada de acordo com a lista gerada.
 func _populate_board(mines,bg,flag,mine,stylebox):
-	# Coloca as minas na posição apropriada de acordo com a lista gerada.
 	var mine_cells = _generate_mine_list(mines)
 	var count = 0
 	for row in range(grid_rows):
@@ -71,17 +71,17 @@ func _populate_board(mines,bg,flag,mine,stylebox):
 			$ColorRect/GridContainer.add_child(cell)
 	is_populated = true;
 
+# Com as minas colocadas, coloca números de acordo com quantas minas a célula
+# tem adjacentes a ela.
 func _set_cell_numbers():
-	# Com as minas colocadas, coloca números de acordo com quantas minas a célula
-	# tem adjacentes a ela.
 	for i in (grid_rows * grid_cols):
 		var cell = $ColorRect/GridContainer.get_child(i)
 		if !cell.is_mine:
 			cell.load_number(_count_adjacent_mines(cell))
 
+# Conta quantas minas há em torno da célula. 
+# O argumento deve ser o Node da célula de verdade, não o índice dela.
 func _count_adjacent_mines(cell):
-	# Conta quantas minas há em torno da célula. 
-	# O argumento deve ser o Node da célula de verdade, não o índice dela.
 	var count = 0
 	var pos = cell.cell_position
 	
@@ -98,8 +98,8 @@ func _count_adjacent_mines(cell):
 	if cell.is_mine: count -= 1
 	return count
 
+# Faz a conexão das células para revelação automática.
 func set_qk_reveal_and_mines():
-	# Faz a conexão das células para revelação automática.
 	for i in (grid_cols * grid_rows):
 		var cell = $ColorRect/GridContainer.get_child(i-1)
 		cell.connect("flagged",_on_flagged)
@@ -112,9 +112,9 @@ func set_qk_reveal_and_mines():
 			else:
 				cell.connect("attempt_quick_reveal",_quick_reveal)
 
+# Encontra uma célula em branco aleatória para sugerir como primeiro clique.
+# Sem isto, o primeiro clique muitas vezes é um game over automático.
 func _suggest_first_click():
-	# Encontra uma célula em branco aleatória para sugerir como primeiro clique.
-	# Sem isto, o primeiro clique muitas vezes é um game over automático.
 	if !is_populated:
 		return
 	var cell = $ColorRect/GridContainer.get_child(randi_range(1, (grid_rows * grid_cols)-1))
@@ -129,12 +129,10 @@ func _suggest_first_click():
 #endregion
 
 #region Clique do jogador
-
+# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
+# diz existirem, e então clica na célula.
+# Revela minas também, se o jogador houver marcado incorretamente.
 func _quick_reveal(cell):
-	# Para uso quando o jogador marcou o mesmo número de bandeiras que a célula 
-	# diz existirem, e então clica na célula.
-	# Revela minas também, se o jogador houver marcado incorretamente.
-	
 	var pos = cell.cell_position
 	var count = 0
 	for i in range(pos.x - 1, pos.x + 2):
@@ -147,8 +145,8 @@ func _quick_reveal(cell):
 		_reveal_adjacent(cell)
 		_play("tap")
 
+# Revela tudo em torno da célula.
 func _reveal_adjacent(cell):
-	# Revela tudo em torno da célula.
 	is_quick_reveal = true
 	var pos = cell.cell_position
 	for i in range(pos.x - 1, pos.x + 2):
@@ -160,9 +158,8 @@ func _reveal_adjacent(cell):
 #endregion
 
 #region: Funções de controle de jogo
-
+# Checa, a cada célula revelada, se é hora de finalizar o quadro.
 func _on_reveal(is_mine):
-	# Checa, a cada célula revelada, se é hora de finalizar o quadro.
 	open_cells += 1
 	if !is_mine and !is_quick_reveal:
 		_play("tap")
@@ -176,34 +173,31 @@ func _on_reveal(is_mine):
 	elif open_cells == (grid_rows * grid_cols - num_of_mines) and !game_lost:
 		board_clear.emit(false)
 
+# Sinal emitido para o contador de bandeiras capturar.
 func _on_flagged(flag):
-	# Sinal emitido para o contador de bandeiras capturar.
 	flagged2.emit(int(flag))
-	
-#func _reset_game():
-	#change to grid rows, cols and mines, like variables not constants pls
-	#load_new_board(10,10,10)
 #endregion
 
 #region: Funções auxiliares
+# Toca som
 func _play(sound:String):
 	sound = "res://sounds/" + sound + ".wav"
 	if AudioControl.on:
 		$AudioStreamPlayer.stream = load(sound)
 		$AudioStreamPlayer.play()
 
+# Faz o efeito sonoro não ser cortado antes de terminar de tocar.
 func _wait():
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
 
 func get_cell_index(cell_position):
-	# determina índice de determinada célula por sua linha e coluna
+# determina índice de determinada célula por sua linha e coluna
 	var index = cell_position.x * grid_cols + cell_position.y
 	return index
 
-
 func get_cell_position(index):
-	# determina posição (x,y) da célula na grade pelo seu índice
+# determina posição (x,y) da célula na grade pelo seu índice
 	var x = index / grid_rows
 	var y = index % grid_cols
 	return Vector2(x,y)

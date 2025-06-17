@@ -30,14 +30,15 @@ var bg_texture: Texture2D = preload('res://art/skin_default/cell_bg.png')
 var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tres").style_box
 #endregion
 
+# Chamada automaticamente quando o objeto (a tela de jogo) entra em cena.
 func _ready():
 	verify_save_directory(save_file_path)
 	$AudioStreamPlayer.set_process_mode(3)
 	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
 	connect_shop()
-	#_test_levels(1000,1000)
 
+# Toca som.
 func _play(sound:String):
 	if AudioControl.on:
 		sound = "res://sounds/" + sound + ".wav"
@@ -49,16 +50,19 @@ func _play(sound:String):
 func connect_shop():
 	$Shop.connect("item_bought",_on_item_bought)
 	$Shop.connect("item_used",_on_item_used)
-	
+
+# Retira moedas do jogador quando uma compra é feita e inclui o item no inventário
 func _on_item_bought(item: InvItem):
 	if !loading:
 		var price = item.price
 		_add_coins(-1*price)
 	inv.append(item)
-	
+
+# Sinal recebido quando se usa um item.
 func _on_item_used(item: InvItem):
 	_set_graphics(item)
 
+# Muda aparência de acordo com o item usado.
 func _set_graphics(item:InvItem):
 	match item.type:
 		'mine':
@@ -76,6 +80,7 @@ func _set_graphics(item:InvItem):
 func verify_save_directory(path : String):
 	DirAccess.make_dir_absolute(path)
 
+# Carrega o arquivo de save, aplicando os valores salvos ao jogo atual
 func load_save():
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	_set_coins(save_data.coins)
@@ -90,6 +95,8 @@ func load_save():
 	loading = false
 	$Shop.loading = false
 
+# Escreve os valores relevantes no arquivo de save.
+# Parâmetro _time: tempo utilizado para finalizar o último quadro.
 func write_save(_time):
 	save_data = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	save_data.coins = coins
@@ -104,9 +111,10 @@ func write_save(_time):
 #endregion
 
 #region: Controle de Quadro
+#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
+# predefinido.
+# diff: 1 = iniciante; 2 = intermediário; 3 = avançado.
 func _set_difficulty(diff):
-	#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
-	# predefinido.
 	difficulty = diff
 	match difficulty:
 		1:
@@ -124,6 +132,8 @@ func _set_difficulty(diff):
 		_:
 			print("Erro estabelecendo dificuldade")
 
+# Sinal recebido quando o jogador seleciona "novo quadro".
+# Desencadeia a remoção do quadro antigo e criação do novo.
 func _on_new_game_button_pressed():
 	_play("click")
 	$Timer.stop()
@@ -136,8 +146,9 @@ func _on_new_game_button_pressed():
 	cells_to_flag = current_mines
 	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(cells_to_flag)
 
+# Deleta todas as células criadas anteriormente no quadro.
+# Reseta tudo relacionado ao quadro: tempo e bandeiras também.
 func remove_old_board():
-	# Deleta todas as células criadas anteriormente no quadro.
 	var children = board_container.get_children()
 	for i in children:
 		if !(i is GameBoard):
@@ -149,8 +160,8 @@ func remove_old_board():
 	_set_timer(0)
 	get_tree().paused = false
 
+# Cria um novo quadro e o adiciona à tela de jogo.
 func request_new_board(rows, cols, mines):
-	# Cria um novo quadro.
 	var new_board = board_scene.instantiate()
 	new_board.load_new_board(rows,cols,mines,bg_texture,flag_texture,mine_texture,style_box)
 	board_container.add_child(new_board)
@@ -164,14 +175,19 @@ func request_new_board(rows, cols, mines):
 func _on_timer_timeout():
 	_set_timer(time+1)
 
-func _set_timer(time_local):
+func _set_timer(time_local) -> void:
 	time = time_local
 	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/TimeCounter.text = format_counter(time_local)
 
 func _set_flagger(flag):
 	$Panel/Vboxcontainer/HBoxContainer2/HBoxContainer/FlagCounter.text = format_counter(flag)
+# Insere o novo valor de marcações que faltam no contador.
 
 func _on_flagged2(flag):
+# Sinal recebido quando o jogador clica com o botão direito em uma célula.
+# flag: 1 = bandeira; -1 = interrogação; 0 = nada
+# O objetivo é contar a quantidade de bandeiras para sabermos quantas célulam faltam
+# ser marcadas; o segundo clique direito retira a bandeira para pôr o '?', por isso -1.
 	cells_to_flag -= flag
 	if cells_to_flag >= 0:
 		_set_flagger(cells_to_flag)
@@ -185,6 +201,8 @@ func _add_coins(qty):
 	_set_coins(coins + qty)
 
 func _set_exp(qty):
+# Recebe o valor de experiência a ser atualizado, o insere onde precisa estar e
+# altera o nível de acordo com ele.
 	experience = qty
 	var show_exp = 2 * (experience % 50)
 	$Panel/Vboxcontainer/Header/CenterContainer/VBoxContainer/TextureProgressBar.value = show_exp
@@ -199,15 +217,18 @@ func _format_coins(qty) -> String:
 	return '$' + str(qty)
 
 func format_counter(num):
+# Adiciona zeros para manter um número com 3+ dígitos.
 	if num < 10:
 		return "00" + str(num)
 	elif num >= 10 and num < 100:
 		return "0" + str(num)
 	else:
 		return str(num)
-
 #endregion
 
+# Chamada quando o quadro é finalizado.
+# game_lost: true se o jogador clicou numa mina; false se tiver aberto todas as
+# células seguras.
 func _on_board_clear(game_lost):
 	if game_lost:
 		_play("explode")
@@ -226,36 +247,45 @@ func _on_board_clear(game_lost):
 	$BoardClearPopup.visible = true
 	$Timer.stop()
 	get_tree().paused = true
-	
 
 #region Janelas
+# Botão de abrir loja.
 func _on_shop_button_pressed() -> void:
 	_play("click")
 	_wait()
 	$Shop.visible = true
-	#shop_open = true
 
+# Chamada quando o jogador clica "ok" na janela de "você ganhou/perdeu".
+# Apaga o quadro.
 func _on_board_clear_popup_confirmed() -> void:
 	remove_old_board()
 
+# Botão de voltar ao menu inicial.
 func _on_exit_to_menu_pressed() -> void:
 	_play("click")
 	_wait()
 	get_tree().change_scene_to_file('res://menu.tscn')
-	
+
+# Botão de sair da loja.
 func _on_shop_exit_shop_pressed() -> void:
 	_play("click")
 	_wait()
-	write_save(null)
+	# A função write_save recebe como parâmetro o tempo levado para completar o
+	# quadro. Chamamos com "null" para salvar o que foi feito dentro da loja,
+	# sem vincular a um quadro.
+	write_save(null) 
 #endregion
 
+# Faz o efeito sonoro não ser cortado antes de terminar de tocar.
 func _wait():
 	if AudioControl.on:
 		await $AudioStreamPlayer.finished
 
-func _test_levels(_exp, _coins):
-	_add_exp(_exp)
-	_add_coins(_coins)
+# Para testar níveis altos e poder comprar coisas sem precisar jogar.
+#func _test_levels(_exp, _coins):
+	#_add_exp(_exp)
+	#_add_coins(_coins)
 
+# Botão de alterar dificuldade do quadro.
 func _on_option_button_item_selected(index: int) -> void:
 	_set_difficulty(index+1)
