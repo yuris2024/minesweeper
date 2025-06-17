@@ -140,6 +140,7 @@ func _on_new_game_button_pressed():
 	_set_timer(0)
 	_wait()
 	$Timer.start()
+	remove_old_board()
 	request_new_board(current_rows, current_cols, current_mines)
 	get_tree().paused = false
 	
