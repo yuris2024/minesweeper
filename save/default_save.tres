@@ -1,6 +1,10 @@
-[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://ux0yr474rv06"]
+[gd_resource type="Resource" script_class="SaveData" load_steps=6 format=3 uid="uid://y3021lv1s60i"]
 
 [ext_resource type="Script" path="res://save/default_save.gd" id="1_e4gba"]
+[ext_resource type="Script" path="res://inventory/inventory_item.gd" id="1_e10d8"]
+[ext_resource type="Resource" uid="uid://bc6fe5kov6i4n" path="res://inventory/items/Mines/mine_red.tres" id="2_6hru2"]
+[ext_resource type="Resource" uid="uid://h2hbnnyptdo4" path="res://inventory/items/Flags/flag_red.tres" id="3_ahy1c"]
+[ext_resource type="Resource" uid="uid://cr0g262txyaso" path="res://inventory/items/Backgrounds/bg_grey.tres" id="4_ijk0v"]
 
 [resource]
 script = ExtResource("1_e4gba")
@@ -8,7 +12,10 @@ coins = 0
 experience = 0
 difficulty = 1
 records = Array[int]([999, 999, 999])
-inventory = []
+inventory = Array[ExtResource("1_e10d8")]([ExtResource("3_ahy1c"), ExtResource("2_6hru2"), ExtResource("4_ijk0v"), null, null, null, null, null, null, null, null, null, null])
+bg_name = "bg_grey"
+flag_name = "flag_red"
+mine_name = "mine_red"
 bg = "res://inventory/items/Backgrounds/bg_grey.tres"
 flag = "res://inventory/items/Flags/flag_red.tres"
 mine = "res://inventory/items/Mines/mine_red.tres"

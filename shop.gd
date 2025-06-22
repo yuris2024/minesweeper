@@ -21,6 +21,7 @@ func _ready() -> void:
 func _fill_item_list():
 	var inv_slot: InvSlot
 	inv.add_to_dictionary()
+	
 	for i in inv.items.size():
 		if inv.items[i] == null:
 			continue

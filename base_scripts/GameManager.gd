@@ -34,8 +34,8 @@ var style_box: StyleBox = preload("res://inventory/items/Backgrounds/bg_grey.tre
 func _ready():
 	verify_save_directory(save_file_path)
 	$AudioStreamPlayer.set_process_mode(3)
-	load_save()
 	$Panel/Vboxcontainer/HBoxContainer2/NewGameButton.process_mode = Node.PROCESS_MODE_ALWAYS
+	load_save()
 	connect_shop()
 
 # Toca som.
@@ -91,7 +91,8 @@ func load_save():
 	loading = true
 	$Shop.loading = true
 	for item in inv:
-		$Shop._on_item_bought(item.name)
+		if item != null:
+			$Shop._on_item_bought(item.name)
 	loading = false
 	$Shop.loading = false
 

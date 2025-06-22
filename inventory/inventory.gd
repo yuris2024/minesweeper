@@ -8,6 +8,7 @@ class_name Inv
 @export var items: Array[InvItem]
 var items_map = {}
 
+
 # Dicionário chave-valor, para acompanhamento dos itens.
 func add_to_dictionary():
 	var key: String
