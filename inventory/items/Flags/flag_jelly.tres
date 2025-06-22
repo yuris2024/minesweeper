@@ -8,5 +8,5 @@ script = ExtResource("1_rfnkl")
 name = "Bandeira Água-Viva"
 texture = ExtResource("2_xj1uj")
 price = 60
-unlock_level = 6
+unlock_level = 10
 type = "flag"

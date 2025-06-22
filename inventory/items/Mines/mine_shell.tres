@@ -8,5 +8,5 @@ script = ExtResource("1_rxh0y")
 name = "Mina Concha"
 texture = ExtResource("2_ors6c")
 price = 40
-unlock_level = 5
+unlock_level = 12
 type = "mine"

@@ -11,6 +11,6 @@ script = ExtResource("1_l8o0w")
 name = "Fundo Roxo"
 texture = ExtResource("2_asi0y")
 price = 30
-unlock_level = 5
+unlock_level = 10
 type = "bg"
 style_box = SubResource("StyleBoxFlat_xs170")

@@ -11,6 +11,6 @@ script = ExtResource("1_enc53")
 name = "Fundo Azul"
 texture = ExtResource("2_uc1yo")
 price = 50
-unlock_level = 6
+unlock_level = 7
 type = "bg"
 style_box = SubResource("StyleBoxFlat_wpf0h")
