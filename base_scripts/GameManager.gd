@@ -111,7 +111,7 @@ func write_save(_time):
 #endregion
 
 #region: Controle de Quadro
-#    Associa dificuldade escolhida com o número de linhas, colunas e minas 
+# Associa dificuldade escolhida com o número de linhas, colunas e minas 
 # predefinido.
 # diff: 1 = iniciante; 2 = intermediário; 3 = avançado.
 func _set_difficulty(diff):
@@ -128,7 +128,7 @@ func _set_difficulty(diff):
 		3:
 			current_rows = 16
 			current_cols = 16
-			current_mines = 32
+			current_mines = 45
 		_:
 			print("Erro estabelecendo dificuldade")
 
@@ -241,13 +241,36 @@ func _on_board_clear(game_lost):
 		$BoardClearPopup.dialog_text = "Você ganhou"
 		var board_coin_value = difficulty * 10
 		var expe = difficulty * 10
-		_add_exp(expe)
+		_add_exp(_define_exp())
 		_add_coins(board_coin_value)
 		write_save(time)
 	
 	$BoardClearPopup.visible = true
 	$Timer.stop()
 	get_tree().paused = true
+
+# Adequa a quantidade de experiência ao tempo e à dificuldade
+func _define_exp() -> int:
+	var transformed_board_exp: int
+	transformed_board_exp = difficulty * 10
+	match difficulty:
+		1: #iniciante
+			if time < 10:
+				transformed_board_exp += 10
+			elif time >= 10 and time < 20:
+				transformed_board_exp += 5
+		2: #intermediário
+			if time < 24:
+				transformed_board_exp += 10
+			elif time >= 24 and time < 40:
+				transformed_board_exp += 5
+		3: #avançado
+			if time < 55:
+				transformed_board_exp += 10
+			elif time >= 55 and time < 99:
+				transformed_board_exp += 5
+	print(str(transformed_board_exp))
+	return transformed_board_exp
 
 #region Janelas
 # Botão de abrir loja.
