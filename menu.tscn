@@ -31,25 +31,36 @@ stream = ExtResource("2_82718")
 
 [node name="AboutPanel" type="PopupPanel" parent="."]
 initial_position = 1
-size = Vector2i(250, 187)
+size = Vector2i(608, 408)
 script = ExtResource("1_cfu7m")
 
 [node name="Label" type="Label" parent="AboutPanel"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+clip_contents = true
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 1
 text = "2025 - Yuri Machado.
+Jogo criado como Trabalho de Conclusão de Curso de Engenharia de Software, Unicesumar.
 
-Jogo criado como Trabalho de Conclusão de Curso de Engenharia de Software, Unicesumar."
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+Créditos de som:
+Videogame Menu Button Clicking Sound 12 by Christopherderp -- https://freesound.org/s/333039/ -- License: Creative Commons 0
+# Videogame Menu BUTTON CLICK by Christopherderp -- https://freesound.org/s/342200/ -- License: Creative Commons 0
+# Videogame Menu Button Clicking Sound 18 by Christopherderp -- https://freesound.org/s/333047/ -- License: Creative Commons 0
+# Propane Explosion Designed by modusmogulus -- https://freesound.org/s/734100/ -- License: Creative Commons 0
+# Victory sound - result-3.mp3 by DZeDeNZ -- https://freesound.org/s/522240/ -- License: Creative Commons 0"
+autowrap_mode = 3
+justification_flags = 171
+text_overrun_behavior = 1
 
 [node name="RecordsPanel" type="PopupPanel" parent="."]
 initial_position = 1

@@ -93,6 +93,7 @@ func load_save():
 	for item in inv:
 		if item != null:
 			$Shop._on_item_bought(item.name)
+
 	loading = false
 	$Shop.loading = false
 
